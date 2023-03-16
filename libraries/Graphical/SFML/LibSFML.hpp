@@ -24,11 +24,15 @@ namespace Arcade {
             void setWindow(windowsParameter_t windows_parameter) override;
             void openWindow() override;
             void closeWindow() override;
+            bool isOpen() override;
 
         protected:
             windowsParameter_t _windowsParameter;
+            IObjectVector _objects;
         private:
             sf::RenderWindow _window;
             sf::VideoMode _videoMode;
+            sf::Event _event;
+            InputKey _key;
     };
 }

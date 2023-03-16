@@ -18,8 +18,8 @@
 namespace Arcade {
 
     typedef struct {
-        int width;
-        int height;
+        unsigned int width;
+        unsigned int height;
         bool fullScreen;
     } windowsParameter_t;
 
@@ -34,6 +34,7 @@ namespace Arcade {
             virtual void setWindow(windowsParameter_t windows_parameter) = 0;
             virtual void openWindow() = 0;
             virtual void closeWindow() = 0;
+            virtual bool isOpen() = 0;
     };
 }
 

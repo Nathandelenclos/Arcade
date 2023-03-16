@@ -54,6 +54,11 @@ namespace Arcade {
 
     }
 
+    bool LibSDL::isOpen()
+    {
+        return false;
+    }
+
     extern "C" IGraphicLib *constructor_graphic()
     {
         return new LibSDL();

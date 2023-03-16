@@ -26,7 +26,7 @@ namespace Arcade {
 
     IObjectVector Snake::getGameObjects()
     {
-        return Arcade::IObjectVector();
+        return (_objects);
     }
 
     void Snake::updateGameObjects()

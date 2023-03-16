@@ -23,6 +23,7 @@ namespace Arcade {
             int getScore() override;
         protected:
             InputKey _key;
+            IObjectVector _objects;
         private:
     };
 }

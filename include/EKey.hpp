@@ -17,6 +17,7 @@ namespace Arcade {
         INTERACT,
         PAUSE,
         QUIT,
-        SWITCH_LIB
+        SWITCH_LIB,
+        SWITCH_GAME
     };
 }

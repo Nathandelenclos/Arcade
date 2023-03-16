@@ -40,8 +40,10 @@ namespace Arcade {
 
             ~DlLoader()
             {
-                if (_handle)
+                if (_handle) {
+                    std::cout << "Closing library" << std::endl;
                     dlclose(_handle);
+                }
             }
 
             std::shared_ptr<Loader> getGraphInstance()

@@ -23,6 +23,7 @@ namespace Arcade {
             void setWindow(windowsParameter_t windows_parameter) override;
             void openWindow() override;
             void closeWindow() override;
+            bool isOpen() override;
 
         protected:
             windowsParameter_t _windowsParameter;
