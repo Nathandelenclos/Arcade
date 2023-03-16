@@ -35,5 +35,8 @@
 #cmake
 cmake-build-debug/
 Note
+build
+lib
+arcade
 
 .idea
