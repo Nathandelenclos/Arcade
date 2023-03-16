@@ -8,6 +8,7 @@
 #pragma once
 
 #include "IGraphicLib.hpp"
+#include "SFML/Graphics.hpp"
 
 namespace Arcade {
 
@@ -27,5 +28,7 @@ namespace Arcade {
         protected:
             windowsParameter_t _windowsParameter;
         private:
+            sf::RenderWindow _window;
+            sf::VideoMode _videoMode;
     };
 }
