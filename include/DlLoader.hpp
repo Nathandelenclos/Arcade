@@ -11,6 +11,7 @@
 #include <exception>
 #include <dlfcn.h>
 #include <memory>
+#include <utility>
 
 namespace Arcade {
     template<typename Loader>
@@ -18,7 +19,7 @@ namespace Arcade {
         public:
             class LibError : public std::exception {
                 public:
-                    explicit LibError(const std::string &msg) : _msg(msg)
+                    explicit LibError(std::string msg) : _msg(std::move(msg))
                     {};
 
                     const char *what() const noexcept override
@@ -34,7 +35,7 @@ namespace Arcade {
                     dlopen(path.c_str(), RTLD_LAZY))
             {
                 if (!_handle)
-                    throw LibError("Cannot open Libfoo Library: ");
+                    throw LibError("Cannot open " + path + ": ");
             }
 
             ~DlLoader()
@@ -43,10 +44,10 @@ namespace Arcade {
                     dlclose(_handle);
             }
 
-            std::shared_ptr<Loader> getInstance()
+            std::shared_ptr<Loader> getGraphInstance()
             {
                 std::shared_ptr<Arcade::IGraphicLib> lib;
-                auto entryPoint = dlsym(_handle, "constructor_graphic");
+                auto entryPoint = dlsym(_handle, GRAPHICSYM);
 
                 if (!entryPoint)
                     throw LibError("Cannot load symbol 'constructor_graphic': ");
@@ -55,6 +56,21 @@ namespace Arcade {
 
                 if (!lib)
                     throw LibError("Cannot load symbol 'constructor_graphic': ");
+                return (lib);
+            }
+
+            std::shared_ptr<Loader> getGameInstance()
+            {
+                std::shared_ptr<Arcade::IGameLib> lib;
+                auto entryPoint = dlsym(_handle, GAMESYM);
+
+                if (!entryPoint)
+                    throw LibError("Cannot load symbol 'constructor_game': ");
+                auto *(*libfoo)() = (Arcade::IGameLib *(*)()) entryPoint;
+                lib = std::shared_ptr<Arcade::IGameLib>(libfoo());
+
+                if (!lib)
+                    throw LibError("Cannot load symbol 'constructor_game': ");
                 return (lib);
             }
 
