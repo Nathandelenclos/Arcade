@@ -1,13 +1,21 @@
 /*
 ** EPITECH PROJECT, 2023
-** Arcade
+** bs_arcade
 ** File description:
-** IGameLib
+** IGraphicLib.hpp
 */
 
-#include "IObject.hpp"
+#ifndef ARCADE_GAMELIB_HPP
+#define ARCADE_GAMELIB_HPP
 
-#pragma once
+#include <iostream>
+#include "IObject.hpp"
+#include "EKey.hpp"
+#include "Types.hpp"
+
+#define GAMESYM "constructor_game"
+#define MAPWIDTH 50
+#define MAPHEIGHT 50
 
 namespace Arcade {
     class IGameLib {
@@ -22,3 +30,4 @@ namespace Arcade {
             virtual int getScore() = 0;
     };
 }
+#endif // ARCADE_GAMELIB_HPP

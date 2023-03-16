@@ -35,6 +35,4 @@ namespace Arcade {
             virtual void setType(ObjectType type) = 0;
             virtual std::string getId() = 0;
     };
-
-    typedef std::shared_ptr<std::vector<IObject>> IObjectVector;
 }

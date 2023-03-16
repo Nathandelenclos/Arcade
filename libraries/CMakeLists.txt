@@ -1,24 +1,24 @@
 cmake_minimum_required(VERSION 3.24)
-project(Arcade_Libraries)
+project(Arcade_libraries)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_library(LibSFML SHARED)
+add_library(arcade_sfml SHARED)
 
-add_library(LibSDL SHARED)
+add_library(arcade_sdl2 SHARED)
 
-add_library(LibNCURSES SHARED)
+add_library(arcade_ncurses SHARED)
 
 # libSFML
 
 set_target_properties(
-        LibSFML
+        arcade_sfml
         PROPERTIES
         PREFIX ""
 )
 
 target_sources(
-        LibSFML
+        arcade_sfml
         PRIVATE
         Graphical/SFML/LibSFML.cpp
         Graphical/SFML/LibSFML.hpp
@@ -27,13 +27,13 @@ target_sources(
 # libSDL
 
 set_target_properties(
-        LibSDL
+        arcade_sdl2
         PROPERTIES
         PREFIX ""
 )
 
 target_sources(
-        LibSDL
+        arcade_sdl2
         PRIVATE
         Graphical/SDL/LibSDL.cpp
         Graphical/SDL/LibSDL.hpp
@@ -42,13 +42,13 @@ target_sources(
 # libNCURSES
 
 set_target_properties(
-        LibNCURSES
+        arcade_ncurses
         PROPERTIES
         PREFIX ""
 )
 
 target_sources(
-        LibNCURSES
+        arcade_ncurses
         PRIVATE
         Graphical/NCURSES/LibNCURSES.cpp
         Graphical/NCURSES/LibNCURSES.hpp
