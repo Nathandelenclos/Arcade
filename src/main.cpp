@@ -9,9 +9,13 @@
 #include "IGameLib.hpp"
 #include "DlLoader.hpp"
 #include "Types.hpp"
+#include "Utils.hpp"
 
-int main()
+int main(int ac, char **av)
 {
+    std::shared_ptr<Arcade::ErrorHandling> error;
+    error->checkForValidArg(ac, av);
+    error->getLibFiles();
     std::vector<Arcade::IGraphicLibPtr> libVector;
     Arcade::DlLoader<Arcade::IGraphicLib> loaderSFML("./lib/arcade_sfml.so");
     std::shared_ptr<Arcade::IGraphicLib> libSFML = loaderSFML.getGraphInstance();
