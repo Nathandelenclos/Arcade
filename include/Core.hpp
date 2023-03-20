@@ -12,12 +12,16 @@
 #include "IGraphicLib.hpp"
 #include "IGameLib.hpp"
 #include "Types.hpp"
+#include "Types.hpp"
+#include "DlLoader.hpp"
 
 namespace Arcade {
 
     class Core {
         public:
             Core();
+            Core(std::shared_ptr<std::vector<std::string>> gameLibs,
+                std::shared_ptr<std::vector<std::string>> graphicalLibs);
             ~Core();
             void addGraphicLib(const Arcade::IGraphicLibPtr& lib);
             std::shared_ptr<std::vector<Arcade::IGraphicLibPtr>> getGraphicLibs() const;
@@ -33,6 +37,9 @@ namespace Arcade {
             void stopGraphic() const;
             bool isRunning() const;
             void setRunning(bool isRunning);
+            void getGraphicalInstances(std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>> graphicLibs);
+            void getGameInstances(std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>> gameLibs);
+
         protected:
             std::shared_ptr<std::vector<Arcade::IGraphicLibPtr>> _graphicLibs;
             std::shared_ptr<std::vector<Arcade::IGameLibPtr>> _gamesLibs;

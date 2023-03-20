@@ -14,21 +14,15 @@
 
 int main(int ac, char **av)
 {
-    std::shared_ptr<Arcade::ErrorHandling> error = std::make_shared<Arcade::ErrorHandling>();
+    std::shared_ptr<Arcade::ErrorHandling> error(new Arcade::ErrorHandling());
     error->checkForValidArg(ac, av);
     error->getLibFiles();
-    Arcade::DlLoaderGraphicPtr loaderSFML(new Arcade::DlLoaderGraphic("./lib/arcade_sfml.so"));
-    Arcade::DlLoaderGraphicPtr loaderSDL(new Arcade::DlLoaderGraphic("./lib/arcade_sdl2.so"));
-    Arcade::DlLoaderGraphicPtr loaderNCURSES(new Arcade::DlLoaderGraphic("./lib/arcade_ncurses.so"));
-    Arcade::DlLoaderGamePtr loaderPACMAN(new Arcade::DlLoaderGame ("./lib/arcade_pacman.so"));
-    Arcade::DlLoaderGamePtr loaderSNAKE(new Arcade::DlLoaderGame("./lib/arcade_snake.so"));
+    error->loadLibs();
+    error->loadGames();
     std::shared_ptr<Arcade::Core> core(new Arcade::Core());
-    core->addGraphicLib(loaderSFML->getGraphInstance());
-    core->addGraphicLib(loaderSDL->getGraphInstance());
-    core->addGraphicLib(loaderNCURSES->getGraphInstance());
-    core->addGameLib(loaderPACMAN->getGameInstance());
-    core->addGameLib(loaderSNAKE->getGameInstance());
-
+    core->getGraphicalInstances(error->getGraphicLibsLoader());
+    core->getGameInstances(error->getGameLibsLoader());
+    core->setCurrentGraphicLib(1);
     core->startGraphic();
     while (core->isRunning()) {
         core->getCurrentGraphicLib()->display();

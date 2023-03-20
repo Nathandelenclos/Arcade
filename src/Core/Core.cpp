@@ -6,6 +6,7 @@
 */
 
 #include "Core.hpp"
+#include "DlLoader.hpp"
 
 namespace Arcade {
 
@@ -153,5 +154,21 @@ namespace Arcade {
     void Core::setRunning(bool isRunning)
     {
         _isRunning = isRunning;
+    }
+
+    void Core::getGraphicalInstances(
+        std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>> graphicLibs)
+    {
+        for (auto &lib : *graphicLibs) {
+            addGraphicLib(lib->getGraphInstance());
+        }
+    }
+
+    void Core::getGameInstances(
+        std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>> gameLibs)
+    {
+        for (auto &lib : *gameLibs) {
+            addGameLib(lib->getGameInstance());
+        }
     }
 }

@@ -9,6 +9,6 @@ include_directories(include)
 add_executable(arcade
         src/main.cpp
         src/Core/Core.cpp include/Core.hpp
-        src/Utils.cpp)
+        src/Utils.cpp src/Utils.cpp)
 
 add_subdirectory(libraries)

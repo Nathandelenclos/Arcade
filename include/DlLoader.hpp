@@ -12,6 +12,8 @@
 #include <dlfcn.h>
 #include <memory>
 #include <utility>
+#include "IGraphicLib.hpp"
+#include "IGameLib.hpp"
 
 namespace Arcade {
     template<typename Loader>
@@ -79,8 +81,8 @@ namespace Arcade {
         protected:
             void *_handle;
     };
-    typedef Arcade::DlLoader<Arcade::IGraphicLib> DlLoaderGraphic;
-    typedef Arcade::DlLoader<Arcade::IGameLib> DlLoaderGame;
-    typedef std::shared_ptr<Arcade::DlLoaderGraphic> DlLoaderGraphicPtr;
-    typedef std::shared_ptr<Arcade::DlLoaderGame> DlLoaderGamePtr;
+    typedef DlLoader<IGraphicLib> DlLoaderGraphic;
+    typedef DlLoader<IGameLib> DlLoaderGame;
+    typedef std::shared_ptr<DlLoaderGraphic> DlLoaderGraphicPtr;
+    typedef std::shared_ptr<DlLoaderGame> DlLoaderGamePtr;
 }
