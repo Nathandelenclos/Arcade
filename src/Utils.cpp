@@ -9,7 +9,6 @@
 #include "DlLoader.hpp"
 
 Arcade::ErrorHandling::ErrorHandling() {
-    std::cout << "Entering Error Handling" << std::endl;
     this->_games = std::make_shared<std::vector<std::string>>();
     this->_libs = std::make_shared<std::vector<std::string>>();
     this->_graphicLibsLoader = std::make_shared<std::vector<Arcade::DlLoaderGraphicPtr>>();
@@ -42,7 +41,6 @@ void Arcade::ErrorHandling::getLibFiles() {
     }
     while ((entry = readdir(dir)) != nullptr) {
         if (entry->d_type == DT_REG) {
-            std::cout << entry->d_name << std::endl;
             if (std::string(entry->d_name).substr(0, 7) != "arcade_") {
                 std::cerr << "Invalid " << entry->d_name << " in lib folder" << std::endl;
                 exit(84);
@@ -71,7 +69,6 @@ void Arcade::Utils::getLibs(std::shared_ptr<std::vector<std::string>> &libs,
         name == "arcade_irrlicht.so" || name == "arcade_opengl.so" || name == "arcade_vulkan.so" ||
         name == "arcade_qt5.so") {
         libs->push_back(path + name);
-        std::cout << "Lib name is " << name << std::endl;
     }
 }
 
@@ -80,7 +77,6 @@ void Arcade::Utils::getGames(std::shared_ptr<std::vector<std::string>> &games,
     if (name == "arcade_snake.so" || name == "arcade_nibbler.so" || name == "arcade_pacman.so" ||
         name == "arcade_qix.so" || name == "arcade_centipede.so" || name == "arcade_solarfox.so") {
         games->push_back(path + name);
-        std::cout << "Lib name is " << name << std::endl;
     }
 }
 

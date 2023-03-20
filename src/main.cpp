@@ -19,9 +19,7 @@ int main(int ac, char **av)
     error->getLibFiles();
     error->loadLibs();
     error->loadGames();
-    std::shared_ptr<Arcade::Core> core(new Arcade::Core());
-    core->getGraphicalInstances(error->getGraphicLibsLoader());
-    core->getGameInstances(error->getGameLibsLoader());
+    std::shared_ptr<Arcade::Core> core(new Arcade::Core(error->getGraphicLibsLoader(), error->getGameLibsLoader()));
     core->setCurrentGraphicLib(1);
     core->startGraphic();
     while (core->isRunning()) {
@@ -34,6 +32,5 @@ int main(int ac, char **av)
             core->switchGameLib();
     }
     core->stopGraphic();
-    std::cout << "end of program" << std::endl;
     return (0);
 }

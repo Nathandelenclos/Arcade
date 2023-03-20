@@ -6,6 +6,8 @@
 */
 
 #include "Core.hpp"
+
+#include <utility>
 #include "DlLoader.hpp"
 
 namespace Arcade {
@@ -21,6 +23,25 @@ namespace Arcade {
         _currentLib = 0;
         _isRunning = true;
         _windowsParameter =  {800, 600, false};
+    }
+
+    /**
+     * @brief Construct a new Core:: Core object
+     * @param graphicLibsLoader - the graphic libraries loader
+     * @param gameLibsLoader - the game libraries loader
+     */
+    Core::Core(
+        const std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>>& graphicLibsLoader,
+        const std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>>& gameLibsLoader)
+    {
+        _gamesLibs = std::make_shared<std::vector<Arcade::IGameLibPtr>>();
+        _graphicLibs = std::make_shared<std::vector<Arcade::IGraphicLibPtr>>();
+        _currentGame = 0;
+        _currentLib = 0;
+        _isRunning = true;
+        _windowsParameter =  {800, 600, false};
+        getGraphicalInstances(graphicLibsLoader);
+        getGameInstances(gameLibsLoader);
     }
 
     /**
@@ -156,16 +177,24 @@ namespace Arcade {
         _isRunning = isRunning;
     }
 
+    /**
+     * @brief Get graphical instances
+     * @param graphicLibs
+     */
     void Core::getGraphicalInstances(
-        std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>> graphicLibs)
+        const std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>>& graphicLibs)
     {
         for (auto &lib : *graphicLibs) {
             addGraphicLib(lib->getGraphInstance());
         }
     }
 
+    /**
+     * @brief Get game instances
+     * @param gameLibs
+     */
     void Core::getGameInstances(
-        std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>> gameLibs)
+        const std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>>& gameLibs)
     {
         for (auto &lib : *gameLibs) {
             addGameLib(lib->getGameInstance());
