@@ -10,10 +10,13 @@
 #include "DlLoader.hpp"
 #include "Types.hpp"
 #include "Core.hpp"
+#include "Utils.hpp"
 
-int main()
+int main(int ac, char **av)
 {
-
+    std::shared_ptr<Arcade::ErrorHandling> error = std::make_shared<Arcade::ErrorHandling>();
+    error->checkForValidArg(ac, av);
+    error->getLibFiles();
     Arcade::DlLoaderGraphicPtr loaderSFML(new Arcade::DlLoaderGraphic("./lib/arcade_sfml.so"));
     Arcade::DlLoaderGraphicPtr loaderSDL(new Arcade::DlLoaderGraphic("./lib/arcade_sdl2.so"));
     Arcade::DlLoaderGraphicPtr loaderNCURSES(new Arcade::DlLoaderGraphic("./lib/arcade_ncurses.so"));
