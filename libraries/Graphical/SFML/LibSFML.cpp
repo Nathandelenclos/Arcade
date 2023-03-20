@@ -7,6 +7,8 @@
 
 #include "LibSFML.hpp"
 
+#include <memory>
+
 namespace Arcade {
 
     LibSFML::LibSFML()
@@ -23,18 +25,30 @@ namespace Arcade {
 
     void LibSFML::loadObjects(IObjectVector gameObjects)
     {
-        _objects = gameObjects;
+        _objects = std::make_shared<sfml::IObjectVector>();
+        initType_t initType[] = {
+            {ObjectType::TEXT, &LibSFML::initText},
+            {ObjectType::ENTITY, &LibSFML::initSprite}
+        };
+        for (IObjectPtr &gameObject : *gameObjects) {
+            if (!gameObject->isDisplayed())
+                continue;
+            for (initType_t init_type: initType) {
+                if (gameObject->getType() == init_type.type) {
+                    (this->*init_type.init)(gameObject);
+                }
+            }
+        }
     }
 
     InputKey LibSFML::getCurrentKey()
     {
-       return (_key);
+       return _key;
     }
 
-    void LibSFML::display()
-    {
+    void LibSFML::eventListener() {
         _key = InputKey::NONE;
-        
+
         if (_window.pollEvent(_event)) {
             if (_event.type == sf::Event::Closed)
                 _window.close();
@@ -43,6 +57,15 @@ namespace Arcade {
                     _key = matching[i].inputKey;
             }
         }
+    }
+
+    void LibSFML::display()
+    {
+        eventListener();
+        _window.clear();
+        //for (sfml::IObjectPtr &object : *_objects)
+        //    _window.draw(*object->getDrawable());
+        _window.display();
     }
 
     windowsParameter_t LibSFML::getWindow()
@@ -68,6 +91,20 @@ namespace Arcade {
     bool LibSFML::isOpen()
     {
         return (_window.isOpen());
+    }
+
+    void LibSFML::initText(const IObjectPtr& object)
+    {
+        sfml::TextPtr text( new sfml::Text(
+            (std::string &) "", (std::string &) "", sf::Color::White, object->getPos()));
+        _objects->push_back(text);
+    }
+
+    void LibSFML::initSprite(const IObjectPtr& object)
+    {
+        sfml::SpritePtr sprite( new sfml::Sprite(
+            (std::string &) "", sf::IntRect(0, 0, 0, 0), object->getPos()));
+        _objects->push_back(sprite);
     }
 
     extern "C" IGraphicLib *constructor_graphic()

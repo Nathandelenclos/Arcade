@@ -63,20 +63,28 @@ bool Arcade::Utils::checkIfLibFile(const std::string &libName) {
 
 void Arcade::Utils::getLibs(std::shared_ptr<std::vector<std::string>> &libs,
                            const std::string &name, const std::string &path) {
-    if (name == "arcade_ncurses.so" || name == "arcade_sdl2.so" || name == "arcade_ndk++.so" ||
-        name == "arcade_aalib.so" || name == "arcade_libcaca.so" || name == "arcade_allegro5.so" ||
-        name == "arcade_xlib.so" || name == "arcade_gtk+.so" || name == "arcade_sfml.so" ||
-        name == "arcade_irrlicht.so" || name == "arcade_opengl.so" || name == "arcade_vulkan.so" ||
-        name == "arcade_qt5.so") {
-        libs->push_back(path + name);
+    std::string allowLibs[] = {"arcade_ncurses.so", "arcade_sdl2.so", "arcade_ndk++.so",
+                               "arcade_aalib.so", "arcade_libcaca.so", "arcade_allegro5.so",
+                               "arcade_xlib.so", "arcade_gtk+.so", "arcade_sfml.so",
+                               "arcade_irrlicht.so", "arcade_opengl.so", "arcade_vulkan.so",
+                               "arcade_qt5.so"};
+    for (int i = 0; allowLibs[i] != "arcade_qt5.so"; ++i) {
+        if (allowLibs[i] == name) {
+            libs->push_back(path + name);
+            return;
+        }
     }
 }
 
 void Arcade::Utils::getGames(std::shared_ptr<std::vector<std::string>> &games,
                              const std::string &name, const std::string &path) {
-    if (name == "arcade_snake.so" || name == "arcade_nibbler.so" || name == "arcade_pacman.so" ||
-        name == "arcade_qix.so" || name == "arcade_centipede.so" || name == "arcade_solarfox.so") {
-        games->push_back(path + name);
+    std::string allowLibs[] = {"arcade_snake.so", "arcade_nibbler.so", "arcade_pacman.so",
+                               "arcade_qix.so", "arcade_centipede.so", "arcade_solarfox.so"};
+    for (int i = 0; allowLibs[i] != "arcade_solarfox.so"; ++i) {
+        if (allowLibs[i] == name) {
+            games->push_back(path + name);
+            return;
+        }
     }
 }
 

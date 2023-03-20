@@ -9,6 +9,9 @@
 
 #include "IGraphicLib.hpp"
 #include "SFML/Graphics.hpp"
+#include "Sprite.hpp"
+#include "Text.hpp"
+#include "IObject.hpp"
 
 namespace Arcade {
     typedef struct {
@@ -41,15 +44,22 @@ namespace Arcade {
             void openWindow() override;
             void closeWindow() override;
             bool isOpen() override;
+            void eventListener();
+            void initText(const IObjectPtr& object);
+            void initSprite(const IObjectPtr& object);
 
         protected:
-            windowsParameter_t _windowsParameter;
-            IObjectVector _objects;
+            windowsParameter_t _windowsParameter{};
+            sfml::IObjectVectorPtr _objects;
         private:
             sf::RenderWindow _window;
             sf::VideoMode _videoMode;
-            sf::Event _event;
+            sf::Event _event{};
             InputKey _key;
-
     };
+
+    typedef struct {
+        ObjectType type;
+        void (LibSFML::*init)(const IObjectPtr& object);
+    } initType_t;
 }
