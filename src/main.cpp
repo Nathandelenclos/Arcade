@@ -13,11 +13,12 @@
 
 int main()
 {
+
     Arcade::DlLoaderGraphicPtr loaderSFML(new Arcade::DlLoaderGraphic("./lib/arcade_sfml.so"));
     Arcade::DlLoaderGraphicPtr loaderSDL(new Arcade::DlLoaderGraphic("./lib/arcade_sdl2.so"));
     Arcade::DlLoaderGraphicPtr loaderNCURSES(new Arcade::DlLoaderGraphic("./lib/arcade_ncurses.so"));
     Arcade::DlLoaderGamePtr loaderPACMAN(new Arcade::DlLoaderGame ("./lib/arcade_pacman.so"));
-    Arcade::DlLoaderGamePtr loaderSNAKE(new Arcade::DlLoader<Arcade::IGameLib>("./lib/arcade_snake.so"));
+    Arcade::DlLoaderGamePtr loaderSNAKE(new Arcade::DlLoaderGame("./lib/arcade_snake.so"));
     std::shared_ptr<Arcade::Core> core(new Arcade::Core());
     core->addGraphicLib(loaderSFML->getGraphInstance());
     core->addGraphicLib(loaderSDL->getGraphInstance());

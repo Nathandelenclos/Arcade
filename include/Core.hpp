@@ -30,7 +30,7 @@ namespace Arcade {
             void switchGraphicLib();
             void switchGameLib();
             void startGraphic();
-            void stopGraphic();
+            void stopGraphic() const;
             bool isRunning() const;
             void setRunning(bool isRunning);
         protected:

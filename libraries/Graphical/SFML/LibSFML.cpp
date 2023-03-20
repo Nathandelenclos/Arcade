@@ -34,29 +34,14 @@ namespace Arcade {
     void LibSFML::display()
     {
         _key = InputKey::NONE;
-
+        
         if (_window.pollEvent(_event)) {
             if (_event.type == sf::Event::Closed)
                 _window.close();
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-                _key = InputKey::UP;
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-                _key = InputKey::DOWN;
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                _key = InputKey::LEFT;
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                _key = InputKey::RIGHT;
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-                _key = InputKey::INTERACT;
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-                _key = InputKey::PAUSE;
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-                _key = InputKey::QUIT;
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-                _key = InputKey::SWITCH_LIB;
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-                _key = InputKey::SWITCH_GAME;
-
+            for (int i = 0; matching[i].inputKey != InputKey::SWITCH_GAME; ++i) {
+                if (sf::Keyboard::isKeyPressed(matching[i].key))
+                    _key = matching[i].inputKey;
+            }
         }
     }
 
