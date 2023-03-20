@@ -31,5 +31,9 @@ namespace Arcade {
     class Utils {
         public:
             static bool checkIfLibFile(const std::string& libName);
+            static void getLibs(std::shared_ptr<std::vector<std::string>> &libs,
+                               const std::string &name);
+            static void getGames(std::shared_ptr<std::vector<std::string>> &games,
+                               const std::string &name);
     };
 }

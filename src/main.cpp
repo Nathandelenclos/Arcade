@@ -13,7 +13,7 @@
 
 int main(int ac, char **av)
 {
-    std::shared_ptr<Arcade::ErrorHandling> error;
+    std::shared_ptr<Arcade::ErrorHandling> error = std::make_shared<Arcade::ErrorHandling>();
     error->checkForValidArg(ac, av);
     error->getLibFiles();
     std::vector<Arcade::IGraphicLibPtr> libVector;
@@ -36,7 +36,7 @@ int main(int ac, char **av)
     gameVector.push_back(libSNAKE);
 
 
-    bool isRunning = true;
+    /*bool isRunning = true;
     int currentLib = 0;
     int currentGame = 0;
     Arcade::windowsParameter_t windowsParameter = {800, 600, false};
@@ -54,7 +54,7 @@ int main(int ac, char **av)
         if (libVector[currentLib]->getCurrentKey() == Arcade::InputKey::SWITCH_GAME)
             gameVector[currentGame] = gameVector[++currentGame % gameVector.size()];
     }
-    libVector[currentLib]->closeWindow();
+    libVector[currentLib]->closeWindow();*/
     std::cout << "end of program" << std::endl;
     return (0);
 }

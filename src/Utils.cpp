@@ -9,6 +9,8 @@
 
 Arcade::ErrorHandling::ErrorHandling() {
     std::cout << "Entering Error Handling" << std::endl;
+    this->_games = std::make_shared<std::vector<std::string>>();
+    this->_libs = std::make_shared<std::vector<std::string>>();
 }
 
 void Arcade::ErrorHandling::checkForValidArg(int ac, char **av) {
@@ -42,9 +44,10 @@ void Arcade::ErrorHandling::getLibFiles() {
                 std::cerr << "Invalid " << entry->d_name << " in lib folder" << std::endl;
                 exit(84);
             }
+            Arcade::Utils::getLibs(this->_libs, entry->d_name);
+            Arcade::Utils::getGames(this->_games, entry->d_name);
         }
     }
-
     closedir(dir);
 }
 
@@ -55,4 +58,25 @@ bool Arcade::Utils::checkIfLibFile(const std::string &libName) {
         && libName.substr(7) != "arcade_")
         return true;
     return false;
+}
+
+void Arcade::Utils::getLibs(std::shared_ptr<std::vector<std::string>> &libs,
+                           const std::string &name) {
+    if (name == "arcade_ncurses.so" || name == "arcade_sdl2.so" || name == "arcade_ndk++.so" ||
+        name == "arcade_aalib.so" || name == "arcade_libcaca.so" || name == "arcade_allegro5.so" ||
+        name == "arcade_xlib.so" || name == "arcade_gtk+.so" || name == "arcade_sfml.so" ||
+        name == "arcade_irrlicht.so" || name == "arcade_opengl.so" || name == "arcade_vulkan.so" ||
+        name == "arcade_qt5.so") {
+        libs->push_back(name);
+        std::cout << "Lib name is " << name << std::endl;
+    }
+}
+
+void Arcade::Utils::getGames(std::shared_ptr<std::vector<std::string>> &games,
+                             const std::string &name) {
+    if (name == "arcade_snake.so" || name == "arcade_nibbler.so" || name == "arcade_pacman.so" ||
+        name == "arcade_qix.so" || name == "arcade_centipede.so" || name == "arcade_solarfox.so") {
+        games->push_back(name);
+        std::cout << "Lib name is " << name << std::endl;
+    }
 }
