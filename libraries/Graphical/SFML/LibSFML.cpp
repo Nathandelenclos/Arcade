@@ -16,6 +16,8 @@ namespace Arcade {
 
     LibSFML::~LibSFML()
     {
+        if (_window.isOpen())
+            _window.close();
         std::cout << "destructor LibSFML" << std::endl;
     }
 

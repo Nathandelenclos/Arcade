@@ -9,43 +9,33 @@
 #include "IGameLib.hpp"
 #include "DlLoader.hpp"
 #include "Types.hpp"
+#include "Core.hpp"
 
 int main()
 {
-    Arcade::DlLoader<Arcade::IGraphicLib> loaderSFML("./lib/arcade_sfml.so");
-    Arcade::DlLoader<Arcade::IGraphicLib> loaderSDL("./lib/arcade_sdl2.so");
-    Arcade::DlLoader<Arcade::IGraphicLib> loaderNCURSES("./lib/arcade_ncurses.so");
-    Arcade::DlLoader<Arcade::IGameLib> loaderPACMAN("./lib/arcade_pacman.so");
-    Arcade::DlLoader<Arcade::IGameLib> loaderSNAKE("./lib/arcade_snake.so");
-    std::vector<Arcade::IGraphicLibPtr> libVector;
-    std::vector<Arcade::IGameLibPtr> gameVector;
-    libVector.push_back(loaderSFML.getGraphInstance());
-    libVector.push_back(loaderSDL.getGraphInstance());
-    libVector.push_back(loaderNCURSES.getGraphInstance());
+    Arcade::DlLoaderGraphicPtr loaderSFML(new Arcade::DlLoaderGraphic("./lib/arcade_sfml.so"));
+    Arcade::DlLoaderGraphicPtr loaderSDL(new Arcade::DlLoaderGraphic("./lib/arcade_sdl2.so"));
+    Arcade::DlLoaderGraphicPtr loaderNCURSES(new Arcade::DlLoaderGraphic("./lib/arcade_ncurses.so"));
+    Arcade::DlLoaderGamePtr loaderPACMAN(new Arcade::DlLoaderGame ("./lib/arcade_pacman.so"));
+    Arcade::DlLoaderGamePtr loaderSNAKE(new Arcade::DlLoader<Arcade::IGameLib>("./lib/arcade_snake.so"));
+    std::shared_ptr<Arcade::Core> core(new Arcade::Core());
+    core->addGraphicLib(loaderSFML->getGraphInstance());
+    core->addGraphicLib(loaderSDL->getGraphInstance());
+    core->addGraphicLib(loaderNCURSES->getGraphInstance());
+    core->addGameLib(loaderPACMAN->getGameInstance());
+    core->addGameLib(loaderSNAKE->getGameInstance());
 
-    gameVector.push_back(loaderPACMAN.getGameInstance());
-    gameVector.push_back(loaderSNAKE.getGameInstance());
-
-
-    bool isRunning = true;
-    int currentLib = 0;
-    int currentGame = 0;
-    Arcade::windowsParameter_t windowsParameter = {800, 600, false};
-    Arcade::IObjectVector gameObjects;
-
-    libVector[currentLib]->setWindow(windowsParameter);
-    libVector[currentLib]->loadObjects(gameObjects);
-    libVector[currentLib]->openWindow();
-    while (isRunning) {
-        libVector[currentLib]->display();
-        if (libVector[currentLib]->getCurrentKey() == Arcade::InputKey::QUIT)
-            isRunning = false;
-        if (libVector[currentLib]->getCurrentKey() == Arcade::InputKey::SWITCH_LIB)
-            libVector[currentLib] = libVector[++currentLib % libVector.size()];
-        if (libVector[currentLib]->getCurrentKey() == Arcade::InputKey::SWITCH_GAME)
-            gameVector[currentGame] = gameVector[++currentGame % gameVector.size()];
+    core->startGraphic();
+    while (core->isRunning()) {
+        core->getCurrentGraphicLib()->display();
+        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::QUIT)
+            core->setRunning(false);
+        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_LIB)
+            core->switchGraphicLib();
+        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_GAME)
+            core->switchGameLib();
     }
-    libVector[currentLib]->closeWindow();
+    core->stopGraphic();
     std::cout << "end of program" << std::endl;
     return (0);
 }

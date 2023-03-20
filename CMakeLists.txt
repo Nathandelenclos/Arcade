@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(include)
 
 add_executable(arcade
-        src/main.cpp)
+        src/main.cpp
+        src/Core/Core.cpp include/Core.hpp)
 
 add_subdirectory(libraries)

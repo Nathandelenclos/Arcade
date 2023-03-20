@@ -79,4 +79,8 @@ namespace Arcade {
         protected:
             void *_handle;
     };
+    typedef Arcade::DlLoader<Arcade::IGraphicLib> DlLoaderGraphic;
+    typedef Arcade::DlLoader<Arcade::IGameLib> DlLoaderGame;
+    typedef std::shared_ptr<Arcade::DlLoaderGraphic> DlLoaderGraphicPtr;
+    typedef std::shared_ptr<Arcade::DlLoaderGame> DlLoaderGamePtr;
 }
