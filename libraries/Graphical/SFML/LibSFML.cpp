@@ -64,7 +64,7 @@ namespace Arcade {
         if (_window.pollEvent(_event)) {
             if (_event.type == sf::Event::Closed) {
                 _window.close();
-                _key = InputKey::QUIT;
+                _key = InputKey::ESCAPE;
             }
             for (int i = 0; matching[i].inputKey != InputKey::SWITCH_GAME; ++i) {
                 if (sf::Keyboard::isKeyPressed(matching[i].key))

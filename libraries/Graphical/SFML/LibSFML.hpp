@@ -26,7 +26,7 @@ namespace Arcade {
         {sf::Keyboard::Right, InputKey::RIGHT},
         {sf::Keyboard::E, InputKey::INTERACT},
         {sf::Keyboard::Enter, InputKey::PAUSE},
-        {sf::Keyboard::Escape, InputKey::QUIT},
+        {sf::Keyboard::Escape, InputKey::ESCAPE},
         {sf::Keyboard::A, InputKey::SWITCH_LIB},
         {sf::Keyboard::E, InputKey::SWITCH_GAME},
     };
