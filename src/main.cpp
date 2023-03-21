@@ -30,6 +30,8 @@ int main(int ac, char **av)
             core->switchGraphicLib();
         if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_GAME)
             core->switchGameLib();
+        //core->getCurrentGameLib()->setCurrentInputKey(core->getCurrentGraphicLib()->getCurrentKey());
+        //core->getCurrentGameLib()->updateGameObjects();
     }
     core->stopGraphic();
     return (0);

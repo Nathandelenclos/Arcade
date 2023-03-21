@@ -22,8 +22,8 @@ namespace Arcade {
                 ~Text() override;
                 sf::Drawable *getDrawable() override;
             protected:
-            sf::Text _text;
-            sf::Font _font;
+                sf::Text _text;
+                sf::Font _font;
             private:
         };
         typedef std::shared_ptr<Text> TextPtr;

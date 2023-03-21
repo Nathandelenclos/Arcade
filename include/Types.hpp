@@ -23,6 +23,12 @@ namespace Arcade {
     typedef std::shared_ptr<Arcade::IGraphicLib> IGraphicLibPtr;
     typedef std::shared_ptr<Arcade::IGameLib> IGameLibPtr;
 
+    typedef std::shared_ptr<IText> ITextPtr;
+    typedef std::shared_ptr<IEntities> IEntitiesPtr;
+    typedef std::vector<ITextPtr> ITextVector;
+    typedef std::vector<IEntitiesPtr> IEntitiesVector;
+    typedef std::shared_ptr<ITextVector> ITextVectorPtr;
+    typedef std::shared_ptr<IEntitiesVector> IEntitiesVectorPtr;
 } // Arcade
 
 #endif //ARCADE_TYPES_HPP

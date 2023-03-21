@@ -4,10 +4,10 @@ project(Arcade_libraries)
 set(CMAKE_CXX_STANDARD 14)
 
 find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
-add_library(arcade_sfml SHARED Graphical/SFML/Sprite.hpp Graphical/SFML/Sprite.cpp Graphical/SFML/Text.hpp Graphical/SFML/Text.cpp Graphical/SFML/Object.hpp)
+add_library(arcade_sfml SHARED)
 
 find_package(SDL2 REQUIRED)
-add_library(arcade_sdl2 SHARED Graphical/SDL/SDL.hpp Graphical/SDL/SDL.cpp)
+add_library(arcade_sdl2 SHARED)
 
 add_library(arcade_ncurses SHARED)
 
@@ -26,8 +26,10 @@ set_target_properties(
 target_sources(
         arcade_sfml
         PRIVATE
-        Graphical/SFML/LibSFML.cpp
-        Graphical/SFML/LibSFML.hpp
+        Graphical/SFML/LibSFML.cpp Graphical/SFML/LibSFML.hpp
+        Graphical/SFML/Sprite.cpp  Graphical/SFML/Sprite.hpp
+        Graphical/SFML/Text.cpp Graphical/SFML/Text.hpp
+        Graphical/SFML/Object.hpp
 )
 
 target_link_libraries(arcade_sfml sfml-graphics sfml-window sfml-system)
@@ -44,8 +46,8 @@ set_target_properties(
 target_sources(
         arcade_sdl2
         PRIVATE
-        Graphical/SDL/LibSDL.cpp
-        Graphical/SDL/LibSDL.hpp
+        Graphical/SDL/LibSDL.cpp Graphical/SDL/LibSDL.hpp
+        Graphical/SDL/SDL.cpp Graphical/SDL/SDL.hpp
 )
 
 target_link_libraries(arcade_sdl2 SDL2)

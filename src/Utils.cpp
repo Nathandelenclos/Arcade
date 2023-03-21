@@ -17,7 +17,7 @@ Arcade::ErrorHandling::ErrorHandling() {
 
 void Arcade::ErrorHandling::checkForValidArg(int ac, char **av) {
     if (ac != 2) {
-        std::cerr << "./arcade ./lib_arcade_[NAME_OF_THE_LIB].so" << std::endl;
+        std::cerr << "./arcade ./lib/arcade_[NAME_OF_THE_LIB].so" << std::endl;
         std::cerr << "  arcade_sfml.so" << std::endl;
         std::cerr << "  arcade_sdl2.so" << std::endl;
         std::cerr << "  arcade_ncurses.so" << std::endl;
