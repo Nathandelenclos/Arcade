@@ -11,6 +11,7 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include "IObject.hpp"
+#include <SDL2/SDL_ttf.h>
 
 namespace Arcade {
     namespace sdl {
@@ -39,6 +40,7 @@ namespace Arcade {
                 void setFullScreen(bool fullscreen);
                 void setIcon(std::string &filename);
                 void destroy();
+                SDL_Window *getWindow() const;
             protected:
                 SDL_Window *_window;
                 std::string _title;
@@ -68,12 +70,10 @@ namespace Arcade {
                 void destroy();
                 static Texture loadFromFile(std::string &filename, SDL_Renderer *renderer);
                 static Texture loadFromSurface(Surface *surface, SDL_Renderer *renderer);
-                static Texture loadFromText(std::string &text, std::string &filename, color_t color);
-                static Texture loadFromText(std::string &text, std::string &filename, color_t color, int size);
-                static Texture loadFromText(std::string &text, std::string &filename, color_t color, int size, int style);
-                void scale(size_t width, size_t height);
-                void update();
-
+                static Texture loadFromText(std::string &text, std::string &filename, color_t color, SDL_Renderer *renderer);
+                static Texture loadFromText(std::string &text, std::string &filename, color_t color, int size, SDL_Renderer *renderer);
+                static Texture loadFromText(std::string &text, std::string &filename, color_t color, int size, int style, SDL_Renderer *renderer);
+                SDL_Texture *getTexture() const;
             protected:
                 SDL_Texture *_texture;
             private:
@@ -83,16 +83,14 @@ namespace Arcade {
             public:
                 Renderer();
                 ~Renderer();
-                Renderer(Window &window);
                 void create(Window &window);
                 void destroy();
                 void present();
                 void clear();
                 void draw(Texture &texture, rect_t rect);
                 void drawRect(pos_t pos, size_t width, size_t height, color_t color);
-                void drawRect(rect_t rect, color_t color);
-                void drawCircle(pos_t pos, size_t radius, color_t color);
-                void drawLine(pos_t pos1, pos_t pos2, color_t color);
+//                void drawCircle(pos_t pos, size_t radius, color_t color);
+//                void drawLine(pos_t pos1, pos_t pos2, color_t color);
             protected:
                 SDL_Renderer *_renderer;
             private:

@@ -67,6 +67,10 @@ namespace Arcade {
             SDL_DestroyWindow(this->_window);
         }
 
+        SDL_Window *Window::getWindow() const {
+            return this->_window;
+        }
+
         Window::~Window() = default;
 
         Surface::Surface() {
@@ -121,9 +125,101 @@ namespace Arcade {
             return texture;
         }
 
-        /*Texture Texture::loadFromText(std::string &text, std::string &filename,
-                                      color_t color) {
+        Texture Texture::loadFromText(std::string &text, std::string &filename,
+                                      color_t color, SDL_Renderer *renderer) {
             Texture texture;
-        }*/
+            TTF_Font *font = TTF_OpenFont(filename.c_str(), 24);
+            SDL_Color sdlColor = {color.r, color.g, color.b, color.a};
+            SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), sdlColor);
+            texture._texture = SDL_CreateTextureFromSurface(renderer, surface);
+            return texture;
+        }
+
+        Texture Texture::loadFromText(std::string &text, std::string &filename,
+                                      color_t color, int size,
+                                      SDL_Renderer *renderer) {
+            Texture texture;
+            TTF_Font *font = TTF_OpenFont(filename.c_str(), size);
+            SDL_Color sdlColor = {color.r, color.g, color.b, color.a};
+            SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), sdlColor);
+            texture._texture = SDL_CreateTextureFromSurface(renderer, surface);
+            return texture;
+        }
+
+        Texture Texture::loadFromText(std::string &text, std::string &filename,
+                                      color_t color, int size, int style,
+                                      SDL_Renderer *renderer) {
+            Texture texture;
+            TTF_Font *font = TTF_OpenFont(filename.c_str(), size);
+            SDL_Color sdlColor = {color.r, color.g, color.b, color.a};
+            TTF_SetFontStyle(font, style == 0 ? 0 : (1 << style));
+            SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), sdlColor);
+            texture._texture = SDL_CreateTextureFromSurface(renderer, surface);
+            return texture;
+        }
+
+        SDL_Texture *Texture::getTexture() const {
+            return this->_texture;
+        }
+
+        Renderer::Renderer() {
+        }
+
+        Renderer::~Renderer() {
+        }
+
+        void Renderer::create(Window &window) {
+            this->_renderer = SDL_CreateRenderer(window.getWindow(), -1, 0);
+            if (this->_renderer == nullptr) {
+                std::cout << "SDL_CreateRenderer Error: " << SDL_GetError()
+                          << std::endl;
+                exit(84);
+            }
+        }
+
+        void Renderer::destroy() {
+            SDL_DestroyRenderer(this->_renderer);
+        }
+
+        void Renderer::present() {
+            SDL_RenderPresent(this->_renderer);
+        }
+
+        void Renderer::clear() {
+            SDL_RenderClear(this->_renderer);
+        }
+
+        void Renderer::draw(Texture &texture, rect_t rect) {
+            SDL_Rect sdlRect = {static_cast<int>(rect.pos.x), static_cast<int>(rect.pos.y), static_cast<int>(rect.width), static_cast<int>(rect.height)};
+            SDL_RenderCopy(this->_renderer, texture.getTexture(), nullptr, &sdlRect);
+        }
+
+        void Renderer::drawRect(pos_t pos, size_t width, size_t height,
+                                color_t color) {
+            SDL_Rect sdlRect = {static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(width), static_cast<int>(height)};
+            SDL_SetRenderDrawColor(this->_renderer, color.r, color.g, color.b, color.a);
+            SDL_RenderFillRect(this->_renderer, &sdlRect);
+        }
+
+        Event::Event() {
+        }
+
+        void Event::pollEvent() {
+            SDL_PollEvent(&this->_event);
+        }
+
+        bool Event::isKeyPressed(SDL_Keycode key) {
+            return this->_event.type == SDL_KEYDOWN && this->_event.key.keysym.sym == key;
+        }
+
+        bool Event::isKeyReleased(SDL_Keycode key) {
+            return this->_event.type == SDL_KEYUP && this->_event.key.keysym.sym == key;
+        }
+
+        SDL_Event Event::getEvent() {
+            return this->_event;
+        }
+
+        Event::~Event() = default;
     }
 }
