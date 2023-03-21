@@ -8,6 +8,7 @@
 #pragma once
 
 #include "SDL2/SDL.h"
+#include <SDL2/SDL_image.h>
 #include <iostream>
 #include "IObject.hpp"
 
@@ -40,6 +41,11 @@ namespace Arcade {
                 void destroy();
             protected:
                 SDL_Window *_window;
+                std::string _title;
+                int _width;
+                int _height;
+                bool _fullscreen;
+                SDL_Surface *_icon;
             private:
         };
 
@@ -49,9 +55,9 @@ namespace Arcade {
                 ~Surface();
                 void destroy();
                 static Surface loadFromFile(std::string &filename);
-
+                SDL_Surface *getSurface() const;
             protected:
-            SDL_Surface *_surface;
+                SDL_Surface *_surface;
             private:
         };
 
@@ -60,8 +66,8 @@ namespace Arcade {
                 Texture();
                 ~Texture();
                 void destroy();
-                static Texture loadFromFile(std::string &filename);
-                static Texture loadFromSurface(Surface *surface);
+                static Texture loadFromFile(std::string &filename, SDL_Renderer *renderer);
+                static Texture loadFromSurface(Surface *surface, SDL_Renderer *renderer);
                 static Texture loadFromText(std::string &text, std::string &filename, color_t color);
                 static Texture loadFromText(std::string &text, std::string &filename, color_t color, int size);
                 static Texture loadFromText(std::string &text, std::string &filename, color_t color, int size, int style);
