@@ -10,7 +10,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 
 add_executable(arcade
         src/main.cpp
-        src/Core/Core.cpp include/Core.hpp
-        src/Utils.cpp src/Utils.cpp src/Core/Text.hpp src/Core/Text.cpp)
+        src/Utils.cpp
+        src/Core/Core.cpp
+        src/Core/Text.cpp include/Text.hpp
+        include/Entity.hpp src/Core/Entity.cpp)
 
 add_subdirectory(libraries)

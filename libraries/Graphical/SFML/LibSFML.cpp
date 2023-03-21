@@ -151,11 +151,19 @@ namespace Arcade {
     void LibSFML::initSprite(const IObjectPtr& object)
     {
         IEntitiesPtr s = std::dynamic_pointer_cast<IEntities>(object);
-        sfml::SpritePtr sprite( new sfml::Sprite(
-            s->getSprite(),
-            sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
-            object->getPos()));
-        _objects->push_back(sprite);
+        if (s->getSprite().empty()) {
+            sfml::SpritePtr sprite( new sfml::Sprite(
+                s->getColor(),
+                sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
+                object->getPos()));
+            _objects->push_back(sprite);
+        } else {
+            sfml::SpritePtr sprite( new sfml::Sprite(
+                s->getSprite(),
+                sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
+                object->getPos()));
+            _objects->push_back(sprite);
+        }
     }
 
     extern "C" IGraphicLib *constructor_graphic()

@@ -16,10 +16,12 @@ namespace Arcade {
         class Sprite : public sfml::IObject {
             public:
                 Sprite(std::string &filename, sf::IntRect rect, pos_t pos);
+                Sprite(color_t color, sf::IntRect rect, pos_t pos);
                 ~Sprite() override;
                 sf::Drawable *getDrawable() override;
         protected:
             sf::Sprite _sprite;
+            sf::RectangleShape _rectangle;
             sf::Texture _texture;
             private:
         };
