@@ -7,7 +7,7 @@ find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
 add_library(arcade_sfml SHARED Graphical/SFML/Sprite.hpp Graphical/SFML/Sprite.cpp Graphical/SFML/Text.hpp Graphical/SFML/Text.cpp Graphical/SFML/Object.hpp)
 
 find_package(SDL2 REQUIRED)
-add_library(arcade_sdl2 SHARED)
+add_library(arcade_sdl2 SHARED Graphical/SDL/SDL.hpp Graphical/SDL/SDL.cpp)
 
 add_library(arcade_ncurses SHARED)
 

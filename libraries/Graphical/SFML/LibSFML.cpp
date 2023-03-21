@@ -63,8 +63,8 @@ namespace Arcade {
     {
         eventListener();
         _window.clear();
-        //for (sfml::IObjectPtr &object : *_objects)
-        //    _window.draw(*object->getDrawable());
+        for (sfml::IObjectPtr &object : *_objects)
+            _window.draw(*object->getDrawable());
         _window.display();
     }
 
