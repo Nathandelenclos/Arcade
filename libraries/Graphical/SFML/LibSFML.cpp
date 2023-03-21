@@ -158,6 +158,9 @@ namespace Arcade {
         _objects->push_back(sprite);
     }
 
+    /**
+     * @brief Get the name of the library
+     */
     extern "C" IGraphicLib *constructor_graphic()
     {
         return new LibSFML();
