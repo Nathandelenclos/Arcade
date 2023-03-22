@@ -23,7 +23,7 @@ int main(int ac, char **av)
     core->setCurrentGraphicLib(1);
     core->startGraphic();
     while (core->isRunning()) {
-        core->getCurrentGraphicLib()->display();
+        //core->getCurrentGraphicLib()->display();
         if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::QUIT)
             core->setRunning(false);
         if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_LIB)
