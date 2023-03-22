@@ -64,7 +64,7 @@ namespace Arcade {
         if (_window.pollEvent(_event)) {
             if (_event.type == sf::Event::Closed) {
                 _window.close();
-                _key = InputKey::QUIT;
+                _key = InputKey::ESCAPE;
             }
             if (_event.type == sf::Event::KeyPressed) {
                 for (int i = 0; matching[i].inputKey != InputKey::SWITCH_GAME; ++i) {
@@ -169,6 +169,9 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief Get the name of the library
+     */
     extern "C" IGraphicLib *constructor_graphic()
     {
         return new LibSFML();
