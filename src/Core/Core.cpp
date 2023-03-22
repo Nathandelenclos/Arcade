@@ -6,8 +6,6 @@
 */
 
 #include "Core.hpp"
-
-#include <utility>
 #include "DlLoader.hpp"
 
 namespace Arcade {
@@ -36,6 +34,7 @@ namespace Arcade {
     {
         _gamesLibs = std::make_shared<std::vector<Arcade::IGameLibPtr>>();
         _graphicLibs = std::make_shared<std::vector<Arcade::IGraphicLibPtr>>();
+        _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
         _currentGame = 0;
         _currentLib = 0;
         _isRunning = true;
@@ -148,7 +147,7 @@ namespace Arcade {
     void Core::startGraphic()
     {
         getCurrentGraphicLib()->setWindow(_windowsParameter);
-        //getCurrentGraphicLib()->loadObjects(_gameObjects);
+        getCurrentGraphicLib()->loadObjects(_gameObjects);
         getCurrentGraphicLib()->openWindow();
     }
 
@@ -198,6 +197,43 @@ namespace Arcade {
     {
         for (auto &lib : *gameLibs) {
             addGameLib(lib->getGameInstance());
+        }
+    }
+
+    /**
+     * @brief Create the main menu
+     * @param libsName - the graphic libraries name
+     * @param gamesName - the game libraries name
+     */
+    void Core::createMainMenu(const StringVectorPtr& libsName, const StringVectorPtr& gamesName)
+    {
+        std::string text = "Arcade";
+        pos_t basePos = {10, 10};
+        for (const auto& lib: *libsName) {
+            Arcade::TextPtr s(new Arcade::Text(basePos, lib, 15));
+            _gameObjects->push_back(s);
+            basePos.y += 20;
+        }
+        basePos = {10, 100};
+        for (const auto& game: *gamesName) {
+            Arcade::TextPtr s(new Arcade::Text(basePos, game, 15));
+            _gameObjects->push_back(s);
+            basePos.y += 20;
+        }
+    }
+
+    /**
+     * @brief Create the game menu
+     */
+    void Core::logicalMenu()
+    {
+        for (const auto& obj: *_gameObjects) {
+            if (obj->getType() == ObjectType::TEXT) {
+                auto text = std::dynamic_pointer_cast<Text>(obj);
+                if (text->getText() == "") {
+                    text->setColor({255, 0, 0, 255});
+                }
+            }
         }
     }
 }

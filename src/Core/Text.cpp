@@ -10,7 +10,7 @@
 
 namespace Arcade {
 
-    Text::Text(pos_t pos, std::string &text, std::string &font, int size,
+    Text::Text(pos_t pos, const std::string &text, std::string &font, int size,
         color_t color)
     {
         _font = font;
@@ -21,7 +21,7 @@ namespace Arcade {
         _display = true;
     }
 
-    Text::Text(pos_t pos, std::string &text, std::string &font, int size)
+    Text::Text(pos_t pos, const std::string &text, std::string &font, int size)
     {
         _font = font;
         _text = text;
@@ -31,7 +31,7 @@ namespace Arcade {
         _display = true;
     }
 
-    Text::Text(pos_t pos, std::string &text, std::string &font)
+    Text::Text(pos_t pos, const std::string &text, std::string &font)
     {
         _font = font;
         _text = text;
@@ -41,7 +41,7 @@ namespace Arcade {
         _display = true;
     }
 
-    Text::Text(pos_t pos, std::string &text)
+    Text::Text(pos_t pos, const std::string &text)
     {
         _font = "../assets/fonts/GamePlayed.ttf";
         _text = text;
@@ -50,6 +50,17 @@ namespace Arcade {
         _pos = pos;
         _display = true;
     }
+
+    Text::Text(pos_t pos, const std::string &text, int size)
+    {
+        _font = "../assets/fonts/GamePlayed.ttf";
+        _text = text;
+        _size = size;
+        _color = { 255, 255, 255, 255};
+        _pos = pos;
+        _display = true;
+    }
+
 
     Text::Text()
     {
@@ -94,5 +105,35 @@ namespace Arcade {
     color_t Text::getColor()
     {
         return _color;
+    }
+
+    void Text::setPos(pos_t pos)
+    {
+        _pos = pos;
+    }
+
+    void Text::setDisplay(bool display)
+    {
+        _display = display;
+    }
+
+    void Text::setText(const std::string &text)
+    {
+        _text = text;
+    }
+
+    void Text::setFont(const std::string &font)
+    {
+        _font = font;
+    }
+
+    void Text::setSize(int size)
+    {
+        _size = size;
+    }
+
+    void Text::setColor(color_t color)
+    {
+        _color = color;
     }
 }

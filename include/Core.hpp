@@ -14,8 +14,11 @@
 #include "Types.hpp"
 #include "Types.hpp"
 #include "DlLoader.hpp"
+#include "Text.hpp"
+#include "Entity.hpp"
 
 namespace Arcade {
+    typedef std::shared_ptr<std::vector<std::string>> StringVectorPtr;
 
     class Core {
         public:
@@ -39,7 +42,8 @@ namespace Arcade {
             void setRunning(bool isRunning);
             void getGraphicalInstances(const std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>>& graphicLibs);
             void getGameInstances(const std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>>& gameLibs);
-
+            void createMainMenu(const StringVectorPtr& libsName, const StringVectorPtr& gamesName);
+            void logicalMenu();
         protected:
             std::shared_ptr<std::vector<Arcade::IGraphicLibPtr>> _graphicLibs;
             std::shared_ptr<std::vector<Arcade::IGameLibPtr>> _gamesLibs;

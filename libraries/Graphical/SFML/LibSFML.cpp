@@ -140,7 +140,8 @@ namespace Arcade {
             t->getText(),
             t->getFont(),
             sf::Color(t->getColor().r, t->getColor().g, t->getColor().b, t->getColor().a),
-            object->getPos()));
+            object->getPos(),
+            t->getSize()));
         _objects->push_back(text);
     }
 
@@ -155,7 +156,7 @@ namespace Arcade {
             sfml::SpritePtr sprite( new sfml::Sprite(
                 s->getColor(),
                 sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
-                object->getPos()));
+                s->getPos()));
             _objects->push_back(sprite);
         } else {
             sfml::SpritePtr sprite( new sfml::Sprite(

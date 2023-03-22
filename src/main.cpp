@@ -11,8 +11,6 @@
 #include "Types.hpp"
 #include "Core.hpp"
 #include "Utils.hpp"
-#include "Text.hpp"
-#include "Entity.hpp"
 
 int main(int ac, char **av)
 {
@@ -23,14 +21,10 @@ int main(int ac, char **av)
     error->loadGames();
     std::shared_ptr<Arcade::Core> core(new Arcade::Core(error->getGraphicLibsLoader(), error->getGameLibsLoader()));
     core->setCurrentGraphicLib(1);
-    Arcade::IObjectVector gameObjects( new std::vector<Arcade::IObjectPtr>);
-    Arcade::TextPtr text(new Arcade::Text());
-    Arcade::EntityPtr entity(new Arcade::Entity());
-    gameObjects->push_back(text);
-    gameObjects->push_back(entity);
-    core->getCurrentGraphicLib()->loadObjects(gameObjects);
+    core->createMainMenu(error->getLibs(), error->getGames());
     core->startGraphic();
     while (core->isRunning()) {
+        core->logicalMenu();
         core->getCurrentGraphicLib()->display();
         if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::QUIT)
             core->setRunning(false);

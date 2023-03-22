@@ -13,10 +13,11 @@ namespace Arcade {
     class Text : public IText {
         public:
             Text();
-            Text(pos_t pos, std::string &text, std::string &font, int size, color_t color);
-            Text(pos_t pos, std::string &text, std::string &font, int size);
-            Text(pos_t pos, std::string &text, std::string &font);
-            Text(pos_t pos, std::string &text);
+            Text(pos_t pos, const std::string &text, std::string &font, int size, color_t color);
+            Text(pos_t pos, const std::string &text, std::string &font, int size);
+            Text(pos_t pos, const std::string &text, std::string &font);
+            Text(pos_t pos, const std::string &text, int size);
+            Text(pos_t pos, const std::string &text);
             ~Text() override = default;
             pos_t getPos() override;
             bool isDisplayed() override;
@@ -25,6 +26,12 @@ namespace Arcade {
             std::string & getFont() override;
             int getSize() override;
             color_t getColor() override;
+            void setPos(pos_t pos);
+            void setDisplay(bool display);
+            void setText(const std::string &text);
+            void setFont(const std::string &font);
+            void setSize(int size);
+            void setColor(color_t color);
 
         protected:
             std::string _font;
