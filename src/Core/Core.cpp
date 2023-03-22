@@ -271,6 +271,10 @@ namespace Arcade {
             selectedIdLib = 0;
         else
             selectedIdLib++;
+        if (selectedIdGame == _gamesLibs->size() - 1)
+            selectedIdGame = 0;
+        else
+            selectedIdGame++;
         for (const auto &obj: *_gameObjects) {
             if (obj->getType() == ObjectType::ENTITY) {
                 ButtonPtr button = std::dynamic_pointer_cast<Button>(obj);
