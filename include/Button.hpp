@@ -12,6 +12,11 @@
 
 namespace Arcade {
 
+    class Button;
+    typedef std::shared_ptr<Button> ButtonPtr;
+    typedef std::vector<ButtonPtr> ButtonVector;
+    typedef std::shared_ptr<ButtonVector> ButtonVectorPtr;
+
     enum ButtonGroup {
         GAME,
         LIB
@@ -23,10 +28,10 @@ namespace Arcade {
             Button(const std::string &libName, rect_t rect, pos_t pos, color_t color, bool selected);
             ~Button() override = default;
 
+            static ButtonPtr searchInList(ButtonVectorPtr list, enum ButtonGroup group, size_t id);
             pos_t getPos() override;
             bool isDisplayed() override;
             ObjectType getType() override;
-
             std::string &getSprite() override;
             color_t getColor() override;
             rect_t getRect() override;
@@ -51,10 +56,7 @@ namespace Arcade {
             bool _selected;
             std::string _libName;
             enum ButtonGroup _group;
-            size_t _id;
+            size_t _id{};
     };
 
-    typedef std::shared_ptr<Button> ButtonPtr;
-    typedef std::vector<ButtonPtr> ButtonVector;
-    typedef std::shared_ptr<ButtonVector> ButtonVectorPtr;
 }

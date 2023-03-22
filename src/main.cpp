@@ -5,13 +5,17 @@
 ** main.cpp
 */
 
-#include "IGraphicLib.hpp"
-#include "IGameLib.hpp"
-#include "DlLoader.hpp"
 #include "Types.hpp"
 #include "Core.hpp"
 #include "Utils.hpp"
 
+/**
+ * @brief Main function
+ *
+ * @param ac {int} - number of arguments
+ * @param av {char**} - arguments
+ * @return int - EXIT_SUCCESS or EXIT_FAILURE
+ */
 int main(int ac, char **av)
 {
     std::shared_ptr<Arcade::ErrorHandling> error(new Arcade::ErrorHandling());
@@ -37,5 +41,5 @@ int main(int ac, char **av)
         //core->getCurrentGameLib()->updateGameObjects();
     }
     core->stopGraphic();
-    return (0);
+    return EXIT_SUCCESS;
 }

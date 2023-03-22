@@ -226,7 +226,7 @@ namespace Arcade {
             i++;
         }
         i = 0;
-        basePos = {10, 100};
+        basePos = {300, 10};
         for (const auto& game: *gamesName) {
             Arcade::ButtonPtr s(new Arcade::Button(game, {0, 0, 240, 20}, basePos, {255, 255, 255, 255},
                                                    i == 0));
@@ -295,6 +295,6 @@ namespace Arcade {
             }
         }
         getCurrentGraphicLib()->loadObjects(_gameObjects);
-    }
 
+    }
 }
