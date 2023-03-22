@@ -13,6 +13,7 @@ add_executable(arcade
         src/Utils.cpp
         src/Core/Core.cpp
         src/Core/Text.cpp include/Text.hpp
-        include/Entity.hpp src/Core/Entity.cpp)
+        include/Entity.hpp src/Core/Entity.cpp
+        include/Button.hpp src/Core/Button.cpp)
 
 add_subdirectory(libraries)

@@ -16,6 +16,7 @@ namespace Arcade {
             Text(pos_t pos, const std::string &text, std::string &font, int size, color_t color);
             Text(pos_t pos, const std::string &text, std::string &font, int size);
             Text(pos_t pos, const std::string &text, std::string &font);
+            Text(pos_t pos, const std::string &text, color_t color);
             Text(pos_t pos, const std::string &text, int size);
             Text(pos_t pos, const std::string &text);
             ~Text() override = default;

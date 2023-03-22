@@ -66,9 +66,11 @@ namespace Arcade {
                 _window.close();
                 _key = InputKey::QUIT;
             }
-            for (int i = 0; matching[i].inputKey != InputKey::SWITCH_GAME; ++i) {
-                if (sf::Keyboard::isKeyPressed(matching[i].key))
-                    _key = matching[i].inputKey;
+            if (_event.type == sf::Event::KeyPressed) {
+                for (int i = 0; matching[i].inputKey != InputKey::SWITCH_GAME; ++i) {
+                    if (_event.key.code == matching[i].key)
+                        _key = matching[i].inputKey;
+                }
             }
         }
     }

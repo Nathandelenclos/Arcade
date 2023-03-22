@@ -51,6 +51,16 @@ namespace Arcade {
         _display = true;
     }
 
+    Text::Text(pos_t pos, const std::string &text, color_t color)
+    {
+        _font = "../assets/fonts/GamePlayed.ttf";
+        _text = text;
+        _size = 16;
+        _color = color;
+        _pos = pos;
+        _display = true;
+    }
+
     Text::Text(pos_t pos, const std::string &text, int size)
     {
         _font = "../assets/fonts/GamePlayed.ttf";

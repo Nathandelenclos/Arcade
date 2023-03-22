@@ -19,7 +19,8 @@ int main(int ac, char **av)
     error->getLibFiles();
     error->loadLibs();
     error->loadGames();
-    std::shared_ptr<Arcade::Core> core(new Arcade::Core(error->getGraphicLibsLoader(), error->getGameLibsLoader()));
+    std::shared_ptr<Arcade::Core> core(new Arcade::Core(error->getGraphicLibsLoader(), error->getGameLibsLoader(),
+                                                        error->getLibs(), error->getGames()));
     core->setCurrentGraphicLib(1);
     core->createMainMenu(error->getLibs(), error->getGames());
     core->startGraphic();
@@ -28,10 +29,10 @@ int main(int ac, char **av)
         core->getCurrentGraphicLib()->display();
         if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::QUIT)
             core->setRunning(false);
-        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_LIB)
+/*        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_LIB)
             core->switchGraphicLib();
         if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_GAME)
-            core->switchGameLib();
+            core->switchGameLib();*/
         //core->getCurrentGameLib()->setCurrentInputKey(core->getCurrentGraphicLib()->getCurrentKey());
         //core->getCurrentGameLib()->updateGameObjects();
     }

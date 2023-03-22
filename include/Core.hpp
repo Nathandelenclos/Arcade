@@ -16,6 +16,7 @@
 #include "DlLoader.hpp"
 #include "Text.hpp"
 #include "Entity.hpp"
+#include "Button.hpp"
 
 namespace Arcade {
     typedef std::shared_ptr<std::vector<std::string>> StringVectorPtr;
@@ -24,7 +25,8 @@ namespace Arcade {
         public:
             Core();
             Core(const std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>>& graphicLibsLoader,
-                const std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>>& gameLibsLoader);
+                const std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>>& gameLibsLoader,
+                Arcade::StringVectorPtr libs, Arcade::StringVectorPtr games);
             ~Core();
             void addGraphicLib(const Arcade::IGraphicLibPtr& lib);
             std::shared_ptr<std::vector<Arcade::IGraphicLibPtr>> getGraphicLibs() const;
@@ -52,6 +54,8 @@ namespace Arcade {
             int _currentLib;
             Arcade::windowsParameter_t _windowsParameter{};
             Arcade::IObjectVector _gameObjects;
+            Arcade::StringVectorPtr _libsName;
+            Arcade::StringVectorPtr _gamesName;
         private:
     };
 
