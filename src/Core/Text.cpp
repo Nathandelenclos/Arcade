@@ -43,7 +43,7 @@ namespace Arcade {
 
     Text::Text(pos_t pos, const std::string &text)
     {
-        _font = "../assets/fonts/GamePlayed.ttf";
+        _font = "./assets/fonts/GamePlayed.ttf";
         _text = text;
         _size = 16;
         _color = { 255, 255, 255, 255};
@@ -53,7 +53,7 @@ namespace Arcade {
 
     Text::Text(pos_t pos, const std::string &text, color_t color)
     {
-        _font = "../assets/fonts/GamePlayed.ttf";
+        _font = "./assets/fonts/GamePlayed.ttf";
         _text = text;
         _size = 16;
         _color = color;
@@ -63,7 +63,7 @@ namespace Arcade {
 
     Text::Text(pos_t pos, const std::string &text, int size)
     {
-        _font = "../assets/fonts/GamePlayed.ttf";
+        _font = "./assets/fonts/GamePlayed.ttf";
         _text = text;
         _size = size;
         _color = { 255, 255, 255, 255};
@@ -74,7 +74,7 @@ namespace Arcade {
 
     Text::Text()
     {
-        _font = "../assets/fonts/GamePlayed.ttf";
+        _font = "./assets/fonts/GamePlayed.ttf";
         _text = "caca";
         _size = 16;
         _color = { 0, 255, 255, 200};

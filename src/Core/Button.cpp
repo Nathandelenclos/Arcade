@@ -104,7 +104,6 @@ namespace Arcade {
 
     void Button::setId(size_t id)
     {
-        std::cout << "Button id: " << id  << "for lib: " << _libName << std::endl;
         _id = id;
     }
 
