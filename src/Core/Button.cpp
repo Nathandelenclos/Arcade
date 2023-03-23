@@ -19,7 +19,6 @@ namespace Arcade {
      */
     Button::Button(const std::string &libName, rect_t rect, pos_t pos, color_t color)
     {
-        _libName = libName;
         _pos = pos;
         _display = true;
         _rect = rect;
@@ -41,7 +40,6 @@ namespace Arcade {
      */
     Button::Button(const std::string &libName, rect_t rect, pos_t pos, color_t color, bool selected)
     {
-        _libName = libName;
         _pos = pos;
         _display = true;
         _rect = rect;
@@ -125,16 +123,6 @@ namespace Arcade {
     }
 
     /**
-     * @brief Get the Lib Name object
-     *
-     * @return std::string - The name of the library
-     */
-    std::string Button::getLibName()
-    {
-        return _libName;
-    }
-
-    /**
      * @brief Get the Selected object
      *
      * @return true - If the button is selected
@@ -195,7 +183,14 @@ namespace Arcade {
         return _pos;
     }
 
-    ButtonPtr Button::searchInList(ButtonVectorPtr list, enum ButtonGroup group,
+    /**
+     * Search a button in a list
+     * @param list {const ButtonVectorPtr&} - The list of buttons
+     * @param group {enum ButtonGroup} - The group of the button
+     * @param id {size_t} - The id of the button
+     * @return ButtonPtr - The button found
+     */
+    ButtonPtr Button::searchInList(const ButtonVectorPtr& list, enum ButtonGroup group,
         size_t id)
     {
         for (auto &button : *list) {
@@ -203,5 +198,89 @@ namespace Arcade {
                 return button;
         }
         return nullptr;
+    }
+
+    /**
+     * Search a button in a list
+     * @param list {const IEntitiesVectorPtr&} - The list of buttons
+     * @param group {enum ButtonGroup} - The group of the button
+     * @param id {size_t} - The id of the button
+     * @return ButtonPtr - The button found
+     */
+    ButtonPtr Button::searchInList(const IEntitiesVectorPtr& list, enum ButtonGroup group,
+        size_t id)
+    {
+        for (auto &element : *list) {
+            if (!Button::isButton(element))
+                continue;
+            ButtonPtr button = std::dynamic_pointer_cast<Button>(element);
+            if (button->getGroup() == group && button->getId() == id)
+                return button;
+        }
+        return nullptr;
+    }
+
+    /**
+     * Search a button in a list
+     * @param list {const IObjectVector&} - The list of buttons
+     * @param group {enum ButtonGroup} - The group of the button
+     * @param id {size_t} - The id of the button
+     * @return ButtonPtr - The button found
+     */
+    ButtonPtr Button::searchInList(const IObjectVector& list, enum ButtonGroup group, size_t id)
+    {
+        for (auto &element : *list) {
+            if (!Button::isButton(element))
+                continue;
+            ButtonPtr button = std::dynamic_pointer_cast<Button>(element);
+            if (button->getGroup() == group && button->getId() == id)
+                return button;
+        }
+        return nullptr;
+    }
+
+    /**
+     * @brief Get the Sprite Type object
+     *
+     * @return enum SpriteType - The type of the sprite
+     */
+    SpriteType Button::getSpriteType()
+    {
+        return BUTTON;
+    }
+
+    /**
+     * @brief Get the Button object
+     *
+     * @param object {const IObjectPtr&} - The object to check
+     * @return true - If the object is a button
+     * @return false - If the object is not a button
+     */
+    bool Button::isButton(const IObjectPtr &object)
+    {
+        if (object->getType() != ObjectType::ENTITY) {
+            return false;
+        }
+        ISpriteTypePtr sprite = std::dynamic_pointer_cast<ISpriteType>(object);
+        if (sprite->getSpriteType() != BUTTON) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @brief Get the Button object
+     *
+     * @param object {const IEntitiesPtr&} - The object to check
+     * @return true - If the object is a button
+     * @return false - If the object is not a button
+     */
+    bool Button::isButton(const IEntitiesPtr &object)
+    {
+        ISpriteTypePtr sprite = std::dynamic_pointer_cast<ISpriteType>(object);
+        if (sprite->getSpriteType() != BUTTON) {
+            return false;
+        }
+        return true;
     }
 }

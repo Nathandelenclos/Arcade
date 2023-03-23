@@ -12,6 +12,10 @@ namespace Arcade {
     Pacman::Pacman()
     {
         std::cout << "Pacman constructor" << std::endl;
+        _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
+        _currentKey = InputKey::NONE;
+        _isEnded = false;
+        _score = 0;
     }
 
     Pacman::~Pacman()
@@ -26,7 +30,7 @@ namespace Arcade {
 
     IObjectVector Pacman::getGameObjects()
     {
-        return Arcade::IObjectVector();
+        return _gameObjects;
     }
 
     void Pacman::updateGameObjects()
@@ -36,17 +40,17 @@ namespace Arcade {
 
     bool Pacman::isEnded()
     {
-        return false;
+        return _isEnded;
     }
 
     void Pacman::setCurrentInputKey(InputKey key)
     {
-
+        _currentKey = key;
     }
 
     int Pacman::getScore()
     {
-        return 0;
+        return _score;
     }
 
     extern "C" IGameLib *constructor_game()
