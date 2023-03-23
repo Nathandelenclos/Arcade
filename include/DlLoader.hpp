@@ -43,7 +43,6 @@ namespace Arcade {
             ~DlLoader()
             {
                 if (_handle) {
-                    std::cout << "Closing library" << std::endl;
                     dlclose(_handle);
                 }
             }

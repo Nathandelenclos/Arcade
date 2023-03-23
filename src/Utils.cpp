@@ -8,6 +8,13 @@
 #include "Utils.hpp"
 #include "DlLoader.hpp"
 
+/**
+ * @brief Check if the file is a lib file
+ *
+ * @param file {std::string} - file to check
+ * @return true - if the file is a lib file
+ * @return false - if the file is not a lib file
+ */
 Arcade::ErrorHandling::ErrorHandling() {
     this->_games = std::make_shared<std::vector<std::string>>();
     this->_libs = std::make_shared<std::vector<std::string>>();
@@ -15,9 +22,14 @@ Arcade::ErrorHandling::ErrorHandling() {
     this->_gameLibsLoader = std::make_shared<std::vector<Arcade::DlLoaderGamePtr>>();
 }
 
+/**
+ * @brief Get the Libs object
+ *
+ * @return std::shared_ptr<std::vector<std::string>> - the libs
+ */
 void Arcade::ErrorHandling::checkForValidArg(int ac, char **av) {
     if (ac != 2) {
-        std::cerr << "./arcade ./lib_arcade_[NAME_OF_THE_LIB].so" << std::endl;
+        std::cerr << "./arcade ./lib/arcade_[NAME_OF_THE_LIB].so" << std::endl;
         std::cerr << "  arcade_sfml.so" << std::endl;
         std::cerr << "  arcade_sdl2.so" << std::endl;
         std::cerr << "  arcade_ncurses.so" << std::endl;
@@ -30,6 +42,11 @@ void Arcade::ErrorHandling::checkForValidArg(int ac, char **av) {
     exit(84);
 }
 
+/**
+ * @brief Get the Libs object
+ *
+ * @return std::shared_ptr<std::vector<std::string>> - the libs
+ */
 void Arcade::ErrorHandling::getLibFiles() {
     std::string directoryPath = "./lib/";
     dirent* entry;
@@ -52,6 +69,11 @@ void Arcade::ErrorHandling::getLibFiles() {
     closedir(dir);
 }
 
+/**
+ * @brief Get the Libs object
+ *
+ * @return std::shared_ptr<std::vector<std::string>> - the libs
+ */
 Arcade::ErrorHandling::~ErrorHandling() = default;
 
 bool Arcade::Utils::checkIfLibFile(const std::string &libName) {
