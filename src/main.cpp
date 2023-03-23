@@ -29,16 +29,19 @@ int main(int ac, char **av)
     core->createMainMenu(error->getLibs(), error->getGames());
     core->startGraphic();
     while (core->isRunning()) {
-        core->logicalMenu();
         core->getCurrentGraphicLib()->display();
-        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::ESCAPE)
-            core->setRunning(false);
-/*        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_LIB)
-            core->switchGraphicLib();
-        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_GAME)
-            core->switchGameLib();*/
-        //core->getCurrentGameLib()->setCurrentInputKey(core->getCurrentGraphicLib()->getCurrentKey());
-        //core->getCurrentGameLib()->updateGameObjects();
+        core->logicalMenu();
+        if (core->getState() == Arcade::CoreState::GAME) {
+            if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::ESCAPE)
+                core->setState(Arcade::CoreState::MENU);
+            if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_LIB)
+                core->switchGraphicLib();
+            if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_GAME)
+                core->switchGameLib();
+            core->getCurrentGameLib()->setCurrentInputKey(core->getCurrentGraphicLib()->getCurrentKey());
+            core->getCurrentGameLib()->updateGameObjects();
+        }
+        core->getCurrentGraphicLib()->loadObjects(core->getGameObjects());
     }
     core->stopGraphic();
     return EXIT_SUCCESS;
