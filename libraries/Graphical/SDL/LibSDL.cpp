@@ -21,12 +21,25 @@ namespace Arcade {
 
     void LibSDL::loadObjects(IObjectVector gameObjects)
     {
-
+        this->_objects = gameObjects;
+        initType_t initType[] = {
+                {ObjectType::TEXT, &LibSDL::initText},
+                {ObjectType::ENTITY, &LibSDL::initSprite}
+        };
+        for (IObjectPtr &gameObject : *gameObjects) {
+            if (!gameObject->isDisplayed())
+                continue;
+            for (initType_t init_type: initType) {
+                if (gameObject->getType() == init_type.type) {
+                    (this->*init_type.init)(gameObject);
+                }
+            }
+        }
     }
 
     InputKey LibSDL::getCurrentKey()
     {
-        return InputKey::PAUSE;
+        return _key;
     }
 
     void LibSDL::display()
@@ -57,6 +70,18 @@ namespace Arcade {
     bool LibSDL::isOpen()
     {
         return false;
+    }
+
+    void LibSDL::initText(const IObjectPtr &object) {
+
+    }
+
+    void LibSDL::initSprite(const IObjectPtr &object) {
+
+    }
+
+    void LibSDL::eventListener() {
+
     }
 
     extern "C" IGraphicLib *constructor_graphic()
