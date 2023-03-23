@@ -29,11 +29,9 @@ namespace Arcade {
         {sf::Keyboard::Escape, InputKey::ESCAPE},
         {sf::Keyboard::A, InputKey::SWITCH_LIB},
         {sf::Keyboard::E, InputKey::SWITCH_GAME},
-        {sf::Keyboard::A, InputKey::KEY_A},
         {sf::Keyboard::B, InputKey::KEY_B},
         {sf::Keyboard::C, InputKey::KEY_C},
         {sf::Keyboard::D, InputKey::KEY_D},
-        {sf::Keyboard::E, InputKey::KEY_E},
         {sf::Keyboard::F, InputKey::KEY_F},
         {sf::Keyboard::G, InputKey::KEY_G},
         {sf::Keyboard::H, InputKey::KEY_H},
@@ -45,7 +43,6 @@ namespace Arcade {
         {sf::Keyboard::N, InputKey::KEY_N},
         {sf::Keyboard::O, InputKey::KEY_O},
         {sf::Keyboard::P, InputKey::KEY_P},
-        {sf::Keyboard::Q, InputKey::KEY_Q},
         {sf::Keyboard::R, InputKey::KEY_R},
         {sf::Keyboard::S, InputKey::KEY_S},
         {sf::Keyboard::T, InputKey::KEY_T},
@@ -55,6 +52,7 @@ namespace Arcade {
         {sf::Keyboard::X, InputKey::KEY_X},
         {sf::Keyboard::Y, InputKey::KEY_Y},
         {sf::Keyboard::Z, InputKey::KEY_Z},
+        {sf::Keyboard::Unknown, InputKey::NONE}
     };
 
     class LibSFML : public IGraphicLib {

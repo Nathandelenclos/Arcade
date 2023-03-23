@@ -32,10 +32,15 @@ namespace Arcade {
      */
     Core::Core(
         const std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>>& graphicLibsLoader,
-        const std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>>& gameLibsLoader)
+        const std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>>& gameLibsLoader,
+        Arcade::StringVectorPtr libs,
+        Arcade::StringVectorPtr games)
     {
         _gamesLibs = std::make_shared<std::vector<Arcade::IGameLibPtr>>();
         _graphicLibs = std::make_shared<std::vector<Arcade::IGraphicLibPtr>>();
+        _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
+        _libsName = std::move(libs);
+        _gamesName = std::move(games);
         _currentGame = 0;
         _currentLib = 0;
         _isRunning = true;
@@ -148,7 +153,7 @@ namespace Arcade {
     void Core::startGraphic()
     {
         getCurrentGraphicLib()->setWindow(_windowsParameter);
-        //getCurrentGraphicLib()->loadObjects(_gameObjects);
+        getCurrentGraphicLib()->loadObjects(_gameObjects);
         getCurrentGraphicLib()->openWindow();
     }
 
@@ -199,5 +204,97 @@ namespace Arcade {
         for (auto &lib : *gameLibs) {
             addGameLib(lib->getGameInstance());
         }
+    }
+
+    /**
+     * @brief Create the main menu
+     * @param libsName - the graphic libraries name
+     * @param gamesName - the game libraries name
+     */
+    void Core::createMainMenu(const StringVectorPtr& libsName, const StringVectorPtr& gamesName)
+    {
+        pos_t basePos = {10, 10};
+        int i = 0;
+        for (const auto& lib: *libsName) {
+            Arcade::ButtonPtr s(new Arcade::Button(lib, {0, 0, 240, 20}, basePos, {255, 255, 255, 255},
+                                                   i == 0));
+            s->setGroup(Arcade::ButtonGroup::LIB);
+            s->setId(i);
+            _gameObjects->push_back(s);
+            _gameObjects->push_back(s->getText());
+            basePos.y += 30;
+            i++;
+        }
+        i = 0;
+        basePos = {300, 10};
+        for (const auto& game: *gamesName) {
+            Arcade::ButtonPtr s(new Arcade::Button(game, {0, 0, 240, 20}, basePos, {255, 255, 255, 255},
+                                                   i == 0));
+            s->setGroup(Arcade::ButtonGroup::GAME);
+            s->setId(i);
+            _gameObjects->push_back(s);
+            _gameObjects->push_back(s->getText());
+            basePos.y += 30;
+            i++;
+        }
+    }
+
+    /**
+     * @brief Create the game menu
+     */
+    void Core::logicalMenu()
+    {
+        size_t selectedIdLib = 0;
+        size_t selectedIdGame = 0;
+        for (const auto &obj: *_gameObjects) {
+            if (obj->getType() == ObjectType::ENTITY) {
+                ButtonPtr button = std::dynamic_pointer_cast<Button>(obj);
+                if (getCurrentGraphicLib()->getCurrentKey() ==
+                    InputKey::SWITCH_LIB
+                    && button->getGroup() == ButtonGroup::LIB) {
+                    if (button->isSelected()) {
+                        button->setSelected(false);
+                        selectedIdLib = button->getId();
+                    }
+                }
+                if (getCurrentGraphicLib()->getCurrentKey() ==
+                    InputKey::SWITCH_GAME
+                    && button->getGroup() == ButtonGroup::GAME) {
+                    if (button->isSelected()) {
+                        button->setSelected(false);
+                        selectedIdGame = button->getId();
+                    }
+                }
+            }
+        }
+        if (selectedIdLib == _graphicLibs->size() - 1)
+            selectedIdLib = 0;
+        else
+            selectedIdLib++;
+        if (selectedIdGame == _gamesLibs->size() - 1)
+            selectedIdGame = 0;
+        else
+            selectedIdGame++;
+        for (const auto &obj: *_gameObjects) {
+            if (obj->getType() == ObjectType::ENTITY) {
+                ButtonPtr button = std::dynamic_pointer_cast<Button>(obj);
+                if (getCurrentGraphicLib()->getCurrentKey() ==
+                    InputKey::SWITCH_LIB
+                    && button->getGroup() == ButtonGroup::LIB) {
+                    if (button->getId() == selectedIdLib) {
+                        button->setSelected(true);
+                    }
+                }
+                if (getCurrentGraphicLib()->getCurrentKey() ==
+                    InputKey::SWITCH_GAME
+                    && button->getGroup() == ButtonGroup::GAME) {
+                    if (button->getId() == selectedIdGame) {
+                        button->setSelected(true);
+                    }
+                }
+            }
+        }
+        getCurrentGraphicLib()->loadObjects(_gameObjects);
+
     }
 }

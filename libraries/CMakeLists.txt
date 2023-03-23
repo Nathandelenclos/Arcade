@@ -98,3 +98,5 @@ target_sources(
         Games/Pacman/Pacman.cpp
         Games/Pacman/Pacman.hpp
 )
+
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)

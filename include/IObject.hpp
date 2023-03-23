@@ -14,15 +14,15 @@
 
 namespace Arcade {
     typedef struct {
-        size_t x;
-        size_t y;
+        float x;
+        float y;
     } pos_t;
 
     typedef struct {
-        int x;
-        int y;
-        int width;
-        int height;
+        float x;
+        float y;
+        float width;
+        float height;
     } rect_t;
 
     typedef struct {
@@ -64,6 +64,7 @@ namespace Arcade {
             virtual bool isDisplayed() = 0;
             virtual ObjectType getType() = 0;
             virtual std::string &getSprite() = 0;
+            virtual color_t getColor() = 0;
             virtual rect_t getRect() = 0;
 
     };

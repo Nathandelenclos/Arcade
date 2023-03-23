@@ -19,7 +19,17 @@ namespace Arcade {
 
         sf::Drawable *Sprite::getDrawable()
         {
+            if (_sprite.getTexture() == nullptr)
+                return &_rectangle;
             return &_sprite;
+        }
+
+        Sprite::Sprite(color_t color, sf::IntRect rect, pos_t pos)
+        {
+            sf::RectangleShape rectangle(sf::Vector2f(rect.width, rect.height));
+            rectangle.setFillColor(sf::Color(color.r, color.g, color.b, color.a));
+            rectangle.setPosition(pos.x, pos.y);
+            _rectangle = rectangle;
         }
 
         Sprite::~Sprite() = default;

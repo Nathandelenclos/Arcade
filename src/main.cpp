@@ -5,13 +5,17 @@
 ** main.cpp
 */
 
-#include "IGraphicLib.hpp"
-#include "IGameLib.hpp"
-#include "DlLoader.hpp"
 #include "Types.hpp"
 #include "Core.hpp"
 #include "Utils.hpp"
 
+/**
+ * @brief Main function
+ *
+ * @param ac {int} - number of arguments
+ * @param av {char**} - arguments
+ * @return int - EXIT_SUCCESS or EXIT_FAILURE
+ */
 int main(int ac, char **av)
 {
     std::shared_ptr<Arcade::ErrorHandling> error(new Arcade::ErrorHandling());
@@ -19,20 +23,23 @@ int main(int ac, char **av)
     error->getLibFiles();
     error->loadLibs();
     error->loadGames();
-    std::shared_ptr<Arcade::Core> core(new Arcade::Core(error->getGraphicLibsLoader(), error->getGameLibsLoader()));
+    std::shared_ptr<Arcade::Core> core(new Arcade::Core(error->getGraphicLibsLoader(), error->getGameLibsLoader(),
+                                                        error->getLibs(), error->getGames()));
     core->setCurrentGraphicLib(1);
+    core->createMainMenu(error->getLibs(), error->getGames());
     core->startGraphic();
     while (core->isRunning()) {
+        core->logicalMenu();
         core->getCurrentGraphicLib()->display();
         if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::ESCAPE)
             core->setRunning(false);
-        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_LIB)
+/*        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_LIB)
             core->switchGraphicLib();
         if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_GAME)
-            core->switchGameLib();
+            core->switchGameLib();*/
         //core->getCurrentGameLib()->setCurrentInputKey(core->getCurrentGraphicLib()->getCurrentKey());
         //core->getCurrentGameLib()->updateGameObjects();
     }
     core->stopGraphic();
-    return (0);
+    return EXIT_SUCCESS;
 }

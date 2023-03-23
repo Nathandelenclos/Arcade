@@ -66,9 +66,11 @@ namespace Arcade {
                 _window.close();
                 _key = InputKey::ESCAPE;
             }
-            for (int i = 0; matching[i].inputKey != InputKey::SWITCH_GAME; ++i) {
-                if (sf::Keyboard::isKeyPressed(matching[i].key))
-                    _key = matching[i].inputKey;
+            if (_event.type == sf::Event::KeyPressed) {
+                for (int i = 0; matching[i].inputKey != InputKey::NONE; ++i) {
+                    if (_event.key.code == matching[i].key)
+                        _key = matching[i].inputKey;
+                }
             }
         }
     }
@@ -140,7 +142,8 @@ namespace Arcade {
             t->getText(),
             t->getFont(),
             sf::Color(t->getColor().r, t->getColor().g, t->getColor().b, t->getColor().a),
-            object->getPos()));
+            object->getPos(),
+            t->getSize()));
         _objects->push_back(text);
     }
 
@@ -151,11 +154,19 @@ namespace Arcade {
     void LibSFML::initSprite(const IObjectPtr& object)
     {
         IEntitiesPtr s = std::dynamic_pointer_cast<IEntities>(object);
-        sfml::SpritePtr sprite( new sfml::Sprite(
-            s->getSprite(),
-            sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
-            object->getPos()));
-        _objects->push_back(sprite);
+        if (s->getSprite().empty()) {
+            sfml::SpritePtr sprite( new sfml::Sprite(
+                s->getColor(),
+                sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
+                s->getPos()));
+            _objects->push_back(sprite);
+        } else {
+            sfml::SpritePtr sprite( new sfml::Sprite(
+                s->getSprite(),
+                sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
+                object->getPos()));
+            _objects->push_back(sprite);
+        }
     }
 
     /**
