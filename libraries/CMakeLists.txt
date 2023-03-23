@@ -9,7 +9,7 @@ add_library(arcade_sfml SHARED)
 find_package(SDL2 REQUIRED)
 add_library(arcade_sdl2 SHARED)
 
-add_library(arcade_ncurses SHARED)
+add_library(arcade_ncurses SHARED Graphical/NCURSES/ncurses.hpp Graphical/NCURSES/ncurses.cpp)
 
 add_library(arcade_snake SHARED)
 

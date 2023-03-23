@@ -189,7 +189,7 @@ namespace Arcade {
 
     /**
      * @brief Get graphical instances
-     * @param graphicLibs
+     * @param graphicLibs - the graphic libraries
      */
     void Core::getGraphicalInstances(
         const std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>> &graphicLibs)
@@ -201,7 +201,7 @@ namespace Arcade {
 
     /**
      * @brief Get game instances
-     * @param gameLibs
+     * @param gameLibs - the game libraries
      */
     void Core::getGameInstances(
         const std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>> &gameLibs)
@@ -314,16 +314,28 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief Get the current game library
+     * @return the current game library
+     */
     Arcade::IObjectVector Core::getGameObjects() const
     {
         return _gameObjects;
     }
 
+    /**
+     * @brief Get the current game library
+     * @return the current game library
+     */
     enum CoreState Core::getState() const
     {
         return _state;
     }
 
+    /**
+     * @brief Set the current game library
+     * @param state - the new state
+     */
     void Core::setState(enum CoreState state)
     {
         if (state == Arcade::CoreState::MENU) {

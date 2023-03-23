@@ -9,16 +9,26 @@
 
 namespace Arcade {
 
+    /**
+     * @brief Construct a new LibSDL:: LibSDL object
+     */
     LibSDL::LibSDL()
     {
         std::cout << "constructor LibSDL" << std::endl;
     }
 
+    /**
+     * @brief Destroy the LibSDL:: LibSDL object
+     */
     LibSDL::~LibSDL()
     {
         std::cout << "destructor LibSDL" << std::endl;
     }
 
+    /**
+     * @brief Init the window
+     * @param gameObjects IObjectVector - The game objects
+     */
     void LibSDL::loadObjects(IObjectVector gameObjects)
     {
 
@@ -34,6 +44,10 @@ namespace Arcade {
 
     }
 
+    /**
+     * @brief Get the current window
+     * @return windowsParameter_t - The current window
+     */
     windowsParameter_t LibSDL::getWindow()
     {
         return (_windowsParameter);

@@ -12,11 +12,13 @@ namespace Arcade {
     LibNCURSES::LibNCURSES()
     {
         std::cout << "constructor LibNCURSES" << std::endl;
+        _window = std::make_shared<ncurses::Window>();
     }
 
     LibNCURSES::~LibNCURSES()
     {
         std::cout << "destructor LibNCURSES" << std::endl;
+
     }
 
     void LibNCURSES::loadObjects(IObjectVector gameObjects)
@@ -26,12 +28,12 @@ namespace Arcade {
 
     InputKey LibNCURSES::getCurrentKey()
     {
-        return InputKey::PAUSE;
+        return _currentKey;
     }
 
     void LibNCURSES::display()
     {
-
+        _window->display(_map);
     }
 
     windowsParameter_t LibNCURSES::getWindow()
@@ -39,14 +41,14 @@ namespace Arcade {
         return (_windowsParameter);
     }
 
-    void LibNCURSES::setWindow(windowsParameter_t windows_parameter)
+    void LibNCURSES::setWindow(windowsParameter_t windowsParameter)
     {
-
+        _windowsParameter = windowsParameter;
     }
 
     void LibNCURSES::openWindow()
     {
-
+        _window->open();
     }
 
     void LibNCURSES::closeWindow()
