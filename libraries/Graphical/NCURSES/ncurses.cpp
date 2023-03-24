@@ -9,10 +9,7 @@
 
 namespace Arcade {
     namespace ncurses {
-        Window::Window()
-        {
-
-        }
+        Window::Window() = default;
 
         Window::~Window() = default;
 
@@ -57,27 +54,27 @@ namespace Arcade {
             return event;
         }
 
-        void Window::displayChar(const std::shared_ptr<std::vector<char_t>> &map)
+        void Window::displayChar(const std::shared_ptr<std::vector<std::shared_ptr<char_t>>> &map)
         {
-            clear();
-            for (auto &i: *map) {
-                init_color(1, i.color.r, i.color.g, i.color.b);
+            for (const std::shared_ptr<char_t>& i: *map) {
+                init_color(1, i->color.r, i->color.g, i->color.b);
                 init_pair(1, 1, 1);
                 attron(COLOR_PAIR(1));
-                mvprintw(i.x, i.y, "%c", i.chara);
+                mvprintw(i->x, i->y, "%c", i->chara);
                 attroff(COLOR_PAIR(1));
             }
-            refresh();
         }
 
         void Window::displayText(
-            const std::shared_ptr<std::vector<std::string>> &map)
+            const std::shared_ptr<std::vector<std::shared_ptr<text_t>>> &map)
         {
-            clear();
             for (auto &i: *map) {
-                printw("%s", i.c_str());
+                init_color(1, i->color.r, i->color.g, i->color.b);
+                init_pair(1, 1, COLOR_BLACK);
+                attron(COLOR_PAIR(1));
+                mvprintw(i->x, i->y, "%s", i->text.c_str());
+                attroff(COLOR_PAIR(1));
             }
-            refresh();
         }
     }
 }

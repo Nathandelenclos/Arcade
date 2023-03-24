@@ -113,7 +113,9 @@ namespace Arcade {
      */
     void Core::setCurrentGraphicLib(int index)
     {
+        startGraphic();
         _currentLib = index;
+        startGraphic();
     }
 
     /**
@@ -310,6 +312,7 @@ namespace Arcade {
                 _tempGame)->getText()->getText();
             _state = Arcade::CoreState::GAME;
             _gameObjects = getCurrentGameLib()->getGameObjects();
+            setCurrentGraphicLib(_tempLib);
             std::cout << "Starting " << gameName << " with " << libName << std::endl;
         }
     }

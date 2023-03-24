@@ -66,12 +66,19 @@ namespace Arcade {
             void openWindow() override;
             void closeWindow() override;
             bool isOpen() override;
+            void eventListener();
+            void initEntity(const IObjectPtr& object);
 
         protected:
             windowsParameter_t _windowsParameter;
             ncurses::WindowPtr _window;
             InputKey _currentKey;
-            std::shared_ptr<std::vector<std::string>> _map;
+            std::shared_ptr<std::vector<std::shared_ptr<ncurses::char_t>>> _map;
         private:
     };
+
+    typedef struct {
+        ObjectType type;
+        void (LibNCURSES::*init)(const IObjectPtr& object);
+    } initType_t;
 }

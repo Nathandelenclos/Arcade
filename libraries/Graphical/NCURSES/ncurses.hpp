@@ -23,20 +23,27 @@ namespace Arcade {
             int y;
         } char_t;
 
+        typedef struct {
+            color_t color;
+            std::string text;
+            int x;
+            int y;
+        } text_t;
+
         class Window {
             public:
                 Window();
                 ~Window();
                 int getKey();
-                void displayChar(const std::shared_ptr<std::vector<char_t>>& map);
-                void displayText(const std::shared_ptr<std::vector<std::string>>& map);
+                void displayChar(const std::shared_ptr<std::vector<std::shared_ptr<char_t>>> &map);
+                void displayText(const std::shared_ptr<std::vector<std::shared_ptr<text_t>>>& map);
                 void open();
                 void close();
                 bool isOpen();
                 void clearAll();
                 int poolEvent();
             protected:
-                WINDOW *_window;
+                WINDOW *_window{};
 
             private:
         };
