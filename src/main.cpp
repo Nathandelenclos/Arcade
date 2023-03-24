@@ -8,6 +8,7 @@
 #include "Types.hpp"
 #include "Core.hpp"
 #include "Utils.hpp"
+#include "DlLoader.hpp"
 
 /**
  * @brief Main function
@@ -21,11 +22,7 @@ int main(int ac, char **av)
     std::shared_ptr<Arcade::ErrorHandling> error(new Arcade::ErrorHandling());
     error->checkForValidArg(ac, av);
     error->getLibFiles();
-    error->loadLibs();
-    error->loadGames();
-    std::shared_ptr<Arcade::Core> core(new Arcade::Core(error->getGraphicLibsLoader(), error->getGameLibsLoader(),
-                                                        error->getLibs(), error->getGames()));
-    core->setCurrentGraphicLib(1);
+    std::shared_ptr<Arcade::Core> core = std::make_shared<Arcade::Core>(av[1], error->getLibs(), error->getGames());
     core->createMainMenu(error->getLibs(), error->getGames());
     core->startGraphic();
     while (core->isRunning()) {

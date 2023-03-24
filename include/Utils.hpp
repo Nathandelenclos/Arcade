@@ -26,17 +26,11 @@ namespace Arcade {
             ~ErrorHandling();
             void checkForValidArg(int ac, char **av);
             void getLibFiles();
-            void loadLibs();
-            void loadGames();
-            std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>> getGraphicLibsLoader() const;
-            std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>> getGameLibsLoader() const;
             std::shared_ptr<std::vector<std::string>> getLibs() const;
             std::shared_ptr<std::vector<std::string>> getGames() const;
         private:
             std::shared_ptr<std::vector<std::string>> _games;
             std::shared_ptr<std::vector<std::string>> _libs;
-            std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>> _graphicLibsLoader;
-            std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>> _gameLibsLoader;
     };
 
     class Utils {

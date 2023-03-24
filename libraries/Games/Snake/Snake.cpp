@@ -12,6 +12,10 @@ namespace Arcade {
     Snake::Snake()
     {
         std::cout << "Snake constructor" << std::endl;
+        _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
+        _currentKey = InputKey::NONE;
+        _isEnded = false;
+        _score = 0;
     }
 
     Snake::~Snake()
@@ -26,7 +30,7 @@ namespace Arcade {
 
     IObjectVector Snake::getGameObjects()
     {
-        return (_objects);
+        return _gameObjects;
     }
 
     void Snake::updateGameObjects()
@@ -36,17 +40,17 @@ namespace Arcade {
 
     bool Snake::isEnded()
     {
-        return false;
+        return _isEnded;
     }
 
     void Snake::setCurrentInputKey(InputKey key)
     {
-
+        _currentKey = key;
     }
 
     int Snake::getScore()
     {
-        return 0;
+        return _score;
     }
 
     extern "C" IGameLib *constructor_game()
