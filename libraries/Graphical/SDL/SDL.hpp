@@ -120,9 +120,8 @@ namespace Arcade {
             static TexturePtr loadFromSurface(const RendererPtr& renderer, const SurfacePtr &surface);
             static TexturePtr loadFromFile(const RendererPtr &renderer, std::string &filename);
             SDL_Texture *getTexture() const;
-            pos_t getPos() const;
-            void setPos(pos_t pos);
-            int getSize() const;
+            rect_t getRect() const;
+            void setRect(rect_t rect);
             color_t getColor() const;
         protected:
             SDL_Texture *_texture;

@@ -76,7 +76,7 @@ namespace Arcade {
         this->_renderer->clear();
         int i = 0;
         for (sdl::TexturePtr &texture : *this->_textures) {
-            this->_renderer->draw(texture, {texture->getPos().x, texture->getPos().y});
+            this->_renderer->draw(texture, texture->getRect());
         }
         this->_renderer->present();
     }
@@ -112,7 +112,7 @@ namespace Arcade {
         ITextPtr text = std::dynamic_pointer_cast<IText>(object);
         color_t color = {255, 255, 255, 255};
 
-        sdl::TexturePtr texture = sdl::Texture::loadFromText(_renderer, text->getText(), text->getFont(), color);
+        sdl::TexturePtr texture = sdl::Texture::loadFromText(_renderer, text->getText(), text->getFont(), color, text->getSize(), text->getPos());
         this->_textures->push_back(texture);
     }
 

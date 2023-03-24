@@ -41,7 +41,7 @@ namespace Arcade {
                 std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
                 exit(84);
             }
-            texture->setPos({0, 0});
+            texture->setRect({0, 0, 0, 0});
             return texture;
         }
 
@@ -58,7 +58,7 @@ namespace Arcade {
                 std::cout << "IMG_LoadTexture Error: " << IMG_GetError() << " on " << filename << std::endl;
                 exit(84);
             }
-            texture->setPos({0, 0});
+            texture->setRect({0, 0, 0, 0});
             return texture;
         }
 
@@ -73,7 +73,7 @@ namespace Arcade {
         TexturePtr Texture::loadFromText(const RendererPtr& renderer, const std::string &text, const std::string &filename, color_t color) {
             SurfacePtr surface = Surface::loadFromFont(filename, text, color);
             TexturePtr texture = Texture::loadFromSurface(renderer, surface);
-            texture->setPos({0, 0});
+            texture->setRect({0, 0, static_cast<size_t>((16 * 0.60) * text.size()), static_cast<size_t>(16 * 1.2)});
             return texture;
         }
 
@@ -89,6 +89,7 @@ namespace Arcade {
         TexturePtr Texture::loadFromText(const RendererPtr& renderer, const std::string &text, const std::string &filename, color_t color, int size) {
             SurfacePtr surface = Surface::loadFromFont(filename, text, size, color);
             TexturePtr texture = Texture::loadFromSurface(renderer, surface);
+            texture->setRect({0, 0, static_cast<size_t>((size * 0.60) * text.size()), static_cast<size_t>(size * 1.2)});
             return texture;
         }
 
@@ -98,7 +99,7 @@ namespace Arcade {
         {
             SurfacePtr surface = Surface::loadFromFont(filename, text, size, color);
             TexturePtr texture = Texture::loadFromSurface(renderer, surface);
-            texture->setPos(pos);
+            texture->setRect({pos.x, pos.y, static_cast<size_t>((size * 0.60) * text.size()), static_cast<size_t>(size * 1.2)});
             return texture;
         }
 
@@ -114,5 +115,16 @@ namespace Arcade {
         {
             return _color;
         }
+
+        void Texture::setRect(rect_t rect)
+        {
+            _rect = rect;
+        }
+
+        rect_t Texture::getRect() const
+        {
+            return _rect;
+        }
+
     }
 }
