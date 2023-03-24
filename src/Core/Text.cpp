@@ -185,7 +185,7 @@ namespace Arcade {
      *
      * @return int - the size of the text
      */
-    int Text::getSize()
+    float Text::getSize()
     {
         return _size;
     }
@@ -245,7 +245,7 @@ namespace Arcade {
      *
      * @param size - the new size
      */
-    void Text::setSize(int size)
+    void Text::setSize(float size)
     {
         _size = size;
     }

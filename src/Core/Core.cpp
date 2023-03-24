@@ -271,6 +271,7 @@ namespace Arcade {
                 _tempGameIndex)->getText()->getText();
             _state = Arcade::CoreState::GAME;
             makeGameInstance(_tempGameIndex);
+            makeLibInstance(_tempLibIndex);
             _gameObjects = getCurrentGameLib()->getGameObjects();
             std::cout << "Starting " << gameName << " with " << libName
                 << std::endl;
