@@ -7,6 +7,7 @@ find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
 add_library(arcade_sfml SHARED)
 
 find_package(SDL2 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 add_library(arcade_sdl2 SHARED)
 
 add_library(arcade_ncurses SHARED)
@@ -50,7 +51,7 @@ target_sources(
         Graphical/SDL/SDL.cpp Graphical/SDL/SDL.hpp
 )
 
-target_link_libraries(arcade_sdl2 SDL2)
+target_link_libraries(arcade_sdl2 SDL2 SDL2_ttf SDL2_image)
 
 # libNCURSES
 

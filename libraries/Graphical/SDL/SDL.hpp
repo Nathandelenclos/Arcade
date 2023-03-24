@@ -46,34 +46,47 @@ namespace Arcade {
             private:
         };
 
+        class Surface;
+        typedef std::shared_ptr<sdl::Surface> SurfacePtr;
+        typedef std::vector<SurfacePtr> SurfaceVector;
+        typedef std::shared_ptr<SurfaceVector> SurfaceVectorPtr;
+
         class Surface {
             public:
                 Surface();
                 ~Surface();
                 void destroy();
-                static Surface loadFromFile(std::string &filename);
+                static SurfacePtr loadFromFile(std::string &filename);
+                static SurfacePtr loadFromFont(const std::string &filename, const std::string &str);
                 SDL_Surface *getSurface() const;
             protected:
                 SDL_Surface *_surface;
             private:
         };
-
+        class Texture;
+        typedef std::shared_ptr<sdl::Texture> TexturePtr;
+        typedef std::vector<TexturePtr> TextureVector;
+        typedef std::shared_ptr<TextureVector> TextureVectorPtr;
         class Texture {
             public:
                 Texture();
                 ~Texture();
                 void destroy();
-                static Texture loadFromFile(std::string &filename, SDL_Renderer *renderer);
-                static Texture loadFromSurface(Surface *surface, SDL_Renderer *renderer);
-                static Texture loadFromText(std::string &text, std::string &filename, color_t color, SDL_Renderer *renderer);
-                static Texture loadFromText(std::string &text, std::string &filename, color_t color, int size, SDL_Renderer *renderer);
-                static Texture loadFromText(std::string &text, std::string &filename, color_t color, int size, int style, SDL_Renderer *renderer);
+                static TexturePtr loadFromFile(std::string &filename, SDL_Renderer *renderer);
+                static TexturePtr loadFromSurface(Surface *surface, SDL_Renderer *renderer);
+                static TexturePtr loadFromText(const std::string &text, const std::string &filename, color_t color, SDL_Renderer *renderer);
+                static TexturePtr loadFromText(std::string &text, std::string &filename, color_t color, int size, SDL_Renderer *renderer);
+                static TexturePtr loadFromText(std::string &text, std::string &filename, color_t color, int size, int style, SDL_Renderer *renderer);
                 SDL_Texture *getTexture() const;
             protected:
                 SDL_Texture *_texture;
             private:
         };
 
+        class Renderer;
+        typedef std::shared_ptr<sdl::Renderer> RendererPtr;
+        typedef std::vector<RendererPtr> RendererVector;
+        typedef std::shared_ptr<RendererVector> RendererVectorPtr;
         class Renderer {
             public:
                 Renderer();

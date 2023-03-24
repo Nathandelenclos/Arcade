@@ -23,8 +23,8 @@ namespace Arcade {
             pos_t getPos() override;
             bool isDisplayed() override;
             ObjectType getType() override;
-            std::string & getText() override;
-            std::string & getFont() override;
+            std::string &getText() override;
+            std::string &getFont() override;
             int getSize() override;
             color_t getColor() override;
             void setPos(pos_t pos);

@@ -10,6 +10,11 @@
 namespace Arcade {
     namespace sdl {
         Window::Window() {
+            SDL_Init(SDL_INIT_VIDEO);
+            SDL_Init(SDL_INIT_EVENTS);
+            SDL_Init(SDL_INIT_AUDIO);
+            SDL_Init(SDL_INIT_TIMER);
+            TTF_Init();
         }
 
         /**
@@ -108,7 +113,7 @@ namespace Arcade {
         }
 
         bool Window::isOpened() const {
-            return this->_isOpened
+            return this->_isOpened;
         }
 
         void Window::setOpened(bool isOpened) {
@@ -143,11 +148,11 @@ namespace Arcade {
          * @param filename Surface filename
          * @return Surface Surface
          */
-        Surface Surface::loadFromFile(std::string &filename) {
-            Surface surface;
-            surface._surface = IMG_Load(filename.c_str());
-            if (surface._surface == nullptr) {
-                std::cout << "IMG_Load Error: " << IMG_GetError() << std::endl;
+        SurfacePtr Surface::loadFromFile(std::string &filename) {
+            SurfacePtr surface = std::make_shared<Surface>();
+            surface->_surface = IMG_Load(filename.c_str());
+            if (surface->_surface == nullptr) {
+                std::cout << "IMG_Load Error: " << IMG_GetError() << " on " << filename << std::endl;
                 exit(84);
             }
             return surface;
@@ -159,6 +164,18 @@ namespace Arcade {
          */
         SDL_Surface *Surface::getSurface() const {
             return this->_surface;
+        }
+
+        SurfacePtr Surface::loadFromFont(const std::string &filename, const std::string &str) {
+            SurfacePtr surface = std::make_shared<Surface>();
+            TTF_Font* font = TTF_OpenFont(filename.c_str(), 24);
+            SDL_Color color = {255, 255, 255};
+            surface->_surface = TTF_RenderText_Solid(font, str.c_str(), color);
+            if (surface->_surface == nullptr) {
+                std::cout << "Font Load Error " << TTF_GetError << " on " << filename << std::endl;
+                exit(84);
+            }
+            return surface;
         }
 
         /**
@@ -185,10 +202,10 @@ namespace Arcade {
          * @param renderer Renderer
          * @return Texture Texture
          */
-        Texture Texture::loadFromSurface(Surface *surface, SDL_Renderer *renderer) {
-            Texture texture;
-            texture._texture = SDL_CreateTextureFromSurface(renderer, surface->getSurface());
-            if (texture._texture == nullptr) {
+        TexturePtr Texture::loadFromSurface(Surface *surface, SDL_Renderer *renderer) {
+            TexturePtr texture = std::make_shared<Texture>();
+            texture->_texture = SDL_CreateTextureFromSurface(renderer, surface->getSurface());
+            if (texture->_texture == nullptr) {
                 std::cout << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
                 exit(84);
             }
@@ -201,11 +218,11 @@ namespace Arcade {
          * @param renderer Renderer
          * @return Texture Texture
          */
-        Texture Texture::loadFromFile(std::string &filename, SDL_Renderer *renderer) {
-            Texture texture;
-            texture._texture = IMG_LoadTexture(renderer, filename.c_str());
-            if (texture._texture == nullptr) {
-                std::cout << "IMG_LoadTexture Error: " << IMG_GetError() << std::endl;
+        TexturePtr Texture::loadFromFile(std::string &filename, SDL_Renderer *renderer) {
+            TexturePtr texture = std::make_shared<Texture>();
+            texture->_texture = IMG_LoadTexture(renderer, filename.c_str());
+            if (texture->_texture == nullptr) {
+                std::cout << "IMG_LoadTexture Error: " << IMG_GetError() << " on " << filename << std::endl;
                 exit(84);
             }
             return texture;
@@ -219,13 +236,12 @@ namespace Arcade {
          * @param renderer Renderer
          * @return SDL_Texture Texture
          */
-        Texture Texture::loadFromText(std::string &text, std::string &filename,
+        TexturePtr Texture::loadFromText(const std::string &text, const std::string &filename,
                                       color_t color, SDL_Renderer *renderer) {
-            Texture texture;
-            TTF_Font *font = TTF_OpenFont(filename.c_str(), 24);
-            SDL_Color sdlColor = {color.r, color.g, color.b, color.a};
-            SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), sdlColor);
-            texture._texture = SDL_CreateTextureFromSurface(renderer, surface);
+            TexturePtr texture = std::make_shared<Texture>();
+            std::shared_ptr<sdl::Surface> surface = std::make_shared<sdl::Surface>();
+            surface->loadFromFont(filename, text);
+            texture->_texture = SDL_CreateTextureFromSurface(renderer, surface->getSurface());
             return texture;
         }
 
@@ -238,14 +254,14 @@ namespace Arcade {
          * @param renderer Renderer
          * @return SDL_Texture Texture
          */
-        Texture Texture::loadFromText(std::string &text, std::string &filename,
+        TexturePtr Texture::loadFromText(std::string &text, std::string &filename,
                                       color_t color, int size,
                                       SDL_Renderer *renderer) {
-            Texture texture;
+            TexturePtr texture = std::make_shared<Texture>();
             TTF_Font *font = TTF_OpenFont(filename.c_str(), size);
-            SDL_Color sdlColor = {color.r, color.g, color.b, color.a};
+            SDL_Color sdlColor = {static_cast<Uint8>(color.r), static_cast<Uint8>(color.g), static_cast<Uint8>(color.b), static_cast<Uint8>(color.a)};
             SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), sdlColor);
-            texture._texture = SDL_CreateTextureFromSurface(renderer, surface);
+            texture->_texture = SDL_CreateTextureFromSurface(renderer, surface);
             return texture;
         }
 
@@ -259,15 +275,15 @@ namespace Arcade {
          * @param renderer Renderer
          * @return SDL_Texture Texture
          */
-        Texture Texture::loadFromText(std::string &text, std::string &filename,
+        TexturePtr Texture::loadFromText(std::string &text, std::string &filename,
                                       color_t color, int size, int style,
                                       SDL_Renderer *renderer) {
-            Texture texture;
+            TexturePtr texture = std::make_shared<Texture>();
             TTF_Font *font = TTF_OpenFont(filename.c_str(), size);
-            SDL_Color sdlColor = {color.r, color.g, color.b, color.a};
+            SDL_Color sdlColor = {static_cast<Uint8>(color.r), static_cast<Uint8>(color.g), static_cast<Uint8>(color.b), static_cast<Uint8>(color.a)};
             TTF_SetFontStyle(font, style == 0 ? 0 : (1 << style));
             SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), sdlColor);
-            texture._texture = SDL_CreateTextureFromSurface(renderer, surface);
+            texture->_texture = SDL_CreateTextureFromSurface(renderer, surface);
             return texture;
         }
 

@@ -11,8 +11,9 @@ namespace Arcade {
 
     LibSDL::LibSDL()
     {
+        this->_renderer = std::make_shared<sdl::Renderer>();
+        this->_textures = std::make_shared<std::vector<std::shared_ptr<sdl::Texture>>>();
         std::cout << "constructor LibSDL" << std::endl;
-        this->_objects = IObjectVector();
     }
 
     LibSDL::~LibSDL()
@@ -29,7 +30,6 @@ namespace Arcade {
      */
     void LibSDL::loadObjects(IObjectVector gameObjects)
     {
-        this->_objects = gameObjects;
         initType_t initType[] = {
                 {ObjectType::TEXT, &LibSDL::initText},
                 {ObjectType::ENTITY, &LibSDL::initSprite}
@@ -52,17 +52,17 @@ namespace Arcade {
 
     void LibSDL::eventListener() {
         this->_key = InputKey::NONE;
+        this->_event.pollEvent();
+        std::cout << this->_event.getEvent().type << std::endl;
 
-        if (SDL_PollEvent(&this->_event.getEvent())) {
-            if (this->_event.getEvent().type == SDL_QUIT) {
-                this->closeWindow();
-                this->_key = InputKey::ESCAPE;
-            }
-            if (this->_event.getEvent().type == SDL_KEYDOWN) {
-                for (int i = 0; matching[i].inputKey != InputKey::NONE; ++i) {
-                    if (this->_event.getEvent().key.keysym.sym == matching[i].key)
-                        this->_key = matching[i].inputKey;
-                }
+        if (this->_event.getEvent().type == SDL_QUIT) {
+            this->closeWindow();
+            this->_key = InputKey::ESCAPE;
+        }
+        if (this->_event.getEvent().type == SDL_KEYDOWN) {
+            for (int i = 0; matching[i].inputKey != InputKey::NONE; ++i) {
+                if (this->_event.getEvent().key.keysym.sym == matching[i].key)
+                    this->_key = matching[i].inputKey;
             }
         }
     }
@@ -84,7 +84,8 @@ namespace Arcade {
 
     void LibSDL::openWindow()
     {
-        this->_window.create((std::string &) "Arcade", this->_windowsParameter.width, this->_windowsParameter.height, false);
+        std::string title = "Arcade";
+        this->_window.create(title, this->_windowsParameter.width, this->_windowsParameter.height, false);
     }
 
     void LibSDL::closeWindow()
@@ -100,9 +101,11 @@ namespace Arcade {
     void LibSDL::initText(const IObjectPtr &object) {
         ITextPtr text = std::dynamic_pointer_cast<IText>(object);
         std::shared_ptr<sdl::Texture> texture = std::make_shared<sdl::Texture>();
-        texture->loadFromText((std::string &)text->getText(),
-                              (std::string &)text->getFont(),
-                              text->getColor(), this->_renderer->getRenderer());
+        std::string font = "./assets/fonts/GamePlayed.ttf";
+        std::string str = "assets/fonts/GamePlayed.ttf";
+        color_t color = {255, 255, 255, 255};
+        texture->loadFromText(str, font,
+                              color, this->_renderer->getRenderer());
         this->_textures->push_back(texture);
     }
 
