@@ -8,7 +8,6 @@
 #include "Core.hpp"
 
 #include <utility>
-#include "DlLoader.hpp"
 
 namespace Arcade {
 
@@ -17,36 +16,35 @@ namespace Arcade {
      */
     Core::Core()
     {
-        _gamesLibs = std::make_shared<std::vector<Arcade::IGameLibPtr>>();
-        _graphicLibs = std::make_shared<std::vector<Arcade::IGraphicLibPtr>>();
-        _currentGame = 0;
-        _currentLib = 0;
+        _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
+        _menuObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
+        _currentGameIndex = 0;
+        _currentLibIndex = 0;
         _isRunning = true;
-        _windowsParameter =  {800, 600, false};
+        _windowsParameter = {800, 600, false};
+        _state = Arcade::CoreState::MENU;
     }
 
-    /**
-     * @brief Construct a new Core:: Core object
-     * @param graphicLibsLoader - the graphic libraries loader
-     * @param gameLibsLoader - the game libraries loader
-     */
-    Core::Core(
-        const std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>>& graphicLibsLoader,
-        const std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>>& gameLibsLoader,
-        Arcade::StringVectorPtr libs,
-        Arcade::StringVectorPtr games)
+    Core::Core(const std::string &lib, const Arcade::StringVectorPtr &libs,
+        const Arcade::StringVectorPtr &games)
     {
-        _gamesLibs = std::make_shared<std::vector<Arcade::IGameLibPtr>>();
-        _graphicLibs = std::make_shared<std::vector<Arcade::IGraphicLibPtr>>();
+        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(lib);
+        _libsName = libs;
+        _gamesName = games;
+        _currentGameIndex = 0;
+        _currentLibIndex = 0;
+        for (std::string &l: *_libsName) {
+            if (l == lib) {
+                break;
+            }
+            _currentLibIndex++;
+        }
+        _currentLib = _libLoader->getGraphInstance();
         _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
-        _libsName = std::move(libs);
-        _gamesName = std::move(games);
-        _currentGame = 0;
-        _currentLib = 0;
+        _menuObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
         _isRunning = true;
-        _windowsParameter =  {800, 600, false};
-        getGraphicalInstances(graphicLibsLoader);
-        getGameInstances(gameLibsLoader);
+        _windowsParameter = {800, 600, false};
+        _state = Arcade::CoreState::MENU;
     }
 
     /**
@@ -55,46 +53,11 @@ namespace Arcade {
     Core::~Core() = default;
 
     /**
-     * @brief Add a graphic library to the core
-     * @param lib - the library to add
-     */
-    void Core::addGraphicLib(const Arcade::IGraphicLibPtr& lib)
-    {
-        _graphicLibs->push_back(lib);
-    }
-
-    /**
-     * @brief Add a game library to the core
-     * @param lib - the library to add
-     */
-    void Core::addGameLib(const IGameLibPtr &lib)
-    {
-        _gamesLibs->push_back(lib);
-    }
-
-    /**
-     * @brief Get the graphic libraries
-     */
-    std::shared_ptr<std::vector<Arcade::IGraphicLibPtr>>
-    Core::getGraphicLibs() const
-    {
-        return _graphicLibs;
-    }
-
-    /**
-     * @brief Get the game libraries
-     */
-    std::shared_ptr<std::vector<Arcade::IGameLibPtr>> Core::getGameLibs() const
-    {
-        return _gamesLibs;
-    }
-
-    /**
      * @brief Get the current graphic library
      */
     IGraphicLibPtr Core::getCurrentGraphicLib() const
     {
-        return _graphicLibs->at(_currentLib);
+        return _currentLib;
     }
 
     /**
@@ -102,7 +65,7 @@ namespace Arcade {
      */
     IGameLibPtr Core::getCurrentGameLib() const
     {
-        return _gamesLibs->at(_currentGame);
+        return _currentGame;
     }
 
     /**
@@ -111,7 +74,15 @@ namespace Arcade {
      */
     void Core::setCurrentGraphicLib(int index)
     {
-        _currentLib = index;
+        stopGraphic();
+        _currentLibIndex = index;
+        if (_currentLibIndex == _libsName->size()) {
+            _currentLibIndex = 0;
+        }
+        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
+            _libsName->at(_currentLibIndex));
+        _currentLib = _libLoader->getGraphInstance();
+        startGraphic();
     }
 
     /**
@@ -120,7 +91,14 @@ namespace Arcade {
      */
     void Core::setCurrentGameLib(int index)
     {
-        _currentGame = index;
+        _currentGameIndex = index;
+        if (_currentGameIndex == _gamesName->size()) {
+            _currentGameIndex = 0;
+        }
+        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(
+            _gamesName->at(_currentGameIndex));
+        _currentGame = _gameLoader->getGameInstance();
+        setState(Arcade::CoreState::GAME);
     }
 
     /**
@@ -129,10 +107,13 @@ namespace Arcade {
     void Core::switchGraphicLib()
     {
         stopGraphic();
-        if (_currentLib == _graphicLibs->size() - 1)
-            _currentLib = 0;
-        else
-            _currentLib++;
+        _currentLibIndex++;
+        if (_currentLibIndex == _libsName->size()) {
+            _currentLibIndex = 0;
+        }
+        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
+            _libsName->at(_currentLibIndex));
+        _currentLib = _libLoader->getGraphInstance();
         startGraphic();
     }
 
@@ -141,10 +122,14 @@ namespace Arcade {
      */
     void Core::switchGameLib()
     {
-        if (_currentGame == _gamesLibs->size() - 1)
-            _currentGame = 0;
-        else
-            _currentGame++;
+        _currentGameIndex++;
+        if (_currentGameIndex == _gamesName->size()) {
+            _currentGameIndex = 0;
+        }
+        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(
+            _gamesName->at(_currentGameIndex));
+        _currentGame = _gameLoader->getGameInstance();
+        setState(Arcade::CoreState::GAME);
     }
 
     /**
@@ -183,60 +168,50 @@ namespace Arcade {
     }
 
     /**
-     * @brief Get graphical instances
-     * @param graphicLibs
-     */
-    void Core::getGraphicalInstances(
-        const std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>>& graphicLibs)
-    {
-        for (auto &lib : *graphicLibs) {
-            addGraphicLib(lib->getGraphInstance());
-        }
-    }
-
-    /**
-     * @brief Get game instances
-     * @param gameLibs
-     */
-    void Core::getGameInstances(
-        const std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>>& gameLibs)
-    {
-        for (auto &lib : *gameLibs) {
-            addGameLib(lib->getGameInstance());
-        }
-    }
-
-    /**
      * @brief Create the main menu
      * @param libsName - the graphic libraries name
      * @param gamesName - the game libraries name
      */
-    void Core::createMainMenu(const StringVectorPtr& libsName, const StringVectorPtr& gamesName)
+    void Core::createMainMenu(const StringVectorPtr &libsName,
+        const StringVectorPtr &gamesName)
     {
         pos_t basePos = {10, 10};
         int i = 0;
-        for (const auto& lib: *libsName) {
-            Arcade::ButtonPtr s(new Arcade::Button(lib, {0, 0, 240, 20}, basePos, {255, 255, 255, 255},
-                                                   i == 0));
+        for (const std::string &lib: *libsName) {
+            Arcade::ButtonPtr s(
+                new Arcade::Button(
+                    lib,
+                    {0, 0, 240, 20},
+                    basePos,
+                    {255, 255, 255, 255},
+                    i == 0
+                ));
             s->setGroup(Arcade::ButtonGroup::LIB);
             s->setId(i);
-            _gameObjects->push_back(s);
-            _gameObjects->push_back(s->getText());
+            _menuObjects->push_back(s);
+            _menuObjects->push_back(s->getText());
             basePos.y += 30;
             i++;
         }
         i = 0;
         basePos = {300, 10};
-        for (const auto& game: *gamesName) {
-            Arcade::ButtonPtr s(new Arcade::Button(game, {0, 0, 240, 20}, basePos, {255, 255, 255, 255},
-                                                   i == 0));
+        for (const std::string &game: *gamesName) {
+            Arcade::ButtonPtr s(
+                new Arcade::Button(
+                    game,
+                    {0, 0, 240, 20},
+                    basePos,
+                    {255, 255, 255, 255},
+                    i == 0
+                ));
             s->setGroup(Arcade::ButtonGroup::GAME);
             s->setId(i);
-            _gameObjects->push_back(s);
-            _gameObjects->push_back(s->getText());
+            _menuObjects->push_back(s);
+            _menuObjects->push_back(s->getText());
             basePos.y += 30;
             i++;
         }
+        _gameObjects = _menuObjects;
     }
 
     /**
@@ -244,57 +219,109 @@ namespace Arcade {
      */
     void Core::logicalMenu()
     {
-        size_t selectedIdLib = 0;
-        size_t selectedIdGame = 0;
+        if (_state != Arcade::CoreState::MENU) {
+            return;
+        }
         for (const auto &obj: *_gameObjects) {
-            if (obj->getType() == ObjectType::ENTITY) {
-                ButtonPtr button = std::dynamic_pointer_cast<Button>(obj);
-                if (getCurrentGraphicLib()->getCurrentKey() ==
-                    InputKey::SWITCH_LIB
-                    && button->getGroup() == ButtonGroup::LIB) {
-                    if (button->isSelected()) {
-                        button->setSelected(false);
-                        selectedIdLib = button->getId();
+            if (!Button::isButton(obj)) {
+                continue;
+            }
+            ButtonPtr button = std::dynamic_pointer_cast<Button>(obj);
+            if (getCurrentGraphicLib()->getCurrentKey() == InputKey::SWITCH_LIB
+                && button->getGroup() == ButtonGroup::LIB) {
+                if (button->isSelected()) {
+                    button->setSelected(false);
+                    ButtonPtr nextButton = Button::searchInList(_gameObjects,
+                        ButtonGroup::LIB,
+                        (button->getId() + 1) % _libsName->size());
+                    if (nextButton) {
+                        nextButton->setSelected(true);
+                        _tempLibIndex = nextButton->getId();
+                        break;
                     }
                 }
-                if (getCurrentGraphicLib()->getCurrentKey() ==
-                    InputKey::SWITCH_GAME
-                    && button->getGroup() == ButtonGroup::GAME) {
-                    if (button->isSelected()) {
-                        button->setSelected(false);
-                        selectedIdGame = button->getId();
+            }
+            if (getCurrentGraphicLib()->getCurrentKey() ==
+                InputKey::SWITCH_GAME
+                && button->getGroup() == ButtonGroup::GAME) {
+                if (button->isSelected()) {
+                    button->setSelected(false);
+                    ButtonPtr nextButton = Button::searchInList(_gameObjects,
+                        ButtonGroup::GAME,
+                        (button->getId() + 1) % _gamesName->size());
+                    if (nextButton) {
+                        nextButton->setSelected(true);
+                        _tempGameIndex = nextButton->getId();
+                        break;
                     }
                 }
             }
         }
-        if (selectedIdLib == _graphicLibs->size() - 1)
-            selectedIdLib = 0;
-        else
-            selectedIdLib++;
-        if (selectedIdGame == _gamesLibs->size() - 1)
-            selectedIdGame = 0;
-        else
-            selectedIdGame++;
-        for (const auto &obj: *_gameObjects) {
-            if (obj->getType() == ObjectType::ENTITY) {
-                ButtonPtr button = std::dynamic_pointer_cast<Button>(obj);
-                if (getCurrentGraphicLib()->getCurrentKey() ==
-                    InputKey::SWITCH_LIB
-                    && button->getGroup() == ButtonGroup::LIB) {
-                    if (button->getId() == selectedIdLib) {
-                        button->setSelected(true);
-                    }
-                }
-                if (getCurrentGraphicLib()->getCurrentKey() ==
-                    InputKey::SWITCH_GAME
-                    && button->getGroup() == ButtonGroup::GAME) {
-                    if (button->getId() == selectedIdGame) {
-                        button->setSelected(true);
-                    }
-                }
-            }
-        }
-        getCurrentGraphicLib()->loadObjects(_gameObjects);
 
+        if (getCurrentGraphicLib()->getCurrentKey() ==
+            Arcade::InputKey::ESCAPE) {
+            setRunning(false);
+        }
+        if (getCurrentGraphicLib()->getCurrentKey() == InputKey::INTERACT) {
+            std::string libName = Button::searchInList(_gameObjects,
+                ButtonGroup::LIB,
+                _tempLibIndex)->getText()->getText();
+            std::string gameName = Button::searchInList(_gameObjects,
+                ButtonGroup::GAME,
+                _tempGameIndex)->getText()->getText();
+            _state = Arcade::CoreState::GAME;
+            makeGameInstance(_tempGameIndex);
+            _gameObjects = getCurrentGameLib()->getGameObjects();
+            std::cout << "Starting " << gameName << " with " << libName
+                << std::endl;
+        }
+    }
+
+    Arcade::IObjectVector Core::getGameObjects() const
+    {
+        return _gameObjects;
+    }
+
+    enum CoreState Core::getState() const
+    {
+        return _state;
+    }
+
+    void Core::setState(enum CoreState state)
+    {
+        if (state == Arcade::CoreState::MENU) {
+            _gameObjects = _menuObjects;
+        } else if (state == Arcade::CoreState::GAME) {
+            _gameObjects = getCurrentGameLib()->getGameObjects();
+        }
+        _state = state;
+    }
+
+    void Core::makeGameInstance(int index)
+    {
+        _currentGameIndex = index;
+        if (_currentGame) {
+            _currentGame.reset();
+        }
+        if (_gameLoader) {
+            _gameLoader.reset();
+        }
+        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(
+            _gamesName->at(index));
+        _currentGame = _gameLoader->getGameInstance();
+    }
+
+    void Core::makeLibInstance(int index)
+    {
+        _currentLibIndex = index;
+        if (_currentLib) {
+            _currentLib.reset();
+        }
+        if (_libLoader) {
+            _libLoader.reset();
+        }
+        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
+            _libsName->at(index));
+        _currentLib = _libLoader->getGraphInstance();
     }
 }

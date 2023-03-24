@@ -14,7 +14,7 @@ add_executable(arcade
         src/Core/Core.cpp
         src/Core/Text.cpp include/Text.hpp
         include/Entity.hpp src/Core/Entity.cpp
-        include/Button.hpp src/Core/Button.cpp)
+        include/Button.hpp src/Core/Button.cpp include/ISpriteType.hpp)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
 
