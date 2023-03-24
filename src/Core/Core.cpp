@@ -25,8 +25,8 @@ namespace Arcade {
         _state = Arcade::CoreState::MENU;
     }
 
-    Core::Core(const std::string &lib, const Arcade::StringVectorPtr& libs,
-        const Arcade::StringVectorPtr& games)
+    Core::Core(const std::string &lib, const Arcade::StringVectorPtr &libs,
+        const Arcade::StringVectorPtr &games)
     {
         _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(lib);
         _libsName = libs;
@@ -79,7 +79,8 @@ namespace Arcade {
         if (_currentLibIndex == _libsName->size()) {
             _currentLibIndex = 0;
         }
-        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(_libsName->at(_currentLibIndex));
+        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
+            _libsName->at(_currentLibIndex));
         _currentLib = _libLoader->getGraphInstance();
         startGraphic();
     }
@@ -94,7 +95,8 @@ namespace Arcade {
         if (_currentGameIndex == _gamesName->size()) {
             _currentGameIndex = 0;
         }
-        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(_gamesName->at(_currentGameIndex));
+        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(
+            _gamesName->at(_currentGameIndex));
         _currentGame = _gameLoader->getGameInstance();
         setState(Arcade::CoreState::GAME);
     }
@@ -109,7 +111,8 @@ namespace Arcade {
         if (_currentLibIndex == _libsName->size()) {
             _currentLibIndex = 0;
         }
-        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(_libsName->at(_currentLibIndex));
+        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
+            _libsName->at(_currentLibIndex));
         _currentLib = _libLoader->getGraphInstance();
         startGraphic();
     }
@@ -123,7 +126,8 @@ namespace Arcade {
         if (_currentGameIndex == _gamesName->size()) {
             _currentGameIndex = 0;
         }
-        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(_gamesName->at(_currentGameIndex));
+        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(
+            _gamesName->at(_currentGameIndex));
         _currentGame = _gameLoader->getGameInstance();
         setState(Arcade::CoreState::GAME);
     }
@@ -181,7 +185,7 @@ namespace Arcade {
                     basePos,
                     {255, 255, 255, 255},
                     i == 0
-                    ));
+                ));
             s->setGroup(Arcade::ButtonGroup::LIB);
             s->setId(i);
             _menuObjects->push_back(s);
@@ -199,7 +203,7 @@ namespace Arcade {
                     basePos,
                     {255, 255, 255, 255},
                     i == 0
-                    ));
+                ));
             s->setGroup(Arcade::ButtonGroup::GAME);
             s->setId(i);
             _menuObjects->push_back(s);
@@ -215,11 +219,13 @@ namespace Arcade {
      */
     void Core::logicalMenu()
     {
-        if (_state != Arcade::CoreState::MENU)
+        if (_state != Arcade::CoreState::MENU) {
             return;
+        }
         for (const auto &obj: *_gameObjects) {
-            if (!Button::isButton(obj))
+            if (!Button::isButton(obj)) {
                 continue;
+            }
             ButtonPtr button = std::dynamic_pointer_cast<Button>(obj);
             if (getCurrentGraphicLib()->getCurrentKey() == InputKey::SWITCH_LIB
                 && button->getGroup() == ButtonGroup::LIB) {
@@ -252,18 +258,22 @@ namespace Arcade {
             }
         }
 
-        if (getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::ESCAPE)
+        if (getCurrentGraphicLib()->getCurrentKey() ==
+            Arcade::InputKey::ESCAPE) {
             setRunning(false);
+        }
         if (getCurrentGraphicLib()->getCurrentKey() == InputKey::INTERACT) {
             std::string libName = Button::searchInList(_gameObjects,
                 ButtonGroup::LIB,
                 _tempLibIndex)->getText()->getText();
-            std::string gameName = Button::searchInList(_gameObjects, ButtonGroup::GAME,
+            std::string gameName = Button::searchInList(_gameObjects,
+                ButtonGroup::GAME,
                 _tempGameIndex)->getText()->getText();
             _state = Arcade::CoreState::GAME;
             makeGameInstance(_tempGameIndex);
             _gameObjects = getCurrentGameLib()->getGameObjects();
-            std::cout << "Starting " << gameName << " with " << libName << std::endl;
+            std::cout << "Starting " << gameName << " with " << libName
+                << std::endl;
         }
     }
 
@@ -290,14 +300,28 @@ namespace Arcade {
     void Core::makeGameInstance(int index)
     {
         _currentGameIndex = index;
-        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(_gamesName->at(index));
+        if (_currentGame) {
+            _currentGame.reset();
+        }
+        if (_gameLoader) {
+            _gameLoader.reset();
+        }
+        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(
+            _gamesName->at(index));
         _currentGame = _gameLoader->getGameInstance();
     }
 
     void Core::makeLibInstance(int index)
     {
         _currentLibIndex = index;
-        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(_libsName->at(index));
+        if (_currentLib) {
+            _currentLib.reset();
+        }
+        if (_libLoader) {
+            _libLoader.reset();
+        }
+        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
+            _libsName->at(index));
         _currentLib = _libLoader->getGraphInstance();
     }
 }

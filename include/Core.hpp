@@ -62,7 +62,7 @@ namespace Arcade {
             int _currentLibIndex;
             int _tempLibIndex;
             enum CoreState _state;
-            Arcade::windowsParameter_t _windowsParameter{};
+            Arcade::windowsParameter_t _windowsParameter;
             Arcade::IObjectVector _gameObjects;
             Arcade::IObjectVector _menuObjects;
             Arcade::StringVectorPtr _libsName;
