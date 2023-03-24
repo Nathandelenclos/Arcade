@@ -22,8 +22,10 @@ namespace Arcade {
             void setCurrentInputKey(InputKey key) override;
             int getScore() override;
         protected:
-            InputKey _key;
-            IObjectVector _objects;
+            IObjectVector _gameObjects;
+            int _isEnded;
+            InputKey _currentKey;
+            int _score;
         private:
     };
 }

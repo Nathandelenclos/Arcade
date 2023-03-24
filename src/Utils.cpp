@@ -18,8 +18,8 @@
 Arcade::ErrorHandling::ErrorHandling() {
     this->_games = std::make_shared<std::vector<std::string>>();
     this->_libs = std::make_shared<std::vector<std::string>>();
-    this->_graphicLibsLoader = std::make_shared<std::vector<Arcade::DlLoaderGraphicPtr>>();
-    this->_gameLibsLoader = std::make_shared<std::vector<Arcade::DlLoaderGamePtr>>();
+/*    this->_graphicLibsLoader = std::make_shared<std::vector<Arcade::DlLoaderGraphicPtr>>();
+    this->_gameLibsLoader = std::make_shared<std::vector<Arcade::DlLoaderGamePtr>>();*/
 }
 
 /**
@@ -119,30 +119,4 @@ Arcade::ErrorHandling::getGames() const
 std::shared_ptr<std::vector<std::string>> Arcade::ErrorHandling::getLibs() const
 {
     return _libs;
-}
-
-void Arcade::ErrorHandling::loadLibs()
-{
-    for (std::string &lib: *_libs) {
-        _graphicLibsLoader->push_back(std::make_shared<Arcade::DlLoaderGraphic>(lib));
-    }
-}
-
-void Arcade::ErrorHandling::loadGames()
-{
-    for (std::string &game: *_games) {
-        _gameLibsLoader->push_back(std::make_shared<Arcade::DlLoaderGame>(game));
-    }
-}
-
-std::shared_ptr<std::vector<Arcade::DlLoaderGraphicPtr>>
-Arcade::ErrorHandling::getGraphicLibsLoader() const
-{
-    return _graphicLibsLoader;
-}
-
-std::shared_ptr<std::vector<Arcade::DlLoaderGamePtr>>
-Arcade::ErrorHandling::getGameLibsLoader() const
-{
-    return _gameLibsLoader;
 }

@@ -68,12 +68,12 @@ namespace Arcade {
                 auto entryPoint = dlsym(_handle, GAMESYM);
 
                 if (!entryPoint)
-                    throw LibError("Cannot load symbol 'constructor_game': ");
+                    throw LibError("Cannot load symbol 1 'constructor_game': ");
                 auto *(*libfoo)() = (Arcade::IGameLib *(*)()) entryPoint;
                 lib = std::shared_ptr<Arcade::IGameLib>(libfoo());
 
                 if (!lib)
-                    throw LibError("Cannot load symbol 'constructor_game': ");
+                    throw LibError("Cannot load symbol 2 'constructor_game': ");
                 return (lib);
             }
 
