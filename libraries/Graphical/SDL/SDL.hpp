@@ -15,14 +15,6 @@
 
 namespace Arcade {
     namespace sdl {
-
-        typedef struct {
-            unsigned char r;
-            unsigned char g;
-            unsigned char b;
-            unsigned char a;
-        } color_t;
-
         typedef struct {
             pos_t pos;
             size_t width;
@@ -40,6 +32,8 @@ namespace Arcade {
                 void setFullScreen(bool fullscreen);
                 void setIcon(std::string &filename);
                 void destroy();
+                bool isOpened() const;
+                void setOpened(bool isOpened);
                 SDL_Window *getWindow() const;
             protected:
                 SDL_Window *_window;
@@ -48,6 +42,7 @@ namespace Arcade {
                 int _height;
                 bool _fullscreen;
                 SDL_Surface *_icon;
+                bool _isOpened;
             private:
         };
 
@@ -86,6 +81,7 @@ namespace Arcade {
                 void create(Window &window);
                 void destroy();
                 void present();
+                SDL_Renderer *getRenderer() const;
                 void clear();
                 void draw(Texture &texture, rect_t rect);
                 void drawRect(pos_t pos, size_t width, size_t height, color_t color);
@@ -108,5 +104,12 @@ namespace Arcade {
                 SDL_Event _event;
             private:
         };
+
+        typedef std::shared_ptr<sdl::Window> WindowPtr;
+        typedef std::vector<WindowPtr> WindowVector;
+        typedef std::shared_ptr<WindowVector> WindowVectorPtr;
+        typedef std::shared_ptr<sdl::Texture> TexturePtr;
+        typedef std::vector<sdl::TexturePtr> TextureVector;
+        typedef std::shared_ptr<sdl::TextureVector> TextureVectorPtr;
     }
 }

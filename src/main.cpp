@@ -29,14 +29,9 @@ int main(int ac, char **av)
     core->createMainMenu(error->getLibs(), error->getGames());
     core->startGraphic();
     while (core->isRunning()) {
-<<<<<<< HEAD
-        //core->getCurrentGraphicLib()->display();
-        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::QUIT)
-=======
         core->logicalMenu();
         core->getCurrentGraphicLib()->display();
         if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::ESCAPE)
->>>>>>> main
             core->setRunning(false);
 /*        if (core->getCurrentGraphicLib()->getCurrentKey() == Arcade::InputKey::SWITCH_LIB)
             core->switchGraphicLib();

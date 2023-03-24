@@ -21,6 +21,7 @@ namespace Arcade {
             this->_width = width;
             this->_height = height;
             this->_fullscreen = fullscreen;
+            this->_isOpened = false;
         }
 
         /**
@@ -38,6 +39,7 @@ namespace Arcade {
                                                height, fullscreen
                                                        ? SDL_WINDOW_FULLSCREEN
                                                        : SDL_WINDOW_SHOWN);
+            this->_isOpened = true;
             if (this->_window == nullptr) {
                 std::cout << "SDL_CreateWindow Error: " << SDL_GetError()
                           << std::endl;
@@ -55,6 +57,7 @@ namespace Arcade {
                                              this->_height, this->_fullscreen
                                                      ? SDL_WINDOW_FULLSCREEN
                                                      : SDL_WINDOW_SHOWN);
+            this->_isOpened = true;
             if (this->_window == nullptr) {
                 std::cout << "SDL_CreateWindow Error: " << SDL_GetError()
                           << std::endl;
@@ -93,6 +96,7 @@ namespace Arcade {
         void Window::destroy() {
             SDL_FreeSurface(this->_icon);
             SDL_DestroyWindow(this->_window);
+            this->_isOpened = false;
         }
 
         /**
@@ -101,6 +105,14 @@ namespace Arcade {
          */
         SDL_Window *Window::getWindow() const {
             return this->_window;
+        }
+
+        bool Window::isOpened() const {
+            return this->_isOpened
+        }
+
+        void Window::setOpened(bool isOpened) {
+            this->_isOpened = isOpened;
         }
 
         /**
@@ -335,6 +347,10 @@ namespace Arcade {
             SDL_Rect sdlRect = {static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(width), static_cast<int>(height)};
             SDL_SetRenderDrawColor(this->_renderer, color.r, color.g, color.b, color.a);
             SDL_RenderFillRect(this->_renderer, &sdlRect);
+        }
+
+        SDL_Renderer *Renderer::getRenderer() const {
+            return this->_renderer;
         }
 
         /**
