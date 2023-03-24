@@ -48,7 +48,11 @@ target_sources(
         arcade_sdl2
         PRIVATE
         Graphical/SDL/LibSDL.cpp Graphical/SDL/LibSDL.hpp
-        Graphical/SDL/SDL.cpp Graphical/SDL/SDL.hpp
+        Graphical/SDL/SDL.hpp Graphical/SDL/Event.cpp
+        Graphical/SDL/Texture.cpp
+        Graphical/SDL/Surface.cpp
+        Graphical/SDL/Renderer.cpp
+        Graphical/SDL/Window.cpp
 )
 
 target_link_libraries(arcade_sdl2 SDL2 SDL2_ttf SDL2_image)

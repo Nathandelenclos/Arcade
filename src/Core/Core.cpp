@@ -138,8 +138,8 @@ namespace Arcade {
     void Core::startGraphic()
     {
         getCurrentGraphicLib()->setWindow(_windowsParameter);
-        getCurrentGraphicLib()->loadObjects(_gameObjects);
         getCurrentGraphicLib()->openWindow();
+        getCurrentGraphicLib()->loadObjects(_gameObjects);
     }
 
     /**

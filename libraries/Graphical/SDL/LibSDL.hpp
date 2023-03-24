@@ -77,9 +77,9 @@ namespace Arcade {
             sdl::TextureVectorPtr _textures;
         private:
             InputKey _key;
-            sdl::Window _window;
-            std::shared_ptr<sdl::Renderer> _renderer;
-            sdl::Event _event;
+            sdl::WindowPtr _window;
+            sdl::RendererPtr _renderer;
+            sdl::EventPtr _event;
     };
 
     typedef struct {
