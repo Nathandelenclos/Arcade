@@ -82,6 +82,8 @@ target_sources(
         PRIVATE
         Games/Snake/Snake.cpp
         Games/Snake/Snake.hpp
+        Games/Snake/Entity.cpp
+        Games/Snake/Entity.hpp
 )
 
 # libPacman
