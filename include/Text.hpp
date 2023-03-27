@@ -25,7 +25,7 @@ namespace Arcade {
             ObjectType getType() override;
             std::string & getText() override;
             std::string & getFont() override;
-            int getSize() override;
+            float getSize() override;
             color_t getColor() override;
             void setPos(pos_t pos);
             void setDisplay(bool display);
@@ -34,10 +34,12 @@ namespace Arcade {
             void setSize(int size);
             void setColor(color_t color);
 
-        protected:
+        bool positionCentered() override;
+
+    protected:
             std::string _font;
             std::string _text;
-            int _size;
+            float _size;
             color_t _color;
             pos_t _pos;
             bool _display;

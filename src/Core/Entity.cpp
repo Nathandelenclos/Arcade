@@ -133,4 +133,9 @@ namespace Arcade {
     {
         return _rect;
     }
+
+    float Entity::getSize()
+    {
+        return _size;
+    }
 }

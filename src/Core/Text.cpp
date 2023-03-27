@@ -185,7 +185,7 @@ namespace Arcade {
      *
      * @return int - the size of the text
      */
-    int Text::getSize()
+    float Text::getSize()
     {
         return _size;
     }
@@ -258,5 +258,10 @@ namespace Arcade {
     void Text::setColor(color_t color)
     {
         _color = color;
+    }
+
+    bool Text::positionCentered()
+    {
+        return false;
     }
 }
