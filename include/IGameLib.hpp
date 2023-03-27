@@ -14,8 +14,6 @@
 #include "Types.hpp"
 
 #define GAMESYM "constructor_game"
-#define MAPWIDTH 50
-#define MAPHEIGHT 50
 
 namespace Arcade {
     class IGameLib {

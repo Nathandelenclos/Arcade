@@ -23,12 +23,14 @@ namespace Arcade {
             std::string &getSprite() override;
             color_t getColor() override;
             rect_t getRect() override;
+            float getSize() override;
         protected:
             bool _display;
             pos_t _pos;
             rect_t _rect;
             std::string _sprite;
             color_t _color;
+            float _size;
         private:
     };
 
