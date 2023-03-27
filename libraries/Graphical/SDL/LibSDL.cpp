@@ -9,6 +9,9 @@
 
 namespace Arcade {
 
+    /**
+     * @brief Constructor of LibSDL object
+     */
     LibSDL::LibSDL()
     {
         this->_window = std::make_shared<sdl::Window>();
@@ -18,6 +21,9 @@ namespace Arcade {
         std::cout << "constructor LibSDL" << std::endl;
     }
 
+    /**
+     * @brief Destructor of LibSDL object
+     */
     LibSDL::~LibSDL()
     {
         if (LibSDL::isOpen()) {
@@ -48,11 +54,18 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief Get the current key
+     * @return InputKey - The current key
+     */
     InputKey LibSDL::getCurrentKey()
     {
         return _key;
     }
 
+    /**
+     * @brief Event listener
+     */
     void LibSDL::eventListener() {
         this->_key = InputKey::NONE;
         if (!this->_event->pollEvent()) {
@@ -70,6 +83,9 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief Display every objects
+     */
     void LibSDL::display()
     {
         eventListener();
@@ -81,16 +97,27 @@ namespace Arcade {
         this->_renderer->present();
     }
 
+    /**
+     * @brief Get the current window parameters
+     * @return windowParameter_t - The window parameters
+     */
     windowsParameter_t LibSDL::getWindow()
     {
         return (this->_windowsParameter);
     }
 
+    /**
+     * @brief Set the current window parameters
+     * @param windows_parameter windowsParameter_t - The window parameters
+     */
     void LibSDL::setWindow(windowsParameter_t windows_parameter)
     {
         this->_windowsParameter = windows_parameter;
     }
 
+    /**
+     * @brief Open the window
+     */
     void LibSDL::openWindow()
     {
         std::string title = "Arcade";
@@ -98,16 +125,27 @@ namespace Arcade {
         _renderer->create(_window);
     }
 
+    /**
+     * @brief Close the window
+     */
     void LibSDL::closeWindow()
     {
         this->_window->setOpened(false);
     }
 
+    /**
+     * @brief Check if the window is open
+     * @return bool - True if the window is open else false
+     */
     bool LibSDL::isOpen()
     {
         return this->_window->isOpened();
     }
 
+    /**
+     * @brief Init the text
+     * @param object IObjectPtr - The text object
+     */
     void LibSDL::initText(const IObjectPtr &object) {
         ITextPtr text = std::dynamic_pointer_cast<IText>(object);
         color_t color = {255, 255, 255, 255};
@@ -116,10 +154,25 @@ namespace Arcade {
         this->_textures->push_back(texture);
     }
 
+    /**
+     * @brief Init the sprite
+     * @param object IObjectPtr - The sprite object
+     */
     void LibSDL::initSprite(const IObjectPtr &object) {
-
+        IEntitiesPtr s = std::dynamic_pointer_cast<IEntities>(object);
+        if (s->getSprite().empty()) {
+            //sdl::TexturePtr texture = sdl::Texture::loadFromFile(this->_renderer, s->getSprite());
+        } else {
+            sdl::TexturePtr texture = sdl::Texture::loadFromFile(this->_renderer, s->getSprite());
+            texture->setColor(s->getColor());
+            Arcade::sdl::rect_t rect = {{s->getRect().x, s->getRect().y}, static_cast<size_t>(s->getRect().width), static_cast<size_t>(s->getRect().height)};
+            texture->setRect(rect);
+        }
     }
 
+    /**
+     * @brief Init the library in C
+     */
     extern "C" IGraphicLib *constructor_graphic()
     {
         return new LibSDL();

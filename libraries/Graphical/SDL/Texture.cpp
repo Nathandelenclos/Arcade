@@ -126,5 +126,9 @@ namespace Arcade {
             return _rect;
         }
 
+        void Texture::setColor(color_t color) {
+            this->_color = color;
+        }
+
     }
 }

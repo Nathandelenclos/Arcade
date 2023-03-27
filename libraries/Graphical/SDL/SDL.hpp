@@ -123,6 +123,7 @@ namespace Arcade {
             rect_t getRect() const;
             void setRect(rect_t rect);
             color_t getColor() const;
+            void setColor(color_t color);
         protected:
             SDL_Texture *_texture;
             rect_t _rect;
