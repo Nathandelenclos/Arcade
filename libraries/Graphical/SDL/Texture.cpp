@@ -130,5 +130,13 @@ namespace Arcade {
             this->_color = color;
         }
 
+        TexturePtr
+        Texture::loadFromRectangle(pos_t pos, size_t width, size_t height, color_t color) {
+            sdl::RendererPtr r = std::make_shared<sdl::Renderer>();
+            sdl::TexturePtr texture = std::make_shared<sdl::Texture>();
+            texture->_texture = SDL_CreateTexture(r->getRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
+            return texture;
+        }
+
     }
 }

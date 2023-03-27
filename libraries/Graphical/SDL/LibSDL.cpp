@@ -161,7 +161,8 @@ namespace Arcade {
     void LibSDL::initSprite(const IObjectPtr &object) {
         IEntitiesPtr s = std::dynamic_pointer_cast<IEntities>(object);
         if (s->getSprite().empty()) {
-            //sdl::TexturePtr texture = sdl::Texture::loadFromFile(this->_renderer, s->getSprite());
+            sdl::TexturePtr texture = sdl::Texture::loadFromRectangle(s->getPos(), s->getRect().width, s->getRect().height, s->getColor());
+            this->_textures->push_back(texture);
         } else {
             sdl::TexturePtr texture = sdl::Texture::loadFromFile(this->_renderer, s->getSprite());
             texture->setColor(s->getColor());
