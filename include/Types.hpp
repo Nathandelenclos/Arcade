@@ -13,6 +13,9 @@
 #include <vector>
 #include "IObject.hpp"
 
+#define MAPHEIGHT 50.0f
+#define MAPWIDTH 50.0f
+
 namespace Arcade {
 
     class IGraphicLib;
