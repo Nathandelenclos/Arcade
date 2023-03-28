@@ -23,6 +23,10 @@ namespace Arcade {
             int y;
         } char_t;
 
+        typedef std::shared_ptr<char_t> charPtr;
+        typedef std::vector<charPtr> charVector;
+        typedef std::shared_ptr<charVector> charVectorPtr;
+
         typedef struct {
             color_t color;
             std::string text;
@@ -30,13 +34,17 @@ namespace Arcade {
             int y;
         } text_t;
 
+        typedef std::shared_ptr<text_t> textPtr;
+        typedef std::vector<textPtr> textVector;
+        typedef std::shared_ptr<textVector> textVectorPtr;
+
         class Window {
             public:
                 Window();
                 ~Window();
                 int getKey();
-                void displayChar(const std::shared_ptr<std::vector<std::shared_ptr<char_t>>> &map);
-                void displayText(const std::shared_ptr<std::vector<std::shared_ptr<text_t>>>& map);
+                void displayChar(const charVectorPtr& map);
+                void displayText(const textVectorPtr& map);
                 void open();
                 void close();
                 bool isOpen();

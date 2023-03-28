@@ -66,7 +66,7 @@ namespace Arcade {
         }
 
         void Window::displayText(
-            const std::shared_ptr<std::vector<std::shared_ptr<text_t>>> &map)
+            const textVectorPtr &map)
         {
             for (auto &i: *map) {
                 init_color(1, i->color.r, i->color.g, i->color.b);

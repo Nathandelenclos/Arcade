@@ -143,7 +143,7 @@ namespace Arcade {
             t->getFont(),
             sf::Color(t->getColor().r, t->getColor().g, t->getColor().b, t->getColor().a),
             object->getPos(),
-            t->getSize()));
+            static_cast<int>(t->getSize())));
         _objects->push_back(text);
     }
 

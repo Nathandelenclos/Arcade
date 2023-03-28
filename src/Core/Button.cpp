@@ -283,4 +283,14 @@ namespace Arcade {
         }
         return true;
     }
+
+    float Button::getSize()
+    {
+        return _size;
+    }
+
+    void Button::setSize(float size)
+    {
+        _size = size;
+    }
 }
