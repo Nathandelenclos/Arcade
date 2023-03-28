@@ -69,18 +69,22 @@ namespace Arcade {
             void eventListener();
             void initEntity(const IObjectPtr& object);
             void initText(const IObjectPtr &object);
-
-    protected:
-        windowsParameter_t _windowsParameter;
-        ncurses::WindowPtr _window;
-        InputKey _currentKey;
-        ncurses::charVectorPtr _map;
-        ncurses::textVectorPtr _texts;
-    private:
+            static ncurses::charPtr searchChar(const ncurses::charVectorPtr &v,pos_t pos);
+        protected:
+            windowsParameter_t _windowsParameter;
+            ncurses::WindowPtr _window;
+            InputKey _currentKey;
+            ncurses::charVectorPtr _map;
+            ncurses::textVectorPtr _texts;
+            ncurses::ColorVectorPtr _colors;
+            ncurses::ColorPairVectorPtr _pairs;
+        private:
     };
 
     typedef struct {
         ObjectType type;
         void (LibNCURSES::*init)(const IObjectPtr& object);
     } initType_t;
+
+
 }

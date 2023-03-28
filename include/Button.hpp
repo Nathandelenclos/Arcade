@@ -54,7 +54,6 @@ namespace Arcade {
             size_t getId() const;
             void setId(size_t id);
             void setSize(float size);
-            float getSize() override;
 
         protected:
             pos_t _pos;
@@ -69,7 +68,6 @@ namespace Arcade {
             std::string _textContent;
             enum ButtonGroup _group;
             size_t _id{};
-            float _size;
     };
 
 }

@@ -17,6 +17,8 @@ namespace Arcade {
         _window = std::make_shared<ncurses::Window>();
         _map = std::make_shared<ncurses::charVector>();
         _texts = std::make_shared<ncurses::textVector>();
+        _colors = std::make_shared<ncurses::ColorVector>();
+        _pairs = std::make_shared<ncurses::ColorPairVector>();
     }
 
     LibNCURSES::~LibNCURSES()
@@ -50,8 +52,8 @@ namespace Arcade {
     void LibNCURSES::display()
     {
         eventListener();
+        _window->clearAll();
         _window->displayChar(_map);
-        _window->displayText(_texts);
     }
 
     windowsParameter_t LibNCURSES::getWindow()
@@ -82,27 +84,50 @@ namespace Arcade {
     void LibNCURSES::initEntity(const IObjectPtr &object)
     {
         IEntitiesPtr t = std::dynamic_pointer_cast<IEntities>(object);
-        _map->push_back(std::make_shared<ncurses::char_t>( ncurses::char_t{
-            t->getColor(),
-            ' ',
-            static_cast<int>(t->getPos().y),
-            static_cast<int>(t->getPos().x)
-        }));
+        ncurses::ColorPtr color = ncurses::Color::searchByColorOrCreate(_colors, t->getColor());
+        ncurses::ColorPairPtr pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, COLOR_BLACK, color->getId());
+        int width = static_cast<int>(t->getRect().width);
+        int height = static_cast<int>(t->getRect().height);
+        std::cerr << "pair: " << pair->getId() << " color: " << color->getId() << " save: " << color->getSave() << std::endl;
+        for (int i = 0; i < width; ++i) {
+            for (int j = 0; j < height; ++j) {
+                std::cerr << "x: " << t->getPos().x + i << " y: " << t->getPos().y + j << std::endl;
+                ncurses::charPtr c = searchChar(_map, {t->getPos().x + i, t->getPos().y + j});
+                if (c == nullptr || c->chara != ' ') {
+                    _map->push_back(std::make_shared<ncurses::char_t>( ncurses::char_t{
+                        pair,
+                        ' ',
+                        static_cast<int>(t->getPos().y) + j,
+                        static_cast<int>(t->getPos().x) + i
+                    }));
+                } else {
+                    c->pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, c->pair->getColor(), color->getId());
+                }
+            }
+        };
     }
 
     void LibNCURSES::initText(const IObjectPtr &object)
     {
         ITextPtr t = std::dynamic_pointer_cast<IText>(object);
-        std::cerr << "x " << static_cast<int>(t->getPos().x) << std::endl;
-        std::cerr << "y " << static_cast<int>(t->getPos().y) << std::endl;
-        std::cerr << "text " << t->getText() << std::endl;
-        _texts->push_back(std::make_shared<ncurses::text_t>( ncurses::text_t{
-            color_t{t->getColor().r, t->getColor().g, t->getColor().b,
-                t->getColor().a},
-            t->getText(),
-            static_cast<int>(t->getPos().y),
-            static_cast<int>(t->getPos().x)
-        }));
+        ncurses::ColorPtr color = ncurses::Color::searchByColorOrCreate(_colors, t->getColor());
+        ncurses::ColorPairPtr pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, color->getId(), COLOR_BLACK);
+        std::cerr << "text: " << t->getText() << std::endl;
+        for (int i = 0; i < t->getText().length(); ++i) {
+            pos_t pos = {t->getPos().x + static_cast<float>(i), t->getPos().y};
+            ncurses::charPtr  c = searchChar(_map, pos);
+            if (c == nullptr || c->chara != ' ') {
+                _map->push_back(std::make_shared<ncurses::char_t>( ncurses::char_t{
+                    pair,
+                    t->getText()[i],
+                    static_cast<int>(t->getPos().y),
+                    static_cast<int>(t->getPos().x) + i
+                }));
+            } else {
+                c->pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, color->getId(), c->pair->getBackground());
+                c->chara = t->getText()[i];
+            }
+        }
     }
 
     void LibNCURSES::eventListener()
@@ -111,6 +136,16 @@ namespace Arcade {
             if (_window->poolEvent() == key_matching.c)
                 _currentKey = key_matching.inputKey;
         }
+    }
+
+    ncurses::charPtr LibNCURSES::searchChar(const ncurses::charVectorPtr &v,pos_t pos)
+    {
+        for (ncurses::charPtr &c: *v) {
+            if (c->x == static_cast<int>(pos.x) && c->y == static_cast<int>(pos.y)) {
+                return c;
+            }
+        }
+        return nullptr;
     }
 
     extern "C" IGraphicLib *constructor_graphic()

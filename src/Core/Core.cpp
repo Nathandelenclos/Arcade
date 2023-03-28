@@ -138,8 +138,8 @@ namespace Arcade {
     void Core::startGraphic()
     {
         getCurrentGraphicLib()->setWindow(_windowsParameter);
-        getCurrentGraphicLib()->loadObjects(_gameObjects);
         getCurrentGraphicLib()->openWindow();
+        getCurrentGraphicLib()->loadObjects(_gameObjects);
     }
 
     /**
@@ -175,13 +175,13 @@ namespace Arcade {
     void Core::createMainMenu(const StringVectorPtr &libsName,
         const StringVectorPtr &gamesName)
     {
-        pos_t basePos = {0, 0};
+        pos_t basePos = {5, 0};
         int i = 0;
         for (const std::string &lib: *libsName) {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
                     lib,
-                    {0, 0, 240, 20},
+                    {0, 0, 20, 1},
                     basePos,
                     {255, 255, 255, 255},
                     i == 0
@@ -194,14 +194,14 @@ namespace Arcade {
             i++;
         }
         i = 0;
-        basePos = {20, 0};
+        basePos = {30, 0};
         for (const std::string &game: *gamesName) {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
                     game,
-                    {0, 0, 240, 20},
+                    {0, 0, 20, 1},
                     basePos,
-                    {255, 255, 255, 255},
+                    {255, 255, 255, 500},
                     i == 0
                 ));
             s->setGroup(Arcade::ButtonGroup::GAME);

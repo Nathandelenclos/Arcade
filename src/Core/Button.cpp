@@ -24,7 +24,7 @@ namespace Arcade {
         _rect = rect;
         _sprite = "";
         _color = color;
-        color_t colorText = {0, 0, 0, 255};
+        color_t colorText = {255, 255, 255, 255};
         _text = std::make_shared<Text>(pos, libName, colorText);
         _selected = false;
     }
@@ -45,7 +45,7 @@ namespace Arcade {
         _rect = rect;
         _sprite = "";
         _color = color;
-        color_t colorText = {0, 0, 0, 255};
+        color_t colorText = {255, 255, 255, 255};
         _text = std::make_shared<Text>(pos, libName, colorText);
         _selected = selected;
     }
