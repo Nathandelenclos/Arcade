@@ -34,7 +34,9 @@ namespace Arcade {
             void setSize(float size);
             void setColor(color_t color);
 
-        protected:
+        bool positionCentered() override;
+
+    protected:
             std::string _font;
             std::string _text;
             float _size;

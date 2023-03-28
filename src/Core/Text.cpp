@@ -259,4 +259,9 @@ namespace Arcade {
     {
         _color = color;
     }
+
+    bool Text::positionCentered()
+    {
+        return false;
+    }
 }

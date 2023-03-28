@@ -103,6 +103,7 @@ namespace Arcade {
      */
     void LibSFML::setWindow(windowsParameter_t windows_parameter)
     {
+        _windowsParameter = windows_parameter;
         _videoMode = {windows_parameter.width, windows_parameter.height, 32};
     }
 
@@ -142,7 +143,7 @@ namespace Arcade {
             t->getText(),
             t->getFont(),
             sf::Color(t->getColor().r, t->getColor().g, t->getColor().b, t->getColor().a),
-            object->getPos(),
+            {t->getPos().x * (static_cast<float>(_windowsParameter.width) / MAPWIDTH), t->getPos().y * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT)},
             static_cast<int>(t->getSize())));
         _objects->push_back(text);
     }
@@ -158,13 +159,13 @@ namespace Arcade {
             sfml::SpritePtr sprite( new sfml::Sprite(
                 s->getColor(),
                 sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
-                s->getPos()));
+                {s->getPos().x * (static_cast<float>(_windowsParameter.width) / MAPWIDTH), s->getPos().y * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT)}));
             _objects->push_back(sprite);
         } else {
             sfml::SpritePtr sprite( new sfml::Sprite(
                 s->getSprite(),
                 sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
-                object->getPos()));
+                {s->getPos().x * (static_cast<float>(_windowsParameter.width) / MAPWIDTH), s->getPos().y * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT)}));
             _objects->push_back(sprite);
         }
     }

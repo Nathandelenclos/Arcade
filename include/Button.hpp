@@ -44,6 +44,8 @@ namespace Arcade {
             rect_t getRect() override;
             SpriteType getSpriteType() override;
 
+            float getSize() override;
+
             TextPtr getText();
             bool isSelected() const;
             void setSelected(bool selected);
@@ -60,6 +62,7 @@ namespace Arcade {
             rect_t _rect;
             std::string _sprite;
             color_t _color;
+            float _size;
         private:
             TextPtr _text;
             bool _selected;
