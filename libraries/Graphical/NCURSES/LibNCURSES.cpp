@@ -32,7 +32,6 @@ namespace Arcade {
             {ObjectType::ENTITY, &LibNCURSES::initEntity},
             {ObjectType::TEXT, &LibNCURSES::initText}
         };
-
         for (IObjectPtr &gameObject : *gameObjects) {
             if (!gameObject->isDisplayed())
                 continue;
@@ -88,19 +87,19 @@ namespace Arcade {
         ncurses::ColorPairPtr pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, COLOR_BLACK, color->getId());
         int width = static_cast<int>(t->getRect().width);
         int height = static_cast<int>(t->getRect().height);
-        std::cerr << "pair: " << pair->getId() << " color: " << color->getId() << " save: " << color->getSave() << std::endl;
         for (int i = 0; i < width; ++i) {
             for (int j = 0; j < height; ++j) {
-                std::cerr << "x: " << t->getPos().x + i << " y: " << t->getPos().y + j << std::endl;
                 ncurses::charPtr c = searchChar(_map, {t->getPos().x + i, t->getPos().y + j});
-                if (c == nullptr || c->chara != ' ') {
+                if (c == nullptr) {
+                    std::cerr << "push back" << std::endl;
                     _map->push_back(std::make_shared<ncurses::char_t>( ncurses::char_t{
                         pair,
                         ' ',
-                        static_cast<int>(t->getPos().y) + j,
-                        static_cast<int>(t->getPos().x) + i
+                        static_cast<int>(t->getPos().x) + i,
+                        static_cast<int>(t->getPos().y) + j
                     }));
                 } else {
+                    std::cerr << "change" << std::endl;
                     c->pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, c->pair->getColor(), color->getId());
                 }
             }
@@ -112,18 +111,19 @@ namespace Arcade {
         ITextPtr t = std::dynamic_pointer_cast<IText>(object);
         ncurses::ColorPtr color = ncurses::Color::searchByColorOrCreate(_colors, t->getColor());
         ncurses::ColorPairPtr pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, color->getId(), COLOR_BLACK);
-        std::cerr << "text: " << t->getText() << std::endl;
         for (int i = 0; i < t->getText().length(); ++i) {
             pos_t pos = {t->getPos().x + static_cast<float>(i), t->getPos().y};
             ncurses::charPtr  c = searchChar(_map, pos);
-            if (c == nullptr || c->chara != ' ') {
+            if (c == nullptr) {
+                std::cerr << "push back" << std::endl;
                 _map->push_back(std::make_shared<ncurses::char_t>( ncurses::char_t{
                     pair,
                     t->getText()[i],
-                    static_cast<int>(t->getPos().y),
-                    static_cast<int>(t->getPos().x) + i
+                    static_cast<int>(pos.x),
+                    static_cast<int>(pos.y)
                 }));
             } else {
+                std::cerr << "change" << std::endl;
                 c->pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, color->getId(), c->pair->getBackground());
                 c->chara = t->getText()[i];
             }

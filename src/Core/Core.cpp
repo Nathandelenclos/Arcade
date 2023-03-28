@@ -181,7 +181,7 @@ namespace Arcade {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
                     lib,
-                    {0, 0, 20, 1},
+                    {0, 0, 25, 1},
                     basePos,
                     {255, 255, 255, 255},
                     i == 0
@@ -194,12 +194,12 @@ namespace Arcade {
             i++;
         }
         i = 0;
-        basePos = {30, 0};
+        basePos = {35, 0};
         for (const std::string &game: *gamesName) {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
                     game,
-                    {0, 0, 20, 1},
+                    {0, 0, 25, 1},
                     basePos,
                     {255, 255, 255, 500},
                     i == 0

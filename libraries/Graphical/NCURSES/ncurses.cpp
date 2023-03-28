@@ -57,9 +57,9 @@ namespace Arcade {
         void Window::displayChar(const charVectorPtr &map)
         {
             for (const charPtr &i: *map) {
-                attron(COLOR_PAIR(1));
-                mvprintw(i->x, i->y, "%c", i->chara);
-                attroff(COLOR_PAIR(1));
+                attron(COLOR_PAIR(i->pair->getId()));
+                mvprintw(i->y, i->x, "%c", i->chara);
+                attroff(COLOR_PAIR(i->pair->getId()));
             }
         }
 
