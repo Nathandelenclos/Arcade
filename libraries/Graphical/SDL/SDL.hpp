@@ -73,6 +73,7 @@ namespace Arcade {
             bool _fullscreen;
             SDL_Surface *_icon;
             bool _isOpened;
+            Arcade::windowsParameter_t _windowsParameter{};
         private:
         };
 
@@ -119,7 +120,7 @@ namespace Arcade {
             static TexturePtr loadFromText(const RendererPtr& renderer, const std::string &text, const std::string &filename, color_t color);
             static TexturePtr loadFromSurface(const RendererPtr& renderer, const SurfacePtr &surface);
             static TexturePtr loadFromFile(const RendererPtr &renderer, std::string &filename);
-            static TexturePtr loadFromRectangle(pos_t pos, size_t width, size_t height, color_t color);
+            static TexturePtr loadFromRectangle(const RendererPtr& renderer, size_t width, size_t height, color_t color, pos_t pos);
             SDL_Texture *getTexture() const;
             rect_t getRect() const;
             void setRect(rect_t rect);

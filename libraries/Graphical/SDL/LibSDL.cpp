@@ -92,6 +92,7 @@ namespace Arcade {
         this->_renderer->clear();
         int i = 0;
         for (sdl::TexturePtr &texture : *this->_textures) {
+            this->_renderer->clear();
             this->_renderer->draw(texture, texture->getRect());
         }
         this->_renderer->present();
@@ -161,7 +162,7 @@ namespace Arcade {
     void LibSDL::initSprite(const IObjectPtr &object) {
         IEntitiesPtr s = std::dynamic_pointer_cast<IEntities>(object);
         if (s->getSprite().empty()) {
-            sdl::TexturePtr texture = sdl::Texture::loadFromRectangle(s->getPos(), s->getRect().width, s->getRect().height, s->getColor());
+            sdl::TexturePtr texture = sdl::Texture::loadFromRectangle(this->_renderer, s->getRect().width, s->getRect().height, s->getColor(), s->getPos());
             this->_textures->push_back(texture);
         } else {
             sdl::TexturePtr texture = sdl::Texture::loadFromFile(this->_renderer, s->getSprite());

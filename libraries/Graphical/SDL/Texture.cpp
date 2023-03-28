@@ -93,6 +93,16 @@ namespace Arcade {
             return texture;
         }
 
+        /**
+         * @brief Load the Texture from text :: Get the texture from the text object
+         * @param text Text content
+         * @param filename Font filename
+         * @param color Text color
+         * @param size Text size
+         * @param renderer Renderer
+         * @param pos Text position
+         * @return SDL_Texture Texture
+         */
         TexturePtr Texture::loadFromText(const RendererPtr &renderer,
             const std::string &text, const std::string &filename, color_t color,
             int size, pos_t pos)
@@ -131,10 +141,14 @@ namespace Arcade {
         }
 
         TexturePtr
-        Texture::loadFromRectangle(pos_t pos, size_t width, size_t height, color_t color) {
-            sdl::RendererPtr r = std::make_shared<sdl::Renderer>();
+        Texture::loadFromRectangle(const RendererPtr& renderer, size_t width, size_t height, color_t color, pos_t pos) {
             sdl::TexturePtr texture = std::make_shared<sdl::Texture>();
-            texture->_texture = SDL_CreateTexture(r->getRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
+            texture->_texture = SDL_CreateTexture(renderer->getRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
+            SDL_SetRenderTarget(renderer->getRenderer(), NULL);
+            SDL_SetRenderDrawColor(renderer->getRenderer(), color.r, color.b, color.b, color.a);
+            SDL_Rect rect = {static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(width), static_cast<int>(height)};
+            SDL_RenderFillRect(renderer->getRenderer(), &rect);
+            //SDL_SetRenderTarget(renderer->getRenderer(), NULL);
             return texture;
         }
 
