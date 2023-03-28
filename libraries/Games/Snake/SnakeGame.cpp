@@ -71,8 +71,10 @@ namespace Arcade {
         }
         _snake->movement();
         _snake->mapBorder();
-        if (_snake->checkCollision())
+        if (_snake->checkCollision()) {
+            _snake->addBody(_gameObjects);
             _snake->placeApple();
+        }
     }
 
     extern "C" IGameLib *constructor_game()

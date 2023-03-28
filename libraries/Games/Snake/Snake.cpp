@@ -12,11 +12,12 @@ namespace Arcade {
     Snake::Snake()
     {
         apple = APPLE;
-        _applePos = pos_t{8, 8};
+        _applePos = pos_t{14, 18};
 
         _apple = std::make_shared<Entity>(_applePos, apple, "apple", color_t {255, 255, 255, 255},rect_t{0, 0, 29, 28}, true);
         _head = std::make_shared<Entity>(pos_t{3, 5}, directions[3]._head, color_t{255, 255, 255, 255}, true);
         _tail = std::make_shared<Entity>(pos_t{2, 5}, directions[3]._tail, color_t{255, 255, 255, 255}, true);
+        _body = std::make_shared<EntityVector>();
         _currentDirection = EDirection::RIGHT;
     }
 
@@ -134,12 +135,35 @@ namespace Arcade {
 
     bool Snake::comparePos(const pos_t &pos1, const pos_t &pos2)
     {
-        std::cout << "headPos: x: " << pos1.x << "y: " << pos1.y << std::endl;
-        std::cout << "applePos: x: " << pos2.x << "y: " << pos2.y << std::endl;
-        if (static_cast<int>(pos1.x) == static_cast<int>(pos2.x) &&
-        static_cast<int>(pos1.y) == static_cast<int>(pos2.y))
-            return (true);
+        if (_head->getSprite() == SNAKE_UP && _tail->getSprite() == SNAKE_UP) {
+            if (pos1.x <= pos2.x + (28 / 50.0) && pos1.x + (100 / 50.0) >= pos2.x + (28 / 50.0)
+                && pos1.y <= pos2.y + (29 / 50.0) && pos1.y + (100 / 50.0) >= pos2.y + (29 / 50.0))
+                return (true);
+        }
+        if (_head->getSprite() == SNAKE_DOWN && _tail->getSprite() == SNAKE_DOWN) {
+            if (pos1.x <= pos2.x + (28 / 50.0) && pos1.x + (100 / 50.0) >= pos2.x + (28 / 50.0)
+            && pos1.y <= pos2.y + (29 / 50.0) && pos1.y + (184 / 50.0) >= pos2.y + (29 / 50.0))
+                return (true);
+        }
+        if (_head->getSprite() == SNAKE_RIGHT && _tail->getSprite() == SNAKE_RIGHT) {
+            if (pos1.x <= pos2.x + (28 / 50.0) && pos1.x + (130 / 50.0) >= pos2.x + (28/ 50.0)
+            && pos1.y <= pos2.y + (29 / 50.0) && pos1.y + (100 / 50.0) >= pos2.y + (29 / 50.0))
+                return (true);
+        }
+        if (_head->getSprite() == SNAKE_LEFT && _tail->getSprite() == SNAKE_LEFT) {
+            if (pos1.x <= pos2.x + (28 / 50.0) && pos1.x + (100 / 50.0) >= pos2.x + (28 / 50.0)
+            && pos1.y < pos2.y + (29 / 50.0) && pos1.y + (100 / 50.0) >= pos2.y + (29 / 50.0))
+                return (true);
+        }
         return (false);
+    }
+
+    void Snake::addBody(IObjectVector &object)
+    {
+        _body_hor = SNAKE_BODY_HOR;
+        EntityPtr body = std::make_shared<Entity>(pos_t{_currentTailPos.x, _currentTailPos.y}, _body_hor, "body_hor", color_t {255, 255, 255, 255}, rect_t {0, 0, 56, 56}, true);
+        _body->push_back(body);
+        object->push_back(body);
     }
 
 }

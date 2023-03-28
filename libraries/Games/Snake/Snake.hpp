@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Entity.hpp"
+#include "Types.hpp"
 
 #define APPLE "./assets/sprites/snake_game/apple.png"
 
@@ -15,6 +16,9 @@
 #define SNAKE_DOWN "./assets/sprites/snake_game/snakkel_DOWN.png"
 #define SNAKE_LEFT "./assets/sprites/snake_game/snakkel_LEFT.png"
 #define SNAKE_RIGHT "./assets/sprites/snake_game/snakkel_RIGHT.png"
+
+#define SNAKE_BODY_HOR "./assets/sprites/snake_game/snakkel_body_hor.png"
+#define SNAKE_BODY_VER "./assets/sprites/snake_game/snakkel_body_ver.png"
 
 
 namespace Arcade {
@@ -73,7 +77,8 @@ namespace Arcade {
             bool checkCollision();
 
             void placeApple();
-            static bool comparePos(const pos_t &pos1, const pos_t &pos2);
+            bool comparePos(const pos_t &pos1, const pos_t &pos2);
+            void addBody(IObjectVector &object);
 
         protected:
             direction_t snakkel_up;
@@ -82,6 +87,7 @@ namespace Arcade {
             direction_t snakkel_right;
             std::string apple;
             std::string map;
+            std::string _body_hor;
         private:
             EntityPtr _apple;
             EntityPtr _head;
