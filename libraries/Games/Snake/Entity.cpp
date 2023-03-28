@@ -71,6 +71,26 @@ namespace Arcade {
             _display = true;
         }
 
+        Entity::Entity(pos_t pos, std::string &sprite, const std::string &id, color_t color, rect_t rect,
+                       bool display)
+        {
+            _pos = pos;
+            _sprite = sprite;
+            _color = color;
+            _rect = rect;
+            _display = display;
+            _id = id;
+        }
+
+        Entity::Entity(pos_t pos, const sprite_t& sprite, color_t color, bool display)
+        {
+            _pos = pos;
+            _sprite = sprite.sprite;
+            _color = color;
+            _rect = sprite.rect;
+            _display = display;
+        }
+
         pos_t Entity::getPos()
         {
             return _pos;
@@ -100,4 +120,40 @@ namespace Arcade {
         {
             return _rect;
         }
+
+        float Entity::getSize()
+        {
+            return _size;
+        }
+
+        std::string &Entity::getId()
+        {
+            return _id;
+        }
+
+        void Entity::setId(std::string &id)
+        {
+            _id = id;
+        }
+
+        void Entity::setDisplay(bool display)
+        {
+            _display = display;
+        }
+
+        void Entity::setRect(rect_t rect)
+        {
+            _rect = rect;
+        }
+
+        void Entity::setSprite(std::string &sprite)
+        {
+            _sprite = sprite;
+        }
+
+        void Entity::setPos(pos_t pos)
+        {
+            _pos = pos;
+        }
+
 }

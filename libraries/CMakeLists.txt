@@ -80,10 +80,12 @@ set_target_properties(
 target_sources(
         arcade_snake
         PRIVATE
-        Games/Snake/Snake.cpp
-        Games/Snake/Snake.hpp
+        Games/Snake/SnakeGame.cpp
+        Games/Snake/SnakeGame.hpp
         Games/Snake/Entity.cpp
         Games/Snake/Entity.hpp
+        Games/Snake/Snake.cpp
+        Games/Snake/Snake.hpp
 )
 
 # libPacman
