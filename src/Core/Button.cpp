@@ -17,14 +17,15 @@ namespace Arcade {
      * @param pos {pos_t} - The position of the button
      * @param color {color_t} - The color of the button
      */
-    Button::Button(const std::string &libName, rect_t rect, pos_t pos, color_t color)
+    Button::Button(const std::string &libName, rect_t rect, pos_t pos,
+        color_t color)
     {
         _pos = pos;
         _display = true;
         _rect = rect;
         _sprite = "";
         _color = color;
-        color_t colorText = {0,0,0, 255};
+        color_t colorText = {0, 0, 0, 255};
         _text = std::make_shared<Text>(pos, libName, colorText);
         _selected = false;
     }
@@ -38,7 +39,8 @@ namespace Arcade {
      * @param color {color_t} - The color of the button
      * @param selected {bool} - If the button is selected
      */
-    Button::Button(const std::string &libName, rect_t rect, pos_t pos, color_t color, bool selected)
+    Button::Button(const std::string &libName, rect_t rect, pos_t pos,
+        color_t color, bool selected)
     {
         _pos = pos;
         _display = true;
@@ -87,8 +89,9 @@ namespace Arcade {
      */
     color_t Button::getColor()
     {
-        if (_selected)
+        if (_selected) {
             return {0, 255, 255, 255};
+        }
         return _color;
     }
 
@@ -190,12 +193,14 @@ namespace Arcade {
      * @param id {size_t} - The id of the button
      * @return ButtonPtr - The button found
      */
-    ButtonPtr Button::searchInList(const ButtonVectorPtr& list, enum ButtonGroup group,
+    ButtonPtr
+    Button::searchInList(const ButtonVectorPtr &list, enum ButtonGroup group,
         size_t id)
     {
-        for (auto &button : *list) {
-            if (button->getGroup() == group && button->getId() == id)
+        for (auto &button: *list) {
+            if (button->getGroup() == group && button->getId() == id) {
                 return button;
+            }
         }
         return nullptr;
     }
@@ -207,15 +212,18 @@ namespace Arcade {
      * @param id {size_t} - The id of the button
      * @return ButtonPtr - The button found
      */
-    ButtonPtr Button::searchInList(const IEntitiesVectorPtr& list, enum ButtonGroup group,
+    ButtonPtr
+    Button::searchInList(const IEntitiesVectorPtr &list, enum ButtonGroup group,
         size_t id)
     {
-        for (auto &element : *list) {
-            if (!Button::isButton(element))
+        for (auto &element: *list) {
+            if (!Button::isButton(element)) {
                 continue;
+            }
             ButtonPtr button = std::dynamic_pointer_cast<Button>(element);
-            if (button->getGroup() == group && button->getId() == id)
+            if (button->getGroup() == group && button->getId() == id) {
                 return button;
+            }
         }
         return nullptr;
     }
@@ -227,14 +235,18 @@ namespace Arcade {
      * @param id {size_t} - The id of the button
      * @return ButtonPtr - The button found
      */
-    ButtonPtr Button::searchInList(const IObjectVector& list, enum ButtonGroup group, size_t id)
+    ButtonPtr
+    Button::searchInList(const IObjectVector &list, enum ButtonGroup group,
+        size_t id)
     {
-        for (auto &element : *list) {
-            if (!Button::isButton(element))
+        for (auto &element: *list) {
+            if (!Button::isButton(element)) {
                 continue;
+            }
             ButtonPtr button = std::dynamic_pointer_cast<Button>(element);
-            if (button->getGroup() == group && button->getId() == id)
+            if (button->getGroup() == group && button->getId() == id) {
                 return button;
+            }
         }
         return nullptr;
     }
