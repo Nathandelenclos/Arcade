@@ -10,7 +10,6 @@
 #include "IGameLib.hpp"
 
 namespace Arcade {
-
     class Pacman : public IGameLib {
         public:
             Pacman();

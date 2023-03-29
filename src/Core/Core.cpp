@@ -43,7 +43,7 @@ namespace Arcade {
         _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
         _menuObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
         _isRunning = true;
-        _windowsParameter = {800, 600, false};
+        _windowsParameter = {1920, 1080, false};
         _state = Arcade::CoreState::MENU;
     }
 
