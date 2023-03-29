@@ -32,6 +32,8 @@ namespace Arcade {
     LibNCURSES::~LibNCURSES()
     {
         std::cout << "destructor LibNCURSES" << std::endl;
+        if (_window->isOpen())
+            _window->close();
     }
 
     /**

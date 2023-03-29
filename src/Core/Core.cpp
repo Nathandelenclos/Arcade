@@ -79,9 +79,7 @@ namespace Arcade {
         if (_currentLibIndex == _libsName->size()) {
             _currentLibIndex = 0;
         }
-        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
-            _libsName->at(_currentLibIndex));
-        _currentLib = _libLoader->getGraphInstance();
+        makeLibInstance(_currentLibIndex);
         startGraphic();
     }
 
@@ -95,9 +93,7 @@ namespace Arcade {
         if (_currentGameIndex == _gamesName->size()) {
             _currentGameIndex = 0;
         }
-        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(
-            _gamesName->at(_currentGameIndex));
-        _currentGame = _gameLoader->getGameInstance();
+        makeGameInstance(_currentGameIndex);
         setState(Arcade::CoreState::GAME);
     }
 
@@ -111,9 +107,7 @@ namespace Arcade {
         if (_currentLibIndex == _libsName->size()) {
             _currentLibIndex = 0;
         }
-        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
-            _libsName->at(_currentLibIndex));
-        _currentLib = _libLoader->getGraphInstance();
+        makeLibInstance(_currentLibIndex);
         startGraphic();
     }
 
@@ -126,9 +120,7 @@ namespace Arcade {
         if (_currentGameIndex == _gamesName->size()) {
             _currentGameIndex = 0;
         }
-        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(
-            _gamesName->at(_currentGameIndex));
-        _currentGame = _gameLoader->getGameInstance();
+        makeGameInstance(_currentGameIndex);
         setState(Arcade::CoreState::GAME);
     }
 
@@ -270,9 +262,10 @@ namespace Arcade {
                 ButtonGroup::GAME,
                 _tempGameIndex)->getText()->getText();
             _state = Arcade::CoreState::GAME;
-            makeGameInstance(_tempGameIndex);
-            if (_tempLibIndex != _currentLibIndex)
-                makeLibInstance(_tempLibIndex);
+            setCurrentGameLib(_tempGameIndex);
+            if (_tempLibIndex != _currentLibIndex) {
+                setCurrentGraphicLib(_tempLibIndex);
+            }
             _gameObjects = getCurrentGameLib()->getGameObjects();
             std::cerr << "Starting " << gameName << " with " << libName
                 << std::endl;
