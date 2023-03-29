@@ -158,14 +158,22 @@ namespace Arcade {
         if (s->getSprite().empty()) {
             sfml::SpritePtr sprite( new sfml::Sprite(
                 s->getColor(),
-                sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
-                {s->getPos().x * (static_cast<float>(_windowsParameter.width) / MAPWIDTH), s->getPos().y * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT)}));
+                sf::IntRect(s->getRect().x * (static_cast<float>(_windowsParameter.width) / MAPWIDTH),
+                            s->getRect().y * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT),
+                            s->getRect().width * (static_cast<float>(_windowsParameter.width) / MAPWIDTH),
+                            s->getRect().height * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT)),
+                {s->getPos().x * (static_cast<float>(_windowsParameter.width) / MAPWIDTH),
+                 s->getPos().y * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT)}));
             _objects->push_back(sprite);
         } else {
             sfml::SpritePtr sprite( new sfml::Sprite(
                 s->getSprite(),
-                sf::IntRect(s->getRect().x, s->getRect().y, s->getRect().width, s->getRect().height),
-                {s->getPos().x * (static_cast<float>(_windowsParameter.width) / MAPWIDTH), s->getPos().y * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT)}));
+                sf::IntRect(s->getRect().x * (static_cast<float>(_windowsParameter.width) / MAPWIDTH),
+                            s->getRect().y * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT),
+                            s->getRect().width * (static_cast<float>(_windowsParameter.width) / MAPWIDTH),
+                            s->getRect().height * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT)),
+                {s->getPos().x * (static_cast<float>(_windowsParameter.width) / MAPWIDTH),
+                 s->getPos().y * (static_cast<float>(_windowsParameter.height) / MAPHEIGHT)}));
             _objects->push_back(sprite);
         }
     }

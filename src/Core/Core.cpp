@@ -181,7 +181,7 @@ namespace Arcade {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
                     lib,
-                    {0, 0, 20, 1},
+                    {0, 0, 18, 2},
                     basePos,
                     {255, 255, 255, 255},
                     i == 0
@@ -190,7 +190,7 @@ namespace Arcade {
             s->setId(i);
             _menuObjects->push_back(s);
             _menuObjects->push_back(s->getText());
-            basePos.y += 2;
+            basePos.y += 3;
             i++;
         }
         i = 0;
@@ -199,7 +199,7 @@ namespace Arcade {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
                     game,
-                    {0, 0, 20, 1},
+                    {0, 0, 18, 2},
                     basePos,
                     {255, 255, 255, 255},
                     i == 0
@@ -208,7 +208,7 @@ namespace Arcade {
             s->setId(i);
             _menuObjects->push_back(s);
             _menuObjects->push_back(s->getText());
-            basePos.y += 2;
+            basePos.y += 3;
             i++;
         }
         _gameObjects = _menuObjects;

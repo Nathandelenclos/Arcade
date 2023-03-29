@@ -28,6 +28,7 @@ namespace Arcade {
             this->_height = height;
             this->_fullscreen = fullscreen;
             this->_isOpened = false;
+            this->_windowParameter = {static_cast<unsigned int>(width), static_cast<unsigned int>(height), fullscreen};
             SDL_Init(SDL_INIT_VIDEO);
             SDL_Init(SDL_INIT_EVENTS);
             SDL_Init(SDL_INIT_AUDIO);
@@ -51,6 +52,8 @@ namespace Arcade {
                     ? SDL_WINDOW_FULLSCREEN
                     : SDL_WINDOW_SHOWN);
             this->_isOpened = true;
+            this->_windowParameter = {static_cast<unsigned int>(width),
+                                      static_cast<unsigned int>(height), fullscreen};
             if (this->_window == nullptr) {
                 std::cout << "SDL_CreateWindow Error: " << SDL_GetError()
                     << std::endl;
@@ -132,6 +135,10 @@ namespace Arcade {
         Window::~Window() {
             TTF_Quit();
             SDL_DestroyWindow(_window);
+        }
+
+        windowsParameter_t Window::getWindowParameter() const {
+            return this->_windowParameter;
         };
     }
 }

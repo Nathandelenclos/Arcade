@@ -12,6 +12,8 @@
 #include <iostream>
 #include "IObject.hpp"
 #include <SDL2/SDL_ttf.h>
+#include "IGraphicLib.hpp"
+#include "Types.hpp"
 
 namespace Arcade {
     namespace sdl {
@@ -65,6 +67,7 @@ namespace Arcade {
             bool isOpened() const;
             void setOpened(bool isOpened);
             SDL_Window *getWindow() const;
+            windowsParameter_t getWindowParameter() const;
         protected:
             SDL_Window *_window;
             std::string _title;
@@ -73,7 +76,7 @@ namespace Arcade {
             bool _fullscreen;
             SDL_Surface *_icon;
             bool _isOpened;
-            Arcade::windowsParameter_t _windowsParameter{};
+            Arcade::windowsParameter_t _windowParameter;
         private:
         };
 
@@ -87,9 +90,12 @@ namespace Arcade {
             SDL_Renderer *getRenderer() const;
             void clear();
             void draw(const TexturePtr &texture, rect_t rect);
-            void drawRect(pos_t pos, size_t width, size_t height, color_t color);
+            void drawRect(const TexturePtr& texture, rect_t rect);
+            void setWindowParameter(const WindowPtr& window);
+            windowsParameter_t getWindowParameter() const;
         protected:
             SDL_Renderer *_renderer;
+            Arcade::windowsParameter_t _windowParameter;
         private:
         };
 

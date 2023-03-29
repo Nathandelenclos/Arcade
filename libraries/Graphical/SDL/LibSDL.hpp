@@ -74,6 +74,7 @@ namespace Arcade {
 
         protected:
             windowsParameter_t _windowsParameter;
+            sdl::TextureVectorPtr _rectTextures;
             sdl::TextureVectorPtr _textures;
         private:
             InputKey _key;

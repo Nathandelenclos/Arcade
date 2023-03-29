@@ -28,11 +28,15 @@ namespace Arcade {
          */
         void Renderer::create(const WindowPtr& window) {
             this->_renderer = SDL_CreateRenderer(window->getWindow(), -1, 0);
+            setWindowParameter(window);
+
             if (this->_renderer == nullptr) {
                 std::cout << "SDL_CreateRenderer Error: " << SDL_GetError()
                     << std::endl;
                 exit(84);
             }
+            SDL_SetRenderDrawBlendMode(this->_renderer, SDL_BLENDMODE_NONE);
+            this->clear();
         }
 
         /**
@@ -62,8 +66,12 @@ namespace Arcade {
          * @param rect Rectangle
          */
         void Renderer::draw(const TexturePtr& texture, rect_t rect) {
-            SDL_Rect sdlRect = {static_cast<int>(rect.pos.x), static_cast<int>(rect.pos.y), static_cast<int>(rect.width), static_cast<int>(rect.height)};
-            SDL_RenderCopy(this->_renderer, texture->getTexture(), nullptr, &sdlRect);
+            SDL_Rect sdlRect = {static_cast<int>(rect.pos.x * (static_cast<float>(_windowParameter.width) / MAPWIDTH)),
+                                static_cast<int>(rect.pos.y * (static_cast<float>(_windowParameter.height) / MAPHEIGHT)),
+                                static_cast<int>(rect.width),
+                                static_cast<int>(rect.height)};
+            SDL_RenderCopy(this->_renderer, texture->getTexture(), nullptr,
+                           &sdlRect);
         }
 
         /**
@@ -73,15 +81,26 @@ namespace Arcade {
          * @param height Height
          * @param color Color
          */
-        void Renderer::drawRect(pos_t pos, size_t width, size_t height,
-            color_t color) {
-            SDL_Rect sdlRect = {static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(width), static_cast<int>(height)};
-            SDL_SetRenderDrawColor(this->_renderer, color.r, color.g, color.b, color.a);
+        void Renderer::drawRect(const TexturePtr& texture, rect_t rect) {
+            SDL_Rect sdlRect = {static_cast<int>(rect.pos.x),
+                                static_cast<int>(rect.pos.y),
+                                static_cast<int>(rect.width),
+                                static_cast<int>(rect.height)};
+            SDL_SetRenderDrawColor(this->_renderer, texture->getColor().r, texture->getColor().g,
+                                   texture->getColor().b, texture->getColor().a);
             SDL_RenderFillRect(this->_renderer, &sdlRect);
         }
 
         SDL_Renderer *Renderer::getRenderer() const {
             return this->_renderer;
+        }
+
+        void Renderer::setWindowParameter(const WindowPtr &window) {
+            this->_windowParameter = window->getWindowParameter();
+        }
+
+        windowsParameter_t Renderer::getWindowParameter() const {
+            return this->_windowParameter;
         }
     }
 }

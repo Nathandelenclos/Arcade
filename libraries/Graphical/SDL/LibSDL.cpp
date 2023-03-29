@@ -17,6 +17,7 @@ namespace Arcade {
         this->_window = std::make_shared<sdl::Window>();
         this->_renderer = std::make_shared<sdl::Renderer>();
         this->_textures = std::make_shared<std::vector<sdl::TexturePtr>>();
+        this->_rectTextures = std::make_shared<std::vector<sdl::TexturePtr>>();
         this->_event = std::make_shared<sdl::Event>();
         std::cout << "constructor LibSDL" << std::endl;
     }
@@ -90,11 +91,13 @@ namespace Arcade {
     {
         eventListener();
         this->_renderer->clear();
-        int i = 0;
+        for (sdl::TexturePtr &rects : *this->_rectTextures) {
+            this->_renderer->drawRect(rects, rects->getRect());
+        }
         for (sdl::TexturePtr &texture : *this->_textures) {
-            this->_renderer->clear();
             this->_renderer->draw(texture, texture->getRect());
         }
+        SDL_SetRenderDrawColor(this->_renderer->getRenderer(), 0, 0, 0, 255);
         this->_renderer->present();
     }
 
@@ -149,9 +152,12 @@ namespace Arcade {
      */
     void LibSDL::initText(const IObjectPtr &object) {
         ITextPtr text = std::dynamic_pointer_cast<IText>(object);
-        color_t color = {255, 255, 255, 255};
 
-        sdl::TexturePtr texture = sdl::Texture::loadFromText(_renderer, text->getText(), text->getFont(), color, text->getSize(), text->getPos());
+        sdl::TexturePtr texture = sdl::Texture::loadFromText(_renderer, text->getText(),
+                                                             text->getFont(), text->getColor(),
+                                                             text->getSize(),
+                                                             {text->getPos().x,
+                                                              text->getPos().y});
         this->_textures->push_back(texture);
     }
 
@@ -162,13 +168,22 @@ namespace Arcade {
     void LibSDL::initSprite(const IObjectPtr &object) {
         IEntitiesPtr s = std::dynamic_pointer_cast<IEntities>(object);
         if (s->getSprite().empty()) {
-            sdl::TexturePtr texture = sdl::Texture::loadFromRectangle(this->_renderer, s->getRect().width, s->getRect().height, s->getColor(), s->getPos());
-            this->_textures->push_back(texture);
+            sdl::TexturePtr texture = sdl::Texture::loadFromRectangle(this->_renderer,
+                                                                      s->getRect().width,
+                                                                      s->getRect().height,
+                                                                      s->getColor(),
+                                                                      {s->getPos().x,
+                                                                       s->getPos().y});
+            this->_rectTextures->push_back(texture);
         } else {
             sdl::TexturePtr texture = sdl::Texture::loadFromFile(this->_renderer, s->getSprite());
             texture->setColor(s->getColor());
-            Arcade::sdl::rect_t rect = {{s->getRect().x, s->getRect().y}, static_cast<size_t>(s->getRect().width), static_cast<size_t>(s->getRect().height)};
+            Arcade::sdl::rect_t rect = {{s->getRect().x,
+                                         s->getRect().y},
+                                        static_cast<size_t>(s->getRect().width),
+                                        static_cast<size_t>(s->getRect().height)};
             texture->setRect(rect);
+            this->_textures->push_back(texture);
         }
     }
 

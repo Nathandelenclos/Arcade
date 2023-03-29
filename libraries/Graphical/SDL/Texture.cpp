@@ -14,6 +14,7 @@ namespace Arcade {
          * @brief Create the Texture object :: Texture object
          */
         Texture::Texture() {
+            this->_rect = {0, 0, 0, 0};
         }
 
         /**
@@ -110,6 +111,7 @@ namespace Arcade {
             SurfacePtr surface = Surface::loadFromFont(filename, text, size, color);
             TexturePtr texture = Texture::loadFromSurface(renderer, surface);
             texture->setRect({pos.x, pos.y, static_cast<size_t>((size * 0.60) * text.size()), static_cast<size_t>(size * 1.2)});
+            texture->setColor(color);
             return texture;
         }
 
@@ -144,11 +146,13 @@ namespace Arcade {
         Texture::loadFromRectangle(const RendererPtr& renderer, size_t width, size_t height, color_t color, pos_t pos) {
             sdl::TexturePtr texture = std::make_shared<sdl::Texture>();
             texture->_texture = SDL_CreateTexture(renderer->getRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
-            SDL_SetRenderTarget(renderer->getRenderer(), NULL);
-            SDL_SetRenderDrawColor(renderer->getRenderer(), color.r, color.b, color.b, color.a);
-            SDL_Rect rect = {static_cast<int>(pos.x), static_cast<int>(pos.y), static_cast<int>(width), static_cast<int>(height)};
+            SDL_Rect rect = {static_cast<int>(pos.x * (static_cast<float>(renderer->getWindowParameter().width) / MAPWIDTH)),
+                             static_cast<int>(pos.y * (static_cast<float>(renderer->getWindowParameter().height) / MAPHEIGHT)),
+                             static_cast<int>(width * (static_cast<float>(renderer->getWindowParameter().width) / MAPWIDTH)),
+                             static_cast<int>(height * (static_cast<float>(renderer->getWindowParameter().height) / MAPHEIGHT))};
+            texture->setRect({static_cast<float>(rect.x), static_cast<float>(rect.y), static_cast<size_t>(rect.w), static_cast<size_t>(rect.h)});
+            texture->setColor(color);
             SDL_RenderFillRect(renderer->getRenderer(), &rect);
-            //SDL_SetRenderTarget(renderer->getRenderer(), NULL);
             return texture;
         }
 
