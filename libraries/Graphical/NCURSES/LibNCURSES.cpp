@@ -11,6 +11,10 @@
 
 namespace Arcade {
 
+    /**
+     * @brief Construct a new Lib NCURSES:: Lib NCURSES object
+     *
+     */
     LibNCURSES::LibNCURSES()
     {
         std::cout << "constructor LibNCURSES" << std::endl;
@@ -21,11 +25,19 @@ namespace Arcade {
         _pairs = std::make_shared<ncurses::ColorPairVector>();
     }
 
+    /**
+     * @brief Destroy the Lib NCURSES:: Lib NCURSES object
+     *
+     */
     LibNCURSES::~LibNCURSES()
     {
         std::cout << "destructor LibNCURSES" << std::endl;
     }
 
+    /**
+     * @brief Init the window
+     * @param gameObjects IObjectVector - The game objects
+     */
     void LibNCURSES::loadObjects(IObjectVector gameObjects)
     {
         initType_t initType[] = {
@@ -44,11 +56,18 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief get the current key
+     * @param object InputKey - The current key
+     */
     InputKey LibNCURSES::getCurrentKey()
     {
         return _currentKey;
     }
 
+    /**
+     * @brief Event listener
+     */
     void LibNCURSES::display()
     {
         eventListener();
@@ -56,31 +75,53 @@ namespace Arcade {
         _window->displayChar(_map);
     }
 
+    /**
+     * @brief get window parameter
+     * @return windowsParameter_t - The window parameter
+     */
     windowsParameter_t LibNCURSES::getWindow()
     {
         return (_windowsParameter);
     }
 
+    /**
+     * @brief set window parameter
+     * @param windowsParameter windowsParameter_t - The window parameter
+     */
     void LibNCURSES::setWindow(windowsParameter_t windowsParameter)
     {
         _windowsParameter = windowsParameter;
     }
 
+    /**
+     * @brief Open the window
+     */
     void LibNCURSES::openWindow()
     {
         _window->open();
     }
 
+    /**
+     * @brief Close the window
+     */
     void LibNCURSES::closeWindow()
     {
         _window->close();
     }
 
+    /**
+     * @brief Check if the window is open
+     * @return true - The window is open
+     * @return false - The window is close
+     */
     bool LibNCURSES::isOpen()
     {
         return _window->isOpen();
     }
 
+    /**
+     * @brief Init the Entity
+     */
     void LibNCURSES::initEntity(const IObjectPtr &object)
     {
         IEntitiesPtr t = std::dynamic_pointer_cast<IEntities>(object);
@@ -105,6 +146,9 @@ namespace Arcade {
         };
     }
 
+    /**
+     * @brief Init the Text
+     */
     void LibNCURSES::initText(const IObjectPtr &object)
     {
         ITextPtr t = std::dynamic_pointer_cast<IText>(object);
@@ -127,6 +171,9 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief Event listener
+     */
     void LibNCURSES::eventListener()
     {
         _currentKey = InputKey::NONE;
@@ -139,6 +186,12 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief Search a char in a vector
+     * @param v ncurses::charVectorPtr - The vector
+     * @param pos pos_t - The position
+     * @return ncurses::charPtr - The char
+     */
     ncurses::charPtr LibNCURSES::searchChar(const ncurses::charVectorPtr &v,pos_t pos)
     {
         for (ncurses::charPtr &c: *v) {
@@ -149,6 +202,9 @@ namespace Arcade {
         return nullptr;
     }
 
+    /**
+     * @brief External constructor
+     */
     extern "C" IGraphicLib *constructor_graphic()
     {
         return new LibNCURSES();

@@ -38,35 +38,42 @@ namespace Arcade {
             public:
                 Color(int save, const std::string &id, color_t text);
                 Color(int save, color_t text);
-            ~Color();
-                static ColorPtr searchByColor(const ColorVectorPtr& v, color_t color);
-                static ColorPtr searchByColorOrCreate(const ColorVectorPtr& v, color_t color);
+                ~Color();
+                static ColorPtr
+                searchByColor(const ColorVectorPtr &v, color_t color);
+                static ColorPtr
+                searchByColorOrCreate(const ColorVectorPtr &v, color_t color);
                 const std::string &getSave() const;
                 int getId() const;
-        protected:
-            int _id;
-            std::string _save;
-        private:
+            protected:
+                int _id;
+                std::string _save;
+            private:
         };
 
         class ColorPair;
+
         typedef std::shared_ptr<ColorPair> ColorPairPtr;
         typedef std::vector<ColorPairPtr> ColorPairVector;
         typedef std::shared_ptr<ColorPairVector> ColorPairVectorPtr;
 
         class ColorPair {
-        public:
-            ColorPair (int color, int background, int id);
-            ~ColorPair() = default;
-            static ColorPairPtr searchByColorPair(const ColorPairVectorPtr& v, int color, int background);
-            static ColorPairPtr searchByColorPairOrCreate(const ColorPairVectorPtr& v, int color, int background);
-            int getColor() const;
-            int getBackground() const;
-            int getId() const;
-        private:
-            int _color;
-            int _background;
-            int _id;
+            public:
+                ColorPair(int color, int background, int id);
+                ~ColorPair() = default;
+                static ColorPairPtr
+                searchByColorPair(const ColorPairVectorPtr &v, int color,
+                    int background);
+                static ColorPairPtr
+                searchByColorPairOrCreate(const ColorPairVectorPtr &v,
+                    int color, int background);
+                int getColor() const;
+                int getBackground() const;
+                int getId() const;
+            private:
+                int _color;
+                int _background;
+                int _id;
         };
 
         typedef struct {
@@ -85,8 +92,8 @@ namespace Arcade {
                 Window();
                 ~Window();
                 int getKey();
-                void displayChar(const charVectorPtr& map);
-                void displayText(const textVectorPtr& map);
+                void displayChar(const charVectorPtr &map);
+                void displayText(const textVectorPtr &map);
                 void open();
                 void close();
                 bool isOpen();

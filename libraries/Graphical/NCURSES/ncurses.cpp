@@ -9,15 +9,28 @@
 
 namespace Arcade {
     namespace ncurses {
+        /**
+         * @brief Construct a new Window:: Window object
+         */
         Window::Window() = default;
 
+        /**
+         * @brief Destroy the Window:: Window object
+         */
         Window::~Window() = default;
 
+        /**
+         * @brief Get the Key object
+         * @return int - The key
+         */
         int Window::getKey()
         {
             return getch();
         }
 
+        /**
+         * @brief Open the window
+         */
         void Window::open()
         {
             _window = initscr();
@@ -29,22 +42,37 @@ namespace Arcade {
             curs_set(0);
         }
 
+        /**
+         * @brief Check if the window is open
+         * @return true - The window is open
+         * @return false - The window is closed
+         */
         bool Window::isOpen()
         {
             return _window != nullptr;
         }
 
+        /**
+         * @brief Close the window
+         */
         void Window::close()
         {
             endwin();
             _window = nullptr;
         }
 
+        /**
+         * @brief Clear the window
+         */
         void Window::clearAll()
         {
             wclear(_window);
         }
 
+        /**
+         * @brief Get the Event object
+         * @return int - The event
+         */
         int Window::poolEvent()
         {
             timeout(0);
@@ -52,6 +80,10 @@ namespace Arcade {
             return getch();
         }
 
+        /**
+         * @brief Display the char
+         * @param map charVectorPtr - The char to display
+         */
         void Window::displayChar(const charVectorPtr &map)
         {
             for (const charPtr &i: *map) {
@@ -62,6 +94,10 @@ namespace Arcade {
             wrefresh(_window);
         }
 
+        /**
+         * @brief Display the text
+         * @param map textVectorPtr - The text to display
+         */
         void Window::displayText(
             const textVectorPtr &map)
         {
@@ -73,6 +109,12 @@ namespace Arcade {
             }
         }
 
+        /**
+         * @brief Init Color
+         * @param id int - The id of the color
+         * @param save std::string - The save of the color
+         * @param text color_t - The color
+         */
         Color::Color(int id, const std::string &save, color_t color)
         {
             init_color(static_cast<short>(id), static_cast<short>(color.r * 2) , static_cast<short>(color.g * 2), static_cast<short>(color.b * 2));
@@ -80,6 +122,11 @@ namespace Arcade {
             _id = id;
         }
 
+        /**
+         * @brief Construct a new Color:: Color object
+         * @param id int - The id of the color
+         * @param text color_t - The color
+         */
         Color::Color(int id, color_t text)
         {
             init_color(static_cast<short>(id), static_cast<short>(text.r * 2), static_cast<short>(text.g * 2), static_cast<short>(text.b * 2));
@@ -87,16 +134,30 @@ namespace Arcade {
             _save = std::to_string(text.r) + std::to_string(text.g) + std::to_string(text.b);
         }
 
+        /**
+         * @brief Get the Id object
+         * @return int - The id
+         */
         int Color::getId() const
         {
             return _id;
         }
 
+        /**
+         * @brief Get the Save object
+         * @return std::string - The save
+         */
         const std::string &Color::getSave() const
         {
             return _save;
         }
 
+        /**
+         * @brief Search the color by the color
+         * @param v ColorVectorPtr - The vector of color
+         * @param color color_t - The color
+         * @return ColorPtr - The color
+         */
         ColorPtr Color::searchByColor(const ColorVectorPtr& v, color_t color)
         {
             for (const ColorPtr& i: *v) {
@@ -106,6 +167,12 @@ namespace Arcade {
             return nullptr;
         }
 
+        /**
+         * @brief Search the color by the color or create it
+         * @param v ColorVectorPtr - The vector of color
+         * @param color color_t - The color
+         * @return ColorPtr - The color
+         */
         ColorPtr Color::searchByColorOrCreate(const ColorVectorPtr &v, color_t color)
         {
             ColorPtr color_1 = searchByColor(v, color);
@@ -116,8 +183,17 @@ namespace Arcade {
             return color_1;
         }
 
+        /**
+         * @brief Destroy the Color:: Color object
+         */
         Color::~Color() = default;
 
+        /**
+         * @brief Construct a new Color Pair:: Color Pair object
+         * @param color int - The color
+         * @param background int - The background
+         * @param id int - The id
+         */
         ColorPair::ColorPair(int color, int background, int id)
         {
             _color = color;
@@ -126,6 +202,13 @@ namespace Arcade {
             init_pair(static_cast<short>(id), static_cast<short>(color), static_cast<short>(background));
         }
 
+        /**
+         * @brief search the color pair by the color and the background
+         * @param v ColorPairVectorPtr - The vector of color pair
+         * @param color int - The color
+         * @param background int - The background
+         * @return ColorPairPtr - The color pair
+         */
         ColorPairPtr ColorPair::searchByColorPair(const ColorPairVectorPtr &v, int color,
             int background)
         {
@@ -136,6 +219,13 @@ namespace Arcade {
             return nullptr;
         }
 
+        /**
+         * @brief search the color pair by the color and the background or create it
+         * @param v ColorPairVectorPtr - The vector of color pair
+         * @param color int - The color
+         * @param background int - The background
+         * @return ColorPairPtr - The color pair
+         */
         ColorPairPtr ColorPair::searchByColorPairOrCreate(const ColorPairVectorPtr &v,
             int color, int background)
         {
@@ -147,20 +237,31 @@ namespace Arcade {
             return colorPair;
         }
 
+        /**
+         * @brief Get the Color object
+         * @return int - The color
+         */
         int ColorPair::getColor() const
         {
             return _color;
         }
 
+        /**
+         * @brief Get the Background object
+         * @return int - The background
+         */
         int ColorPair::getBackground() const
         {
             return _background;
         }
 
+        /**
+         * @brief Get the Id object
+         * @return int - The id
+         */
         int ColorPair::getId() const
         {
             return _id;
         }
-
     }
 }

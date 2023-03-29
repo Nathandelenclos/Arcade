@@ -271,9 +271,10 @@ namespace Arcade {
                 _tempGameIndex)->getText()->getText();
             _state = Arcade::CoreState::GAME;
             makeGameInstance(_tempGameIndex);
-            makeLibInstance(_tempLibIndex);
+            if (_tempLibIndex != _currentLibIndex)
+                makeLibInstance(_tempLibIndex);
             _gameObjects = getCurrentGameLib()->getGameObjects();
-            std::cout << "Starting " << gameName << " with " << libName
+            std::cerr << "Starting " << gameName << " with " << libName
                 << std::endl;
         }
     }
@@ -310,6 +311,10 @@ namespace Arcade {
         _state = state;
     }
 
+    /**
+     * @brief Get the current graphic library
+     * @param index - the index of the library
+     */
     void Core::makeGameInstance(int index)
     {
         _currentGameIndex = index;
@@ -324,6 +329,10 @@ namespace Arcade {
         _currentGame = _gameLoader->getGameInstance();
     }
 
+    /**
+     * @brief Get the current graphic library
+     * @param index - the index of the library
+     */
     void Core::makeLibInstance(int index)
     {
         _currentLibIndex = index;

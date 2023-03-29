@@ -284,13 +284,31 @@ namespace Arcade {
         return true;
     }
 
+    /**
+     * @brief Get the Size object
+     * @return float - The size of the button
+     */
     float Button::getSize()
     {
         return _size;
     }
 
+    /**
+     * @brief Set the Size object
+     * @param size {float} - The size of the button
+     */
     void Button::setSize(float size)
     {
         _size = size;
+    }
+
+    /**
+     * @brief Set the Pos object
+     * @param pos {pos_t} - The position of the button
+     */
+    void Button::setPos(pos_t pos)
+    {
+        _pos = pos;
+        _text->setPos(pos);
     }
 }

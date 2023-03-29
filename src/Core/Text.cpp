@@ -260,6 +260,12 @@ namespace Arcade {
         _color = color;
     }
 
+    /**
+     * @brief Get the Position Centered object
+     *
+     * @return true - if the text is centered
+     * @return false - if the text is not centered
+     */
     bool Text::positionCentered()
     {
         return false;
