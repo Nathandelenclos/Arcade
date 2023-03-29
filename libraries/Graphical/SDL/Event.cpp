@@ -13,8 +13,12 @@ namespace Arcade {
         /**
          * @brief Create the Event object :: Event object
          */
-        Event::Event() {
-        }
+        Event::Event() = default;
+
+        /**
+         * @brief Destroy the Event object :: Destroy the event
+         */
+        Event::~Event() = default;
 
         /**
          * @brief Set the poll event :: Set the poll eventl
@@ -50,10 +54,5 @@ namespace Arcade {
         SDL_Event Event::getEvent() {
             return this->_event;
         }
-
-        /**
-         * @brief Destroy the Event object :: Destroy the event
-         */
-        Event::~Event() = default;
     }
 }

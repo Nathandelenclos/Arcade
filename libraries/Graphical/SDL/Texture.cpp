@@ -123,25 +123,50 @@ namespace Arcade {
             return _texture;
         }
 
+        /**
+         * @brief Get Color :: Get the color from the texture object
+         * @return color_t color
+         */
         color_t Texture::getColor() const
         {
             return _color;
         }
 
+        /**
+         * @brief Set Rect :: Set the rect from the texture object
+         * @param rect Rect
+         */
         void Texture::setRect(rect_t rect)
         {
             _rect = rect;
         }
 
+        /**
+         * @brief Get Rect :: Get the rect from the texture object
+         * @return rect_t Rect
+         */
         rect_t Texture::getRect() const
         {
             return _rect;
         }
 
+        /**
+         * @brief Set Color :: Set the color from the texture object
+         * @param color Color
+         */
         void Texture::setColor(color_t color) {
             this->_color = color;
         }
 
+        /**
+         * @brief Load the Texture from rectangle :: Load the texture from rectangle
+         * @param renderer Renderer
+         * @param width Width
+         * @param height Height
+         * @param color Color
+         * @param pos Position
+         * @return TexturePtr Textureptr
+         */
         TexturePtr
         Texture::loadFromRectangle(const RendererPtr& renderer, size_t width, size_t height, color_t color, pos_t pos) {
             sdl::TexturePtr texture = std::make_shared<sdl::Texture>();
@@ -155,6 +180,5 @@ namespace Arcade {
             SDL_RenderFillRect(renderer->getRenderer(), &rect);
             return texture;
         }
-
     }
 }

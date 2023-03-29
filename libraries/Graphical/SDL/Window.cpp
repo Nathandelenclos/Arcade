@@ -10,6 +10,9 @@
 namespace Arcade {
     namespace sdl {
 
+        /**
+         * @brief Init the Window object :: Window object
+         */
         Window::Window() {
             SDL_Init(SDL_INIT_VIDEO);
             SDL_Init(SDL_INIT_EVENTS);
@@ -121,10 +124,19 @@ namespace Arcade {
             return this->_window;
         }
 
+        /**
+         * @brief Get the Is Opened object :: Get the window is opened or not
+         * @return true Window is opened
+         * @return false Window is closed
+         */
         bool Window::isOpened() const {
             return this->_isOpened;
         }
 
+        /**
+         * @brief Set the Is Opened object :: Set the window is opened or not
+         * @param isOpened Window is opened or not
+         */
         void Window::setOpened(bool isOpened) {
             this->_isOpened = isOpened;
         }
@@ -137,6 +149,10 @@ namespace Arcade {
             SDL_DestroyWindow(_window);
         }
 
+        /**
+         * @brief Get the Window Parameter object :: Get the window parameter
+         * @return windowParameter_t Window parameter
+         */
         windowsParameter_t Window::getWindowParameter() const {
             return this->_windowParameter;
         };

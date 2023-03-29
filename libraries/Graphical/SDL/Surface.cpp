@@ -61,6 +61,14 @@ namespace Arcade {
             return this->_surface;
         }
 
+        /**
+         * @brief Load the Surface from font :: Load the surface from font
+         * @param filename Font filename
+         * @param str String
+         * @param size Font size
+         * @param color Font color
+         * @return SurfacePtr Surface
+         */
         SurfacePtr Surface::loadFromFont(const std::string &filename, const std::string &str, int size, color_t color) {
             SurfacePtr surface = std::make_shared<Surface>();
             surface->_font = TTF_OpenFont(filename.c_str(), size);
@@ -75,16 +83,36 @@ namespace Arcade {
             return surface;
         }
 
+        /**
+         * @brief Load the Surface from font :: Load the surface from font
+         * @param filename Font filename
+         * @param str String
+         * @param size Font size
+         * @return SurfacePtr Surface
+         */
         SurfacePtr Surface::loadFromFont(const std::string &filename, const std::string &str, int size) {
             return Surface::loadFromFont(filename, str, size, {255, 255, 255, 255});
         }
 
+        /**
+         * @brief Load the Surface from font :: Load the surface from font
+         * @param filename Font filename
+         * @param str String
+         * @return SurfacePtr Surface
+         */
         SurfacePtr Surface::loadFromFont(const std::string &filename,
             const std::string &str)
         {
             return Surface::loadFromFont(filename, str, 16, {255, 255, 255, 255});
         }
 
+        /**
+         * @brief Load the Surface from font :: Load the surface from font
+         * @param filename Font filename
+         * @param str String
+         * @param color Font color
+         * @return SurfacePtr Surface
+         */
         SurfacePtr Surface::loadFromFont(const std::string &filename,
             const std::string &str, color_t color)
         {

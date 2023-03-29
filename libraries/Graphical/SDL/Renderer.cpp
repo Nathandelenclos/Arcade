@@ -91,14 +91,26 @@ namespace Arcade {
             SDL_RenderFillRect(this->_renderer, &sdlRect);
         }
 
+        /**
+         * @brief Get the Renderer object :: Get the renderer
+         * @return SdlRenderer *Renderer
+         */
         SDL_Renderer *Renderer::getRenderer() const {
             return this->_renderer;
         }
 
+        /**
+         * @brief Set the Window Parameter object :: Set the window parameter
+         * @param window Window
+         */
         void Renderer::setWindowParameter(const WindowPtr &window) {
             this->_windowParameter = window->getWindowParameter();
         }
 
+        /**
+         * @brief Get the Window Parameter object :: Get the window parameter
+         * @return windowParameter_t Window parameter
+         */
         windowsParameter_t Renderer::getWindowParameter() const {
             return this->_windowParameter;
         }
