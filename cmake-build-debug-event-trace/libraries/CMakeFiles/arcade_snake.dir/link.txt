@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC  -g -g -shared -Wl,-soname,arcade_snake.so -o /home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/lib/arcade_snake.so CMakeFiles/arcade_snake.dir/Games/Snake/Snake.cpp.o 
