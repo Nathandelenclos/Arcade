@@ -27,8 +27,8 @@ namespace Arcade {
      */
     LibSDL::~LibSDL()
     {
-        if (isOpen()) {
-            closeWindow();
+        if (_window->isOpened()) {
+            _window->destroy();
         }
         std::cout << "destructor LibSDL" << std::endl;
     }
@@ -135,7 +135,7 @@ namespace Arcade {
      */
     void LibSDL::closeWindow()
     {
-        this->_window->setOpened(false);
+        this->_window->destroy();
     }
 
     /**
