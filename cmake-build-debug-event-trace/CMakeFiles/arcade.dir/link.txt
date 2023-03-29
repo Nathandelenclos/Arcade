@@ -1,0 +1,1 @@
+/usr/bin/c++  -g -g CMakeFiles/arcade.dir/src/main.cpp.o CMakeFiles/arcade.dir/src/Utils.cpp.o CMakeFiles/arcade.dir/src/Core/Core.cpp.o CMakeFiles/arcade.dir/src/Core/Text.cpp.o CMakeFiles/arcade.dir/src/Core/Entity.cpp.o CMakeFiles/arcade.dir/src/Core/Button.cpp.o -o /home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/arcade 

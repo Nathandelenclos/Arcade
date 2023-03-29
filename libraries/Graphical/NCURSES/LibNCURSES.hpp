@@ -24,7 +24,7 @@ namespace Arcade {
         {KEY_RIGHT, InputKey::RIGHT},
         {'q', InputKey::INTERACT},
         {KEY_ENTER, InputKey::PAUSE},
-        {KEY_CANCEL, InputKey::ESCAPE},
+        {27 , InputKey::ESCAPE},
         {'a', InputKey::SWITCH_LIB},
         {'e', InputKey::SWITCH_GAME},
         {'b', InputKey::KEY_B},

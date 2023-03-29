@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -g -g -shared -Wl,-soname,arcade_sdl2.so -o /home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/lib/arcade_sdl2.so CMakeFiles/arcade_sdl2.dir/Graphical/SDL/LibSDL.cpp.o CMakeFiles/arcade_sdl2.dir/Graphical/SDL/SDL.cpp.o  -lSDL2 

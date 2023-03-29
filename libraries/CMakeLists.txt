@@ -9,7 +9,7 @@ add_library(arcade_sfml SHARED)
 find_package(SDL2 REQUIRED)
 add_library(arcade_sdl2 SHARED)
 
-add_library(arcade_ncurses SHARED Graphical/NCURSES/ncurses.hpp Graphical/NCURSES/ncurses.cpp)
+add_library(arcade_ncurses SHARED)
 
 add_library(arcade_snake SHARED)
 
@@ -63,8 +63,8 @@ set_target_properties(
 target_sources(
         arcade_ncurses
         PRIVATE
-        Graphical/NCURSES/LibNCURSES.cpp
-        Graphical/NCURSES/LibNCURSES.hpp
+        Graphical/NCURSES/LibNCURSES.cpp Graphical/NCURSES/LibNCURSES.hpp
+        Graphical/NCURSES/ncurses.cpp Graphical/NCURSES/ncurses.hpp
 )
 
 target_link_libraries(arcade_ncurses ncurses)

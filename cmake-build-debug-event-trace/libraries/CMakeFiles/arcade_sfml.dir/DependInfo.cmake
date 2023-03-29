@@ -1,0 +1,21 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/libraries/Graphical/SFML/LibSFML.cpp" "libraries/CMakeFiles/arcade_sfml.dir/Graphical/SFML/LibSFML.cpp.o" "gcc" "libraries/CMakeFiles/arcade_sfml.dir/Graphical/SFML/LibSFML.cpp.o.d"
+  "/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/libraries/Graphical/SFML/Sprite.cpp" "libraries/CMakeFiles/arcade_sfml.dir/Graphical/SFML/Sprite.cpp.o" "gcc" "libraries/CMakeFiles/arcade_sfml.dir/Graphical/SFML/Sprite.cpp.o.d"
+  "/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/libraries/Graphical/SFML/Text.cpp" "libraries/CMakeFiles/arcade_sfml.dir/Graphical/SFML/Text.cpp.o" "gcc" "libraries/CMakeFiles/arcade_sfml.dir/Graphical/SFML/Text.cpp.o.d"
+  )
+
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")

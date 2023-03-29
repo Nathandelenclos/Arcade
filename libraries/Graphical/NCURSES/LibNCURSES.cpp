@@ -32,6 +32,7 @@ namespace Arcade {
             {ObjectType::ENTITY, &LibNCURSES::initEntity},
             {ObjectType::TEXT, &LibNCURSES::initText}
         };
+        _map = std::make_shared<ncurses::charVector>();
         for (IObjectPtr &gameObject : *gameObjects) {
             if (!gameObject->isDisplayed())
                 continue;
@@ -91,7 +92,6 @@ namespace Arcade {
             for (int j = 0; j < height; ++j) {
                 ncurses::charPtr c = searchChar(_map, {t->getPos().x + i, t->getPos().y + j});
                 if (c == nullptr) {
-                    std::cerr << "push back" << std::endl;
                     _map->push_back(std::make_shared<ncurses::char_t>( ncurses::char_t{
                         pair,
                         ' ',
@@ -99,7 +99,6 @@ namespace Arcade {
                         static_cast<int>(t->getPos().y) + j
                     }));
                 } else {
-                    std::cerr << "change" << std::endl;
                     c->pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, c->pair->getColor(), color->getId());
                 }
             }
@@ -115,7 +114,6 @@ namespace Arcade {
             pos_t pos = {t->getPos().x + static_cast<float>(i), t->getPos().y};
             ncurses::charPtr  c = searchChar(_map, pos);
             if (c == nullptr) {
-                std::cerr << "push back" << std::endl;
                 _map->push_back(std::make_shared<ncurses::char_t>( ncurses::char_t{
                     pair,
                     t->getText()[i],
@@ -123,7 +121,6 @@ namespace Arcade {
                     static_cast<int>(pos.y)
                 }));
             } else {
-                std::cerr << "change" << std::endl;
                 c->pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, color->getId(), c->pair->getBackground());
                 c->chara = t->getText()[i];
             }
@@ -132,9 +129,13 @@ namespace Arcade {
 
     void LibNCURSES::eventListener()
     {
+        _currentKey = InputKey::NONE;
+        int event = _window->poolEvent();
         for (keyMatching key_matching: mapping) {
-            if (_window->poolEvent() == key_matching.c)
+            if (event == key_matching.c) {
+                std::cerr << "key pressed: " << event << std::endl;
                 _currentKey = key_matching.inputKey;
+            }
         }
     }
 

@@ -42,25 +42,24 @@ namespace Arcade {
 
         void Window::clearAll()
         {
-            clear();
+            wclear(_window);
         }
 
         int Window::poolEvent()
         {
             timeout(0);
-            int event;
 
-            while ((event = getch()) != 0 && event != ERR);
-            return event;
+            return getch();
         }
 
         void Window::displayChar(const charVectorPtr &map)
         {
             for (const charPtr &i: *map) {
                 attron(COLOR_PAIR(i->pair->getId()));
-                mvprintw(i->y, i->x, "%c", i->chara);
+                mvwprintw(_window, i->y, i->x, "%c", i->chara);
                 attroff(COLOR_PAIR(i->pair->getId()));
             }
+            wrefresh(_window);
         }
 
         void Window::displayText(
