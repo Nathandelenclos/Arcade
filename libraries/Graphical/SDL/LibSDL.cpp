@@ -40,6 +40,7 @@ namespace Arcade {
     void LibSDL::loadObjects(IObjectVector gameObjects)
     {
         _textures->clear();
+        _rectTextures->clear();
         initType_t initType[] = {
                 {ObjectType::TEXT, &LibSDL::initText},
                 {ObjectType::ENTITY, &LibSDL::initSprite}
@@ -176,7 +177,7 @@ namespace Arcade {
                                                                        s->getPos().y});
             this->_rectTextures->push_back(texture);
         } else {
-            sdl::TexturePtr texture = sdl::Texture::loadFromFile(this->_renderer, s->getSprite());
+            sdl::TexturePtr texture = sdl::Texture::loadFromFile(this->_renderer, s->getSprite(), {s->getRect().x, s->getRect().y});
             texture->setColor(s->getColor());
             Arcade::sdl::rect_t rect = {{s->getRect().x,
                                          s->getRect().y},

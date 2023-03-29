@@ -52,14 +52,14 @@ namespace Arcade {
          * @param renderer Renderer
          * @return Texture Texture
          */
-        TexturePtr Texture::loadFromFile(const RendererPtr &renderer, std::string &filename) {
+        TexturePtr Texture::loadFromFile(const RendererPtr &renderer, std::string &filename, pos_t pos) {
             TexturePtr texture = std::make_shared<Texture>();
             texture->_texture = IMG_LoadTexture(renderer->getRenderer(), filename.c_str());
             if (texture->_texture == nullptr) {
                 std::cout << "IMG_LoadTexture Error: " << IMG_GetError() << " on " << filename << std::endl;
                 exit(84);
             }
-            texture->setRect({0, 0, 0, 0});
+            texture->setRect({pos.x * (static_cast<float>(renderer->getWindowParameter().width) / MAPWIDTH), pos.y * (static_cast<float>(renderer->getWindowParameter().height) / MAPHEIGHT), 0, 0});
             return texture;
         }
 

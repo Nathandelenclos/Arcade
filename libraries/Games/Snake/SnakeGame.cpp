@@ -18,7 +18,7 @@ namespace Arcade {
         _score = 0;
         map = MAP;
 
-        EntityPtr mapEntity = std::make_shared<Entity>(pos_t{0, 0}, map, "map", color_t {255, 255, 255, 255},rect_t{0, 30, 1920, 1080},true);
+        EntityPtr mapEntity = std::make_shared<Entity>(pos_t{0, 0}, map, "map", color_t {255, 255, 255, 255},rect_t{0, 30 , 1920, 1080},true);
         _snake = std::make_shared<Snake>();
         _gameObjects->push_back(mapEntity);
         _gameObjects->push_back(_snake->getApple());
