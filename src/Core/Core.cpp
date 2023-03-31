@@ -43,7 +43,7 @@ namespace Arcade {
         _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
         _menuObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
         _isRunning = true;
-        _windowsParameter = {800, 600, false};
+        _windowsParameter = {1920, 1080, false};
         _state = Arcade::CoreState::MENU;
     }
 
@@ -173,7 +173,7 @@ namespace Arcade {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
                     lib,
-                    {0, 0, 25, 1},
+                    {0, 0, 18, 2},
                     basePos,
                     {255, 255, 255, 255},
                     i == 0
@@ -182,7 +182,7 @@ namespace Arcade {
             s->setId(i);
             _menuObjects->push_back(s);
             _menuObjects->push_back(s->getText());
-            basePos.y += 2;
+            basePos.y += 3;
             i++;
         }
         i = 0;
@@ -191,7 +191,7 @@ namespace Arcade {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
                     game,
-                    {0, 0, 25, 1},
+                    {0, 0, 18, 2},
                     basePos,
                     {255, 255, 255, 500},
                     i == 0
@@ -200,7 +200,7 @@ namespace Arcade {
             s->setId(i);
             _menuObjects->push_back(s);
             _menuObjects->push_back(s->getText());
-            basePos.y += 2;
+            basePos.y += 3;
             i++;
         }
         _gameObjects = _menuObjects;

@@ -7,6 +7,7 @@ find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
 add_library(arcade_sfml SHARED)
 
 find_package(SDL2 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 add_library(arcade_sdl2 SHARED)
 
 add_library(arcade_ncurses SHARED)
@@ -47,10 +48,14 @@ target_sources(
         arcade_sdl2
         PRIVATE
         Graphical/SDL/LibSDL.cpp Graphical/SDL/LibSDL.hpp
-        Graphical/SDL/SDL.cpp Graphical/SDL/SDL.hpp
+        Graphical/SDL/SDL.hpp Graphical/SDL/Event.cpp
+        Graphical/SDL/Texture.cpp
+        Graphical/SDL/Surface.cpp
+        Graphical/SDL/Renderer.cpp
+        Graphical/SDL/Window.cpp
 )
 
-target_link_libraries(arcade_sdl2 SDL2)
+target_link_libraries(arcade_sdl2 SDL2 SDL2_ttf SDL2_image)
 
 # libNCURSES
 
@@ -80,6 +85,10 @@ set_target_properties(
 target_sources(
         arcade_snake
         PRIVATE
+        Games/Snake/SnakeGame.cpp
+        Games/Snake/SnakeGame.hpp
+        Games/Snake/Entity.cpp
+        Games/Snake/Entity.hpp
         Games/Snake/Snake.cpp
         Games/Snake/Snake.hpp
 )
