@@ -47,7 +47,7 @@ namespace Arcade {
                 this->_body->at(0)->setPos(pos_t{static_cast<float>(this->_body->at(0)->getPos().x + 0.01), this->_body->at(0)->getPos().y});
                 break;
         }
-        for (int i = this->_body->size() - 1; i >= 0; i--) {
+        for (int i = _body->size() - 1; i > 0; i--) {
             this->_body->at(i)->setPos(_queuePos.at(j < _queuePos.size() ? j : _queuePos.size() - 1));
             j++;
             //std::cout << "x: " << this->_body->at(i)->getPos().x << " y: " << this->_body->at(i)->getPos().y << " i: " << i << " ---> " << "x: " << tmp.x << " y: " << tmp.y << " i - 1: " << i - 1 << std::endl;
