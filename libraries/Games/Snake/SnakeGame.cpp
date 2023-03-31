@@ -16,14 +16,16 @@ namespace Arcade {
         _currentKey = InputKey::NONE;
         _isEnded = false;
         _score = 0;
-        map = MAP;
 
-        EntityPtr mapEntity = std::make_shared<Entity>(pos_t{0, 0}, map, "map", color_t {255, 255, 255, 255},rect_t{0, 30 , 1920, 1080},true);
         _snake = std::make_shared<Snake>();
-        _gameObjects->push_back(mapEntity);
-        _gameObjects->push_back(_snake->getApple());
-        _gameObjects->push_back(_snake->getHead());
-        _gameObjects->push_back(_snake->getTail());
+        _snake->addBody(_gameObjects);
+        _snake->addBody(_gameObjects);
+        _snake->addBody(_gameObjects);
+        _snake->addBody(_gameObjects);
+        _gameObjects->push_back(_snake->getBodyPart(0));
+        _gameObjects->push_back(_snake->getBodyPart(1));
+        _gameObjects->push_back(_snake->getBodyPart(2));
+        _gameObjects->push_back(_snake->getBodyPart(3));
     }
 
     SnakeGame::~SnakeGame()
@@ -70,11 +72,6 @@ namespace Arcade {
             }
         }
         _snake->movement();
-        _snake->mapBorder();
-        if (_snake->checkCollision()) {
-            _snake->addBody(_gameObjects);
-            _snake->placeApple();
-        }
     }
 
     extern "C" IGameLib *constructor_game()
