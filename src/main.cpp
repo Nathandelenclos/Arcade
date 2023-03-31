@@ -5,6 +5,7 @@
 ** main.cpp
 */
 
+#include <thread>
 #include "Types.hpp"
 #include "Core.hpp"
 #include "Utils.hpp"
@@ -25,6 +26,7 @@ int main(int ac, char **av)
     core->createMainMenu(error->getLibs(), error->getGames());
     core->startGraphic();
     while (core->isRunning()) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(2));
         core->getCurrentGraphicLib()->display();
         core->logicalMenu();
         if (core->getState() == Arcade::CoreState::GAME) {
