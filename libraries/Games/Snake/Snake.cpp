@@ -22,14 +22,11 @@ namespace Arcade {
 
     void Snake::movement()
     {
+        int j = 0;
+        _queuePos.push_back(_body->at(0)->getPos());
         switch (this->_currentDirection) {
             case EDirection::UP:
                 this->_body->at(0)->setPos(pos_t{this->_body->at(0)->getPos().x, static_cast<float>(this->_body->at(0)->getPos().y - 0.02)});
-                /*for (int i = this->_body->size() - 1; i > 0; i--) {
-                    pos_t tmp = this->_body->at(i - 1)->getPos();
-                    this->_body->at(i)->setPos(tmp);
-                    std::cout << "x: " << this->_body->at(i)->getPos().x << " y: " << this->_body->at(i)->getPos().y << " i: " << i << " ---> " << "x: " << tmp.x << " y: " << tmp.y << " i - 1: " << i - 1 << std::endl;
-                }*/
                 break;
             case EDirection::DOWN:
                 /*for (int i = this->_body->size() - 1; i >= 0; i--) {
@@ -49,6 +46,11 @@ namespace Arcade {
                 }*/
                 this->_body->at(0)->setPos(pos_t{static_cast<float>(this->_body->at(0)->getPos().x + 0.01), this->_body->at(0)->getPos().y});
                 break;
+        }
+        for (int i = this->_body->size() - 1; i >= 0; i--) {
+            this->_body->at(i)->setPos(_queuePos.at(j < _queuePos.size() ? j : _queuePos.size() - 1));
+            j++;
+            //std::cout << "x: " << this->_body->at(i)->getPos().x << " y: " << this->_body->at(i)->getPos().y << " i: " << i << " ---> " << "x: " << tmp.x << " y: " << tmp.y << " i - 1: " << i - 1 << std::endl;
         }
     }
 
@@ -74,7 +76,7 @@ namespace Arcade {
     void Snake::addBody(IObjectVector &object)
     {
         EntityPtr bodyPart = std::make_shared<Entity>(this->_body->empty() ? pos_t{25, 25} : pos_t{
-                this->_body->at(this->_body->size() - 1)->getPos().x - 2, this->_body->at(this->_body->size() - 1)->getPos().y}, color_t{255, 255, 0, 255}/*this->_body->empty() ? color_t{0, 0, 0, 0} : color_t{255, 255, 0, 255}*/, rect_t{0, 0, 1, 2});
+                this->_body->at(this->_body->size() - 1)->getPos().x - 2, this->_body->at(this->_body->size() - 1)->getPos().y}, this->_body->empty() ? color_t{255, 0, 255, 255} : color_t{255, 255, 0, 255}, rect_t{0, 0, 1, 2});
         this->_body->push_back(bodyPart);
         object->push_back(bodyPart);
     }

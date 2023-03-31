@@ -62,8 +62,10 @@ namespace Arcade {
         private:
             EntityPtr _apple;
             EntityVectorPtr _body;
+            EntityPtr _head;
             EDirection _currentDirection;
             pos_t _applePos;
+            std::vector<pos_t> _queuePos;
     };
 
     typedef std::shared_ptr<Snake> SnakePtr;
