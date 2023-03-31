@@ -63,8 +63,8 @@ set_target_properties(
 target_sources(
         arcade_ncurses
         PRIVATE
-        Graphical/NCURSES/LibNCURSES.cpp
-        Graphical/NCURSES/LibNCURSES.hpp
+        Graphical/NCURSES/LibNCURSES.cpp Graphical/NCURSES/LibNCURSES.hpp
+        Graphical/NCURSES/ncurses.cpp Graphical/NCURSES/ncurses.hpp
 )
 
 target_link_libraries(arcade_ncurses ncurses)

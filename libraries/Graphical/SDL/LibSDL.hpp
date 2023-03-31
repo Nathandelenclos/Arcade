@@ -26,7 +26,7 @@ namespace Arcade {
             bool isOpen() override;
 
         protected:
-            windowsParameter_t _windowsParameter;
+            windowsParameter_t _windowsParameter{};
         private:
     };
 }

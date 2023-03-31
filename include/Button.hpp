@@ -37,6 +37,7 @@ namespace Arcade {
             static bool isButton(const IEntitiesPtr& object);
 
             pos_t getPos() override;
+            void setPos(pos_t pos);
             bool isDisplayed() override;
             ObjectType getType() override;
             std::string &getSprite() override;
@@ -53,6 +54,7 @@ namespace Arcade {
             enum ButtonGroup getGroup();
             size_t getId() const;
             void setId(size_t id);
+            void setSize(float size);
 
         protected:
             pos_t _pos;

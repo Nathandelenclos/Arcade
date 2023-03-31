@@ -67,9 +67,9 @@ namespace Arcade {
                 _key = InputKey::ESCAPE;
             }
             if (_event.type == sf::Event::KeyPressed) {
-                for (int i = 0; matching[i].inputKey != InputKey::NONE; ++i) {
-                    if (_event.key.code == matching[i].key)
-                        _key = matching[i].inputKey;
+                for (keyMatching key_matching: matching) {
+                    if (_event.key.code == key_matching.key)
+                        _key = key_matching.inputKey;
                 }
             }
         }
