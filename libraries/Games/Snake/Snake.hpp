@@ -46,15 +46,12 @@ namespace Arcade {
 
             EntityPtr getApple() const;
             EntityPtr getBodyPart(int index) const;
-
             void movement();
-
-
+            bool checkCollision();
             void placeApple();
-            bool comparePos(const pos_t &pos1, const pos_t &pos2);
+            bool comparePos(const EntityPtr& a, const EntityPtr& b);
             void addBody(IObjectVector &object);
             void changeDirection(EDirection direction);
-
         protected:
             direction_t direction;
             std::string apple;

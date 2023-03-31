@@ -26,6 +26,7 @@ namespace Arcade {
         _gameObjects->push_back(_snake->getBodyPart(1));
         _gameObjects->push_back(_snake->getBodyPart(2));
         _gameObjects->push_back(_snake->getBodyPart(3));
+        _gameObjects->push_back(_snake->getApple());
     }
 
     SnakeGame::~SnakeGame()
@@ -72,6 +73,10 @@ namespace Arcade {
             }
         }
         _snake->movement();
+        if (_snake->checkCollision()) {
+            _snake->addBody(_gameObjects);
+            _snake->placeApple();
+        }
     }
 
     extern "C" IGameLib *constructor_game()

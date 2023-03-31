@@ -11,8 +11,11 @@ namespace Arcade {
 
     Snake::Snake()
     {
+        _applePos = pos_t{14, 18};
+
         this->_body = std::make_shared<EntityVector>();
         this->_currentDirection = EDirection::RIGHT;
+        _apple = std::make_shared<Entity>(_applePos, color_t {0, 255, 255, 255},rect_t{0, 0, 1, 2});
     }
 
     EntityPtr Snake::getApple() const
@@ -29,28 +32,14 @@ namespace Arcade {
                 this->_body->at(0)->setPos(pos_t{this->_body->at(0)->getPos().x, static_cast<float>(this->_body->at(0)->getPos().y - 0.02)});
                 break;
             case EDirection::DOWN:
-                /*for (int i = this->_body->size() - 1; i >= 0; i--) {
-                    this->_body->at(i)->setPos(pos_t{this->_body->at(i)->getPos().x, static_cast<float>(this->_body->at(i)->getPos().y + 0.02)});
-                }*/
                 this->_body->at(0)->setPos(pos_t{this->_body->at(0)->getPos().x, static_cast<float>(this->_body->at(0)->getPos().y + 0.02)});
                 break;
             case EDirection::LEFT:
-                /*for (int i = this->_body->size() - 1; i >= 0; i--) {
-                    this->_body->at(i)->setPos(pos_t{static_cast<float>(this->_body->at(i)->getPos().x - 0.01), this->_body->at(i)->getPos().y});
-                }*/
                 this->_body->at(0)->setPos(pos_t{static_cast<float>(this->_body->at(0)->getPos().x - 0.01), this->_body->at(0)->getPos().y});
                 break;
             case EDirection::RIGHT:
-                /*for (int i = this->_body->size() - 1; i >= 0; i--) {
-                    this->_body->at(i)->setPos(pos_t{static_cast<float>(this->_body->at(i)->getPos().x + 0.01), this->_body->at(i)->getPos().y});
-                }*/
                 this->_body->at(0)->setPos(pos_t{static_cast<float>(this->_body->at(0)->getPos().x + 0.01), this->_body->at(0)->getPos().y});
                 break;
-        }
-        for (int i = _body->size() - 1; i > 0; i--) {
-            this->_body->at(i)->setPos(_queuePos.at(j < _queuePos.size() ? j : _queuePos.size() - 1));
-            j++;
-            //std::cout << "x: " << this->_body->at(i)->getPos().x << " y: " << this->_body->at(i)->getPos().y << " i: " << i << " ---> " << "x: " << tmp.x << " y: " << tmp.y << " i - 1: " << i - 1 << std::endl;
         }
     }
 
@@ -68,8 +57,13 @@ namespace Arcade {
         _apple->setPos(newApplePos);
     }
 
-    bool Snake::comparePos(const pos_t &pos1, const pos_t &pos2)
+    bool Snake::comparePos(const EntityPtr& a, const EntityPtr& b)
     {
+        if ((a->getPos().x >= b->getPos().x && a->getPos().x <= b->getPos().x + b->getRect().width && a->getPos().y >= b->getPos().y && a->getPos().y <= b->getPos().y + b->getRect().height) ||
+            (a->getPos().x + a->getRect().width >= b->getPos().x && a->getPos().x + a->getRect().width <= b->getPos().x + b->getRect().width && a->getPos().y >= b->getPos().y && a->getPos().y <= b->getPos().y + b->getRect().height) ||
+            (a->getPos().x >= b->getPos().x && a->getPos().x <= b->getPos().x + b->getRect().width && a->getPos().y + a->getRect().height >= b->getPos().y && a->getPos().y + a->getRect().height <= b->getPos().y + b->getRect().height) ||
+            (a->getPos().x + a->getRect().width >= b->getPos().x && a->getPos().x + a->getRect().width <= b->getPos().x + b->getRect().width && a->getPos().y + a->getRect().height >= b->getPos().y && a->getPos().y + a->getRect().height <= b->getPos().y + b->getRect().height))
+            return (true);
         return (false);
     }
 
@@ -117,6 +111,13 @@ namespace Arcade {
         }
         _body->at(0)->setPos(_currentHeadPos);
 
+    }
+
+    bool Snake::checkCollision()
+    {
+        if (comparePos(_body->at(0), _apple))
+            return (true);
+        return (false);
     }
 
 }
