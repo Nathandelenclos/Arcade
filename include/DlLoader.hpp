@@ -60,6 +60,7 @@ namespace Arcade {
                 if (!lib)
                     throw LibError("Cannot load symbol 'constructor_graphic': ");
                 return (lib);
+                dlerror();
             }
 
             std::shared_ptr<Loader> getGameInstance()

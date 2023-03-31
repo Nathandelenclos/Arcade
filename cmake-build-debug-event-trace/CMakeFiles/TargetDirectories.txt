@@ -1,0 +1,10 @@
+/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/cmake-build-debug-event-trace/CMakeFiles/arcade.dir
+/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/cmake-build-debug-event-trace/CMakeFiles/edit_cache.dir
+/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/cmake-build-debug-event-trace/CMakeFiles/rebuild_cache.dir
+/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/cmake-build-debug-event-trace/libraries/CMakeFiles/arcade_sfml.dir
+/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/cmake-build-debug-event-trace/libraries/CMakeFiles/arcade_sdl2.dir
+/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/cmake-build-debug-event-trace/libraries/CMakeFiles/arcade_ncurses.dir
+/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/cmake-build-debug-event-trace/libraries/CMakeFiles/arcade_snake.dir
+/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/cmake-build-debug-event-trace/libraries/CMakeFiles/arcade_pacman.dir
+/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/cmake-build-debug-event-trace/libraries/CMakeFiles/edit_cache.dir
+/home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/cmake-build-debug-event-trace/libraries/CMakeFiles/rebuild_cache.dir

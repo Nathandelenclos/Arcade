@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -g -g -shared -Wl,-soname,arcade_pacman.so -o /home/ndelenclos/Project/Epitech/Tek2/B-OOP-400/Arcarde/lib/arcade_pacman.so CMakeFiles/arcade_pacman.dir/Games/Pacman/Pacman.cpp.o 
