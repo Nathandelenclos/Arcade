@@ -134,6 +134,11 @@ namespace Arcade {
         return _rect;
     }
 
+    /**
+     * @brief Get the Size object
+     *
+     * @return float - size of the entity
+     */
     float Entity::getSize()
     {
         return _size;

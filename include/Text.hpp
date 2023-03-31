@@ -31,7 +31,7 @@ namespace Arcade {
             void setDisplay(bool display);
             void setText(const std::string &text);
             void setFont(const std::string &font);
-            void setSize(int size);
+            void setSize(float size);
             void setColor(color_t color);
 
         bool positionCentered() override;

@@ -83,6 +83,10 @@ bool Arcade::Utils::checkIfLibFile(const std::string &libName) {
     return false;
 }
 
+/**
+ * @brief Get the Libs object
+ * @param libs {std::shared_ptr<std::vector<std::string>>} - the libs
+ */
 void Arcade::Utils::getLibs(std::shared_ptr<std::vector<std::string>> &libs,
                            const std::string &name, const std::string &path) {
     std::string allowLibs[] = {"arcade_ncurses.so", "arcade_sdl2.so", "arcade_ndk++.so",
@@ -98,6 +102,10 @@ void Arcade::Utils::getLibs(std::shared_ptr<std::vector<std::string>> &libs,
     }
 }
 
+/**
+ * @brief Get the Libs object
+ * @param libs {std::shared_ptr<std::vector<std::string>>} - the libs
+ */
 void Arcade::Utils::getGames(std::shared_ptr<std::vector<std::string>> &games,
                              const std::string &name, const std::string &path) {
     std::string allowLibs[] = {"arcade_snake.so", "arcade_nibbler.so", "arcade_pacman.so",
@@ -110,12 +118,22 @@ void Arcade::Utils::getGames(std::shared_ptr<std::vector<std::string>> &games,
     }
 }
 
+/**
+ * @brief Get the Libs object
+ *
+ * @return std::shared_ptr<std::vector<std::string>> - the libs
+ */
 std::shared_ptr<std::vector<std::string>>
 Arcade::ErrorHandling::getGames() const
 {
     return _games;
 }
 
+/**
+ * @brief Get the Libs object
+ *
+ * @return std::shared_ptr<std::vector<std::string>> - the libs
+ */
 std::shared_ptr<std::vector<std::string>> Arcade::ErrorHandling::getLibs() const
 {
     return _libs;

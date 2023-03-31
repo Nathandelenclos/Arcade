@@ -10,7 +10,7 @@
 namespace Arcade {
 
     /**
-     * @brief Constructor of LibSDL object
+     * @brief Construct a new LibSDL:: LibSDL object
      */
     LibSDL::LibSDL()
     {
@@ -23,7 +23,7 @@ namespace Arcade {
     }
 
     /**
-     * @brief Destructor of LibSDL object
+     * @brief Destroy the LibSDL:: LibSDL object
      */
     LibSDL::~LibSDL()
     {
