@@ -167,7 +167,7 @@ namespace Arcade {
     void Core::createMainMenu(const StringVectorPtr &libsName,
         const StringVectorPtr &gamesName)
     {
-        pos_t basePos = {5, 0};
+        pos_t basePos = {0, 0};
         int i = 0;
         for (const std::string &lib: *libsName) {
             Arcade::ButtonPtr s(
@@ -186,7 +186,7 @@ namespace Arcade {
             i++;
         }
         i = 0;
-        basePos = {35, 0};
+        basePos = {20, 0};
         for (const std::string &game: *gamesName) {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
