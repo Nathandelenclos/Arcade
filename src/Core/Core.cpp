@@ -79,9 +79,7 @@ namespace Arcade {
         if (_currentLibIndex == _libsName->size()) {
             _currentLibIndex = 0;
         }
-        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
-            _libsName->at(_currentLibIndex));
-        _currentLib = _libLoader->getGraphInstance();
+        makeLibInstance(_currentLibIndex);
         startGraphic();
     }
 
@@ -95,9 +93,7 @@ namespace Arcade {
         if (_currentGameIndex == _gamesName->size()) {
             _currentGameIndex = 0;
         }
-        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(
-            _gamesName->at(_currentGameIndex));
-        _currentGame = _gameLoader->getGameInstance();
+        makeGameInstance(_currentGameIndex);
         setState(Arcade::CoreState::GAME);
     }
 
@@ -111,9 +107,7 @@ namespace Arcade {
         if (_currentLibIndex == _libsName->size()) {
             _currentLibIndex = 0;
         }
-        _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
-            _libsName->at(_currentLibIndex));
-        _currentLib = _libLoader->getGraphInstance();
+        makeLibInstance(_currentLibIndex);
         startGraphic();
     }
 
@@ -126,9 +120,7 @@ namespace Arcade {
         if (_currentGameIndex == _gamesName->size()) {
             _currentGameIndex = 0;
         }
-        _gameLoader = std::make_shared<Arcade::DlLoaderGame>(
-            _gamesName->at(_currentGameIndex));
-        _currentGame = _gameLoader->getGameInstance();
+        makeGameInstance(_currentGameIndex);
         setState(Arcade::CoreState::GAME);
     }
 
@@ -175,7 +167,7 @@ namespace Arcade {
     void Core::createMainMenu(const StringVectorPtr &libsName,
         const StringVectorPtr &gamesName)
     {
-        pos_t basePos = {0, 0};
+        pos_t basePos = {5, 0};
         int i = 0;
         for (const std::string &lib: *libsName) {
             Arcade::ButtonPtr s(
@@ -194,14 +186,14 @@ namespace Arcade {
             i++;
         }
         i = 0;
-        basePos = {20, 0};
+        basePos = {35, 0};
         for (const std::string &game: *gamesName) {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
                     game,
                     {0, 0, 18, 2},
                     basePos,
-                    {255, 255, 255, 255},
+                    {255, 255, 255, 500},
                     i == 0
                 ));
             s->setGroup(Arcade::ButtonGroup::GAME);
@@ -270,23 +262,38 @@ namespace Arcade {
                 ButtonGroup::GAME,
                 _tempGameIndex)->getText()->getText();
             _state = Arcade::CoreState::GAME;
-            makeGameInstance(_tempGameIndex);
+            setCurrentGameLib(_tempGameIndex);
+            if (_tempLibIndex != _currentLibIndex) {
+                setCurrentGraphicLib(_tempLibIndex);
+            }
             _gameObjects = getCurrentGameLib()->getGameObjects();
-            std::cout << "Starting " << gameName << " with " << libName
+            std::cerr << "Starting " << gameName << " with " << libName
                 << std::endl;
         }
     }
 
+    /**
+     * @brief Get the current game library
+     * @return the current game library
+     */
     Arcade::IObjectVector Core::getGameObjects() const
     {
         return _gameObjects;
     }
 
+    /**
+     * @brief Get the current game library
+     * @return the current game library
+     */
     enum CoreState Core::getState() const
     {
         return _state;
     }
 
+    /**
+     * @brief Set the current game library
+     * @param state - the new state
+     */
     void Core::setState(enum CoreState state)
     {
         if (state == Arcade::CoreState::MENU) {
@@ -297,6 +304,10 @@ namespace Arcade {
         _state = state;
     }
 
+    /**
+     * @brief Get the current graphic library
+     * @param index - the index of the library
+     */
     void Core::makeGameInstance(int index)
     {
         _currentGameIndex = index;
@@ -311,6 +322,10 @@ namespace Arcade {
         _currentGame = _gameLoader->getGameInstance();
     }
 
+    /**
+     * @brief Get the current graphic library
+     * @param index - the index of the library
+     */
     void Core::makeLibInstance(int index)
     {
         _currentLibIndex = index;

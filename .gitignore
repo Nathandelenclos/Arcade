@@ -34,6 +34,7 @@
 
 #cmake
 cmake-build-debug/
+cmake-build-debug-event-trace/
 Note
 build
 lib
