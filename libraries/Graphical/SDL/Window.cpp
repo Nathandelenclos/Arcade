@@ -111,7 +111,6 @@ namespace Arcade {
          * @brief Destroy the Window object :: Destroy the window
          */
         void Window::destroy() {
-            SDL_FreeSurface(this->_icon);
             SDL_DestroyWindow(this->_window);
             this->_isOpened = false;
         }

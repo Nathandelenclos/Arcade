@@ -13,6 +13,7 @@ namespace Arcade {
     {
         this->_body = std::make_shared<EntityVector>();
         this->_walls = std::make_shared<EntityVector>();
+        this->_direction = std::make_shared<dirVector>();
         this->_currentDirection = EDirection::RIGHT;
         _apple = std::make_shared<Entity>(_applePos, color_t {0, 255, 255, 255},rect_t{0, 0, 1, 2});
         this->placeApple();
@@ -25,23 +26,32 @@ namespace Arcade {
 
     void Snake::movement()
     {
-        int j = 0;
-        _queuePos.push_back(_body->at(0)->getPos());
         switch (this->_currentDirection) {
             case EDirection::UP:
-                this->_body->at(0)->setPos(pos_t{this->_body->at(0)->getPos().x, static_cast<float>(this->_body->at(0)->getPos().y - 0.02)});
+                this->setDirection(dir_t{0, -0.8}, 0);
                 break;
             case EDirection::DOWN:
-                this->_body->at(0)->setPos(pos_t{this->_body->at(0)->getPos().x, static_cast<float>(this->_body->at(0)->getPos().y + 0.02)});
+                this->setDirection(dir_t{0, 0.8}, 0);
                 break;
             case EDirection::LEFT:
-                this->_body->at(0)->setPos(pos_t{static_cast<float>(this->_body->at(0)->getPos().x - 0.01), this->_body->at(0)->getPos().y});
+                this->setDirection(dir_t{-0.5, 0}, 0);
                 break;
             case EDirection::RIGHT:
-                this->_body->at(0)->setPos(pos_t{static_cast<float>(this->_body->at(0)->getPos().x + 0.01), this->_body->at(0)->getPos().y});
+                this->setDirection(dir_t{0.5, 0}, 0);
                 break;
         }
+        for (int i = this->_body->size() - 1; i > 0; i--) {
+            this->setDirection(this->getDirection()->at(i - 1), i);
+            pos_t newPos = this->_body->at(i - 1)->getPos();
+            this->_body->at(i)->setPos(newPos);
+        }
+        pos_t headPos = this->_body->at(0)->getPos();
+        headPos.x += this->getDirection()->at(0).x;
+        headPos.y += this->getDirection()->at(0).y;
+        this->_body->at(0)->setPos(headPos);
     }
+
+
 
     void Snake::placeApple()
     {
@@ -61,7 +71,6 @@ namespace Arcade {
             (a->getPos().x + a->getRect().width >= b->getPos().x && a->getPos().x + a->getRect().width <= b->getPos().x + b->getRect().width && a->getPos().y >= b->getPos().y && a->getPos().y <= b->getPos().y + b->getRect().height) ||
             (a->getPos().x >= b->getPos().x && a->getPos().x <= b->getPos().x + b->getRect().width && a->getPos().y + a->getRect().height >= b->getPos().y && a->getPos().y + a->getRect().height <= b->getPos().y + b->getRect().height) ||
             (a->getPos().x + a->getRect().width >= b->getPos().x && a->getPos().x + a->getRect().width <= b->getPos().x + b->getRect().width && a->getPos().y + a->getRect().height >= b->getPos().y && a->getPos().y + a->getRect().height <= b->getPos().y + b->getRect().height)) {
-            std::cout << "Collision" << std::endl;
             return (true);
         }
         return (false);
@@ -70,7 +79,10 @@ namespace Arcade {
     void Snake::addBody(IObjectVector &object)
     {
         EntityPtr bodyPart = std::make_shared<Entity>(this->_body->empty() ? pos_t{11, 22} : pos_t{
-                this->_body->at(this->_body->size() - 1)->getPos().x - 1, this->_body->at(this->_body->size() - 1)->getPos().y}, this->_body->empty() ? color_t{255, 0, 255, 255} : color_t{255, 255, 0, 255}, rect_t{0, 0, 1, 2});
+                this->_body->at(this->_body->size() - 1)->getPos().x - this->_direction->at(this->_body->size() - 1).x,
+                this->_body->at(this->_body->size() - 1)->getPos().y - this->_direction->at(this->_body->size() - 1).y},
+                this->_body->empty() ? color_t{255, 0, 255, 255} : color_t{255, 255, 0, 255}, rect_t{0, 0, 1, 2});
+        this->_direction->push_back(dir_t{0.5, 0});
         this->_body->push_back(bodyPart);
         object->push_back(bodyPart);
     }
@@ -93,23 +105,6 @@ namespace Arcade {
             return;
 
         _currentDirection = direction;
-        pos_t _currentHeadPos = _body->at(0)->getPos();
-        switch (direction)
-        {
-            case EDirection::UP:
-                _currentHeadPos.y -= 0.05;
-                break;
-            case EDirection::DOWN:
-                _currentHeadPos.y += 0.05;
-                break;
-            case EDirection::LEFT:
-                _currentHeadPos.x -= 0.05;
-                break;
-            case EDirection::RIGHT:
-                _currentHeadPos.x += 0.05;
-                break;
-        }
-        _body->at(0)->setPos(_currentHeadPos);
 
     }
 
@@ -141,5 +136,13 @@ namespace Arcade {
 
     EntityPtr Snake::getWalls(int index) const {
         return this->_walls->at(index);
+    }
+
+    dirVectorPtr Snake::getDirection() const {
+        return _direction;
+    }
+
+    void Snake::setDirection(dir_t dir, int index) {
+        _direction->at(index) = dir;
     }
 }

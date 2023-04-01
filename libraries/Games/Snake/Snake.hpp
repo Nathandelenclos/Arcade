@@ -32,6 +32,10 @@ namespace Arcade {
         RIGHT
     };
 
+    typedef struct {
+        float x;
+        float y;
+    } dir_t;
 
     typedef struct {
         EDirection direction;
@@ -39,6 +43,8 @@ namespace Arcade {
         sprite_t _tail;
     } direction_t;
 
+    typedef std::vector<dir_t> dirVector;
+    typedef std::shared_ptr<dirVector> dirVectorPtr;
 
     class Snake {
         public:
@@ -56,6 +62,8 @@ namespace Arcade {
             void addBody(IObjectVector &object);
             void changeDirection(EDirection direction);
             EntityPtr getWalls(int index) const;
+            dirVectorPtr getDirection() const;
+            void setDirection(dir_t dir, int index);
         protected:
             direction_t direction;
             std::string apple;
@@ -68,6 +76,7 @@ namespace Arcade {
             EntityVectorPtr _walls;
             EntityPtr _head;
             EDirection _currentDirection;
+            dirVectorPtr _direction;
             pos_t _applePos;
             std::vector<pos_t> _queuePos;
     };
