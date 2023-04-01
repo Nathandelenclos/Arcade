@@ -10,6 +10,7 @@
 #include "Entity.hpp"
 #include "Types.hpp"
 #include "csignal"
+#include "Text.hpp"
 
 #define APPLE "./assets/sprites/snake_game/apple.png"
 
@@ -49,16 +50,22 @@ namespace Arcade {
             void movement();
             bool checkCollision();
             void placeApple();
+            void createWalls();
+            bool checkWallCollision();
             bool comparePos(const EntityPtr& a, const EntityPtr& b);
             void addBody(IObjectVector &object);
             void changeDirection(EDirection direction);
+            EntityPtr getWalls(int index) const;
         protected:
             direction_t direction;
             std::string apple;
             std::string map;
         private:
             EntityPtr _apple;
+            TextPtr _scoreString;
+            TextPtr _score;
             EntityVectorPtr _body;
+            EntityVectorPtr _walls;
             EntityPtr _head;
             EDirection _currentDirection;
             pos_t _applePos;

@@ -22,11 +22,14 @@ namespace Arcade {
         _snake->addBody(_gameObjects);
         _snake->addBody(_gameObjects);
         _snake->addBody(_gameObjects);
-        _gameObjects->push_back(_snake->getBodyPart(0));
-        _gameObjects->push_back(_snake->getBodyPart(1));
-        _gameObjects->push_back(_snake->getBodyPart(2));
-        _gameObjects->push_back(_snake->getBodyPart(3));
+        _snake->createWalls();
+        for (int i = 0; i < 4; i++) {
+            _gameObjects->push_back(_snake->getBodyPart(i));
+        }
         _gameObjects->push_back(_snake->getApple());
+        for (int i = 0; i < 4; i++) {
+            _gameObjects->push_back(_snake->getWalls(i));
+        }
     }
 
     SnakeGame::~SnakeGame()
@@ -73,7 +76,12 @@ namespace Arcade {
             }
         }
         _snake->movement();
+        if (_snake->checkWallCollision()) {
+            _isEnded = true;
+            exit(0);
+        }
         if (_snake->checkCollision()) {
+            _score += 1;
             _snake->addBody(_gameObjects);
             _snake->placeApple();
         }
