@@ -36,12 +36,14 @@ namespace Arcade {
             bool isEnded() override;
             void setCurrentInputKey(InputKey key) override;
             int getScore() override;
+            void run_pacman();
         protected:
             IObjectVector _gameObjects;
             int _isEnded;
             InputKey _currentKey;
             int _score;
         private:
+            EntityVector _mapEntities;
             GridPtr _grid;
     };
 }

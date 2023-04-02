@@ -16,7 +16,12 @@ namespace Arcade {
         _currentKey = InputKey::NONE;
         _isEnded = false;
         _score = 0;
-        _grid = std::make_shared<Grid>(20, 20);
+        _grid = std::make_shared<Grid>();
+        _gameObjects->push_back(_grid->getPacman());
+        _mapEntities = _grid->getMap();
+        for (const EntityPtr& entity : _mapEntities) {
+            _gameObjects->push_back(entity);
+        }
     }
 
     Pacman::~Pacman()
@@ -36,7 +41,7 @@ namespace Arcade {
 
     void Pacman::updateGameObjects()
     {
-
+        run_pacman();
     }
 
     bool Pacman::isEnded()
@@ -52,6 +57,17 @@ namespace Arcade {
     int Pacman::getScore()
     {
         return _score;
+    }
+
+    void Pacman::run_pacman()
+    {
+        for (key_direction_t keyDirection : key_direction) {
+            if (keyDirection.key == _currentKey) {
+                _grid->changeDirection(keyDirection.direction);
+                break;
+            }
+        }
+        _grid->movePacman();
     }
 
     extern "C" IGameLib *constructor_game()

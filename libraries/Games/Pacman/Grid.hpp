@@ -7,7 +7,13 @@
 
 #pragma once
 
-#include "IObject.hpp"
+#include "Entity.hpp"
+
+#define PACMAN_SPRITE "./assets/sprites/pacman_game/pacman.png"
+#define PACMAN_UP "./assets/sprites/pacman_game/pacman_up.png"
+#define PACMAN_DOWN "./assets/sprites/pacman_game/pacman_down.png"
+#define PACMAN_LEFT "./assets/sprites/pacman_game/pacman_left.png"
+#define PACMAN_RIGHT "./assets/sprites/pacman_game/pacman_right.png"
 
 namespace Arcade {
 
@@ -21,36 +27,33 @@ namespace Arcade {
 
     enum class EntityType {
         WALL,
-        GHOST,
         PACMAN,
-        COIN,
-        POWERUP,
-        EMPTY
+        GHOST,
+        ENERGIZER,
+        FRUIT,
+        NONE
     };
 
     class Grid {
     public:
-        Grid(int width, int height);
+        Grid();
         ~Grid() = default;
 
-        void setEntity(int x, int y, EntityType type);
-        EntityType getEntity(int x, int y) const;
+        EntityVector getMap();
+        EntityPtr getPacman();
 
-        void init();
-        void display();
-        bool isWall(int x, int y) const;
-        bool isEntity(int x, int y) const;
+        void changeDirection(EDirection direction);
 
-        void movePacman(int x, int y);
-        void moveGhost(int ghostIndex, int x, int y);
-
-        bool checkCollision(int x, int y) const;
+        void movePacman();
 
     protected:
-        int _width;
-        int _height;
-        std::vector<EntityType> _grid;
+        EntityVector _map;
+        std::string _pacmanSprite;
+        EntityPtr _pacman;
+        pos_t _pacmanPos;
     private:
+
+        EDirection _currentDirection;
     };
 
     typedef std::shared_ptr<Grid> GridPtr;
