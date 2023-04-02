@@ -56,6 +56,7 @@ namespace Arcade {
     void Snake::placeApple()
     {
         EntityPtr tmpApple = std::make_shared<Entity>(pos_t{0, 0}, color_t {0, 255, 255, 0},rect_t{0, 0, 1, 2});
+        srand(static_cast<unsigned int>(time(nullptr)));
         float newAppleX = rand() % (21 - 2 + 1) + 2;
         float newAppleY = rand() % (42 - 5 + 1) + 5;
         tmpApple->setPos({newAppleX, newAppleY});

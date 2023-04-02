@@ -11,6 +11,7 @@
 #include "Entity.hpp"
 #include "Snake.hpp"
 #include <random>
+#include "thread"
 
 #define MAP "./assets/sprites/snake_game/map.png"
 
@@ -38,9 +39,7 @@ namespace Arcade {
             bool isEnded() override;
             void setCurrentInputKey(InputKey key) override;
             int getScore() override;
-
             void moveSnake();
-
         protected:
             IObjectVector _gameObjects;
             int _isEnded;
