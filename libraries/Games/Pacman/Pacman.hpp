@@ -8,8 +8,23 @@
 #pragma once
 
 #include "IGameLib.hpp"
+#include "Grid.hpp"
 
 namespace Arcade {
+
+    typedef struct {
+        InputKey key;
+        EDirection direction;
+    } key_direction_t;
+
+    static const key_direction_t key_direction[] = {
+        {InputKey::UP, EDirection::UP},
+        {InputKey::DOWN, EDirection::DOWN},
+        {InputKey::LEFT, EDirection::LEFT},
+        {InputKey::RIGHT, EDirection::RIGHT},
+        {InputKey::NONE, EDirection::NONE}
+    };
+
     class Pacman : public IGameLib {
         public:
             Pacman();
@@ -27,5 +42,6 @@ namespace Arcade {
             InputKey _currentKey;
             int _score;
         private:
+            GridPtr _grid;
     };
 }

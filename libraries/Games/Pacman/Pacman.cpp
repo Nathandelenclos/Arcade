@@ -16,6 +16,7 @@ namespace Arcade {
         _currentKey = InputKey::NONE;
         _isEnded = false;
         _score = 0;
+        _grid = std::make_shared<Grid>(20, 20);
     }
 
     Pacman::~Pacman()

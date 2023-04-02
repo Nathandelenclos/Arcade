@@ -106,6 +106,8 @@ target_sources(
         PRIVATE
         Games/Pacman/Pacman.cpp
         Games/Pacman/Pacman.hpp
+        Games/Pacman/Grid.cpp
+        Games/Pacman/Grid.hpp
 )
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
