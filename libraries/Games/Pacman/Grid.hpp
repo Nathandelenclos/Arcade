@@ -34,26 +34,43 @@ namespace Arcade {
         NONE
     };
 
+    class GenericEntity {
+        public:
+            GenericEntity() = default;
+            ~GenericEntity() = default;
+            static EntityPtr generateEntity(EntityType type, pos_t pos);
+            EntityPtr generateWall(pos_t pos);
+            EntityPtr generatePacman(pos_t pos);
+            EntityPtr generateGhost(pos_t pos);
+            EntityPtr generateEnergizer(pos_t pos);
+            EntityPtr generateFruit(pos_t pos);
+    };
+
+    typedef struct {
+        EntityType type;
+        EntityPtr (GenericEntity::*init)(pos_t pos);
+    } entities_t;
+
+
     class Grid {
-    public:
-        Grid();
-        ~Grid() = default;
+        public:
+            Grid();
+            ~Grid() = default;
 
-        EntityVector getMap();
-        EntityPtr getPacman();
+            EntityVector getMap();
+            EntityPtr getPacman();
 
-        void changeDirection(EDirection direction);
+            void changeDirection(EDirection direction);
 
-        void movePacman();
+            void movePacman();
 
-    protected:
-        EntityVector _map;
-        std::string _pacmanSprite;
-        EntityPtr _pacman;
-        pos_t _pacmanPos;
-    private:
-
-        EDirection _currentDirection;
+        protected:
+            EntityVector _map;
+            std::string _pacmanSprite;
+            EntityPtr _pacman;
+            pos_t _pacmanPos;
+        private:
+            EDirection _currentDirection;
     };
 
     typedef std::shared_ptr<Grid> GridPtr;
