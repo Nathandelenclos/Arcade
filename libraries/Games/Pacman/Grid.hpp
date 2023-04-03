@@ -61,14 +61,22 @@ namespace Arcade {
             EntityPtr getPacman();
 
             void changeDirection(EDirection direction);
-
             void movePacman();
+
+            void checkCollision();
 
         protected:
             EntityVector _map;
-            std::string _pacmanSprite;
+            EntityPtr _wall;
+            pos_t _wallPos;
             EntityPtr _pacman;
             pos_t _pacmanPos;
+            EntityPtr _ghost;
+            pos_t _ghostPos;
+            EntityPtr _energizer;
+            pos_t _energizerPos;
+            EntityPtr _fruit;
+            pos_t _fruitPos;
         private:
             EDirection _currentDirection;
     };

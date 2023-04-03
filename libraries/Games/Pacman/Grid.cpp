@@ -9,7 +9,6 @@
 
 namespace Arcade {
 
-
     Grid::Grid()
     {
         _currentDirection = EDirection::RIGHT;
@@ -43,15 +42,21 @@ namespace Arcade {
                 char c = row[i];
                 if (c == '#') {
                     pos_t pos = {(float)i, (float)j};
-                    _map.push_back(GenericEntity::generateEntity(EntityType::WALL, pos));
+                    _wallPos = pos;
+                    _wall = GenericEntity::generateEntity(EntityType::WALL, pos);
+                    _map.push_back(_wall);
                 }
                 if (c == '.') {
                     pos_t pos = {(float)i, (float)j};
-                    _map.push_back(GenericEntity::generateEntity(EntityType::FRUIT, pos));
+                    _fruitPos = pos;
+                    _fruit = GenericEntity::generateEntity(EntityType::FRUIT, pos);
+                    _map.push_back(_fruit);
                 }
                 if (c == 'o') {
                     pos_t pos = {(float)i, (float)j};
-                    _map.push_back(GenericEntity::generateEntity(EntityType::ENERGIZER, pos));
+                    _energizerPos = pos;
+                    _energizer = GenericEntity::generateEntity(EntityType::ENERGIZER, pos);
+                    _map.push_back(_energizer);
                 }
                 if (c == 'P') {
                     pos_t pos = {(float)i, (float)j};
@@ -75,26 +80,38 @@ namespace Arcade {
 
     void Grid::movePacman()
     {
+        bool canMove = true;
+        pos_t currentPos = _pacman->getPos();
+        pos_t newPos = currentPos;
+
         switch (_currentDirection) {
             case EDirection::UP:
-                _pacmanPos.y -= 0.6;
+                newPos.y -= 0.5;
                 break;
             case EDirection::DOWN:
-                _pacmanPos.y += 0.6;
+                newPos.y += 0.5;
                 break;
             case EDirection::LEFT:
-                _pacmanPos.x -= 0.6;
+                newPos.x -= 0.5;
                 break;
             case EDirection::RIGHT:
-                _pacmanPos.x += 0.6;
+                newPos.x += 0.5;
                 break;
             default:
                 break;
         }
-        _pacman->setPos(_pacmanPos);
+        for (auto &entity : _map) {
+            if (static_cast<EntityType>(entity->getType()) == EntityType::WALL && entity->getPos().x == newPos.x && entity->getPos().y == newPos.y) {
+                canMove = false;
+                break;
+            }
+        }
+        if (canMove)
+            _pacman->setPos(newPos);
     }
 
-    void Grid::changeDirection(EDirection direction) {
+    void Grid::changeDirection(EDirection direction)
+    {
         if (_currentDirection == direction)
             return;
         if (_currentDirection == EDirection::UP && direction == EDirection::DOWN ||
@@ -103,6 +120,10 @@ namespace Arcade {
             _currentDirection == EDirection::RIGHT && direction == EDirection::LEFT)
             return;
         _currentDirection = direction;
+    }
+
+    void Grid::checkCollision()
+    {
     }
 
     EntityPtr GenericEntity::generateWall(pos_t pos)
@@ -122,7 +143,8 @@ namespace Arcade {
 
     EntityPtr GenericEntity::generateEnergizer(pos_t pos)
     {
-        return std::make_shared<Entity>(pos, color_t {209, 198, 139, 255}, rect_t{0, 0, 0.6, 0.6});
+        pos = {static_cast<float>(pos.x + 0.25), static_cast<float>(pos.y + 0.25)};
+        return std::make_shared<Entity>(pos, color_t {209, 198, 139, 255}, rect_t{0, 0, 0.5, 0.5});
     }
 
     EntityPtr GenericEntity::generateFruit(pos_t pos)
