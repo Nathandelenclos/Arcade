@@ -28,21 +28,22 @@ namespace Arcade {
     {
         switch (this->_currentDirection) {
             case EDirection::UP:
-                this->setDirection(dir_t{0, -0.8}, 0);
+                this->setDirection(dir_t{0, -0.6}, 0);
                 break;
             case EDirection::DOWN:
-                this->setDirection(dir_t{0, 0.8}, 0);
+                this->setDirection(dir_t{0, 0.6}, 0);
                 break;
             case EDirection::LEFT:
-                this->setDirection(dir_t{-0.5, 0}, 0);
+                this->setDirection(dir_t{-0.3, 0}, 0);
                 break;
             case EDirection::RIGHT:
-                this->setDirection(dir_t{0.5, 0}, 0);
+                this->setDirection(dir_t{0.3, 0}, 0);
                 break;
         }
         for (int i = this->_body->size() - 1; i > 0; i--) {
             this->setDirection(this->getDirection()->at(i - 1), i);
-            pos_t newPos = this->_body->at(i - 1)->getPos();
+            pos_t newPos = {this->_body->at(i - 1)->getPos().x,
+                            this->_body->at(i - 1)->getPos().y};
             this->_body->at(i)->setPos(newPos);
         }
         pos_t headPos = this->_body->at(0)->getPos();
