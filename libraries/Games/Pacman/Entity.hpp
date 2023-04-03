@@ -17,10 +17,21 @@ namespace Arcade {
         rect_t rect;
     } sprite_t;
 
+    enum class EntityType {
+        WALL,
+        PACMAN,
+        GHOST,
+        ENERGIZER,
+        FRUIT,
+        DOOR,
+        NONE
+    };
+
     class Entity : public IEntities {
     public:
         Entity();
         Entity(pos_t pos, color_t color, rect_t rect);
+        Entity(pos_t pos, EntityType type, color_t color, rect_t rect);
         Entity(pos_t pos, const std::string &sprite, color_t color, rect_t rect);
         Entity(pos_t pos, const sprite_t &sprite, color_t color);
         ~Entity() override = default;
@@ -30,6 +41,7 @@ namespace Arcade {
         bool isDisplayed() override;
         void setDisplay(bool display);
         ObjectType getType() override;
+        EntityType getEntityType();
         std::string &getSprite() override;
         void setSprite(std::string &sprite);
         color_t getColor() override;
@@ -44,6 +56,7 @@ namespace Arcade {
         std::string _sprite;
         color_t _color;
         float _size;
+        EntityType _type;
     private:
 
     };

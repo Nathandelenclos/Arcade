@@ -39,6 +39,22 @@ namespace Arcade {
     /**
     * @brief Construct a new Entity:: Entity object
     * @param pos {pos_t} - position of the entity
+    * @param type {EntityType} - type of the entity
+    * @param color {color_t} - color of the entity
+    * @param rect {rect_t} - rect of the entity
+    */
+    Entity::Entity(pos_t pos, EntityType type, color_t color, rect_t rect)
+    {
+        _pos = pos;
+        _color = color;
+        _rect = rect;
+        _type = type;
+        _display = true;
+    }
+
+    /**
+    * @brief Construct a new Entity:: Entity object
+    * @param pos {pos_t} - position of the entity
     * @param sprite {std::string} - path to the sprite
     * @param color {color_t} - color of the entity
     * @param rect  {rect_t} - rect of the entity
@@ -122,6 +138,11 @@ namespace Arcade {
     void Entity::setPos(pos_t pos)
     {
         _pos = pos;
+    }
+
+    EntityType Entity::getEntityType()
+    {
+        return _type;
     }
 
 }

@@ -21,8 +21,7 @@ namespace Arcade {
         {InputKey::UP, EDirection::UP},
         {InputKey::DOWN, EDirection::DOWN},
         {InputKey::LEFT, EDirection::LEFT},
-        {InputKey::RIGHT, EDirection::RIGHT},
-        {InputKey::NONE, EDirection::NONE}
+        {InputKey::RIGHT, EDirection::RIGHT}
     };
 
     class Pacman : public IGameLib {
@@ -36,7 +35,7 @@ namespace Arcade {
             bool isEnded() override;
             void setCurrentInputKey(InputKey key) override;
             int getScore() override;
-            void run_pacman();
+            void runPacman();
         protected:
             IObjectVector _gameObjects;
             int _isEnded;

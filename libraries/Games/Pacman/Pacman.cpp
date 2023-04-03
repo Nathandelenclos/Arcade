@@ -41,7 +41,7 @@ namespace Arcade {
 
     void Pacman::updateGameObjects()
     {
-        run_pacman();
+        runPacman();
     }
 
     bool Pacman::isEnded()
@@ -59,7 +59,7 @@ namespace Arcade {
         return _score;
     }
 
-    void Pacman::run_pacman()
+    void Pacman::runPacman()
     {
         for (key_direction_t keyDirection : key_direction) {
             if (keyDirection.key == _currentKey) {

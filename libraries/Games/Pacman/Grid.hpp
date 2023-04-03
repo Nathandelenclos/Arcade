@@ -25,15 +25,6 @@ namespace Arcade {
         NONE
     };
 
-    enum class EntityType {
-        WALL,
-        PACMAN,
-        GHOST,
-        ENERGIZER,
-        FRUIT,
-        NONE
-    };
-
     class GenericEntity {
         public:
             GenericEntity() = default;
@@ -44,13 +35,13 @@ namespace Arcade {
             EntityPtr generateGhost(pos_t pos);
             EntityPtr generateEnergizer(pos_t pos);
             EntityPtr generateFruit(pos_t pos);
+            EntityPtr generateDoor(pos_t pos);
     };
 
     typedef struct {
         EntityType type;
         EntityPtr (GenericEntity::*init)(pos_t pos);
     } entities_t;
-
 
     class Grid {
         public:
@@ -63,7 +54,7 @@ namespace Arcade {
             void changeDirection(EDirection direction);
             void movePacman();
 
-            void checkCollision();
+            bool comparePos(const EntityPtr &a, const EntityPtr &b);
 
         protected:
             EntityVector _map;
@@ -77,6 +68,8 @@ namespace Arcade {
             pos_t _energizerPos;
             EntityPtr _fruit;
             pos_t _fruitPos;
+            EntityPtr _door;
+            pos_t _doorPos;
         private:
             EDirection _currentDirection;
     };
