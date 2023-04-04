@@ -9,6 +9,8 @@
 
 #include "Entity.hpp"
 #include "Types.hpp"
+#include "csignal"
+#include "Text.hpp"
 
 #define APPLE "./assets/sprites/snake_game/apple.png"
 
@@ -30,6 +32,10 @@ namespace Arcade {
         RIGHT
     };
 
+    typedef struct {
+        float x;
+        float y;
+    } dir_t;
 
     typedef struct {
         EDirection direction;
@@ -37,29 +43,8 @@ namespace Arcade {
         sprite_t _tail;
     } direction_t;
 
-
-    static const direction_t directions[] = {
-            {EDirection::UP, sprite_t {
-                SNAKE_UP,rect_t{0, 0, 56, 56}
-                }, sprite_t{
-                SNAKE_UP,rect_t{0, 120, 56, 184}
-            }},
-            {EDirection::DOWN, sprite_t{
-                SNAKE_DOWN, rect_t{0, 110, 56, 184}
-                }, sprite_t {
-                SNAKE_DOWN, rect_t{0, 0, 56, 56}
-            }},
-            {EDirection::LEFT, sprite_t {
-                SNAKE_LEFT, rect_t{0, 0, 65, 56}
-                }, sprite_t {
-                SNAKE_LEFT, rect_t{145, 0, 184, 56}
-            }},
-            {EDirection::RIGHT, sprite_t {
-                SNAKE_RIGHT, rect_t{120, 0, 184, 56}
-                }, sprite_t {
-                SNAKE_RIGHT, rect_t{0, 0, 39, 56}
-            }}
-    };
+    typedef std::vector<dir_t> dirVector;
+    typedef std::shared_ptr<dirVector> dirVectorPtr;
 
     class Snake {
         public:
@@ -67,37 +52,33 @@ namespace Arcade {
             ~Snake() = default;
 
             EntityPtr getApple() const;
-            EntityPtr getHead() const;
-            EntityPtr getTail() const;
-
-            void changeDirection(EDirection direction);
+            EntityPtr getBodyPart(int index) const;
             void movement();
-            void mapBorder();
-
             bool checkCollision();
-
             void placeApple();
-            bool comparePos(const pos_t &pos1, const pos_t &pos2);
+            void createWalls();
+            bool checkWallCollision();
+            bool comparePos(const EntityPtr& a, const EntityPtr& b);
             void addBody(IObjectVector &object);
-
+            void changeDirection(EDirection direction);
+            EntityPtr getWalls(int index) const;
+            dirVectorPtr getDirection() const;
+            void setDirection(dir_t dir, int index);
         protected:
-            direction_t snakkel_up;
-            direction_t snakkel_down;
-            direction_t snakkel_left;
-            direction_t snakkel_right;
+            direction_t direction;
             std::string apple;
             std::string map;
-            std::string _body_hor;
         private:
             EntityPtr _apple;
-            EntityPtr _head;
+            TextPtr _scoreString;
+            TextPtr _score;
             EntityVectorPtr _body;
-            EntityPtr _tail;
+            EntityVectorPtr _walls;
+            EntityPtr _head;
             EDirection _currentDirection;
+            dirVectorPtr _direction;
             pos_t _applePos;
-            pos_t _currentHeadPos;
-            pos_t _currentTailPos;
-
+            std::vector<pos_t> _queuePos;
     };
 
     typedef std::shared_ptr<Snake> SnakePtr;

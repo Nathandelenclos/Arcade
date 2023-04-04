@@ -7,7 +7,6 @@ find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)
 add_library(arcade_sfml SHARED)
 
 find_package(SDL2 REQUIRED)
-find_package(SDL2_ttf REQUIRED)
 add_library(arcade_sdl2 SHARED)
 
 add_library(arcade_ncurses SHARED)

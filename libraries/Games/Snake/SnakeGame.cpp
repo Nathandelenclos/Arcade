@@ -16,14 +16,20 @@ namespace Arcade {
         _currentKey = InputKey::NONE;
         _isEnded = false;
         _score = 0;
-        map = MAP;
 
-        EntityPtr mapEntity = std::make_shared<Entity>(pos_t{0, 0}, map, "map", color_t {255, 255, 255, 255},rect_t{0, 30 , 1920, 1080},true);
         _snake = std::make_shared<Snake>();
-        _gameObjects->push_back(mapEntity);
+        _snake->addBody(_gameObjects);
+        _snake->addBody(_gameObjects);
+        _snake->addBody(_gameObjects);
+        _snake->addBody(_gameObjects);
+        _snake->createWalls();
+        for (int i = 0; i < 4; i++) {
+            _gameObjects->push_back(_snake->getBodyPart(i));
+        }
         _gameObjects->push_back(_snake->getApple());
-        _gameObjects->push_back(_snake->getHead());
-        _gameObjects->push_back(_snake->getTail());
+        for (int i = 0; i < 4; i++) {
+            _gameObjects->push_back(_snake->getWalls(i));
+        }
     }
 
     SnakeGame::~SnakeGame()
@@ -70,8 +76,12 @@ namespace Arcade {
             }
         }
         _snake->movement();
-        _snake->mapBorder();
+        if (_snake->checkWallCollision()) {
+            _isEnded = true;
+            exit(0);
+        }
         if (_snake->checkCollision()) {
+            _score += 1;
             _snake->addBody(_gameObjects);
             _snake->placeApple();
         }
