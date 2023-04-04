@@ -38,6 +38,7 @@ namespace Arcade {
             void runPacman();
         protected:
             IObjectVector _gameObjects;
+            IObjectVector _gameObjectsToWin;
             int _isEnded;
             InputKey _currentKey;
             int _score;

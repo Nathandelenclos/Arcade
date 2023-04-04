@@ -11,7 +11,7 @@ namespace Arcade {
 
     Grid::Grid() : _currentDirection(EDirection::NONE)
     {
-        std::vector<std::string> map = {
+        _mapString = {
                 " ################### ",
                 " #........#........# ",
                 " #o##.###.#.###.##o# ",
@@ -34,9 +34,15 @@ namespace Arcade {
                 " #.................# ",
                 " ################### "
         };
+        _pacmanSpeed = 0.1;
 
-        for (int j = 0; j < map.size(); j++) {
-            std::string row = map[j];
+        loadMap();
+    }
+
+    void Grid::loadMap()
+    {
+        for (int j = 0; j < _mapString.size(); j++) {
+            std::string row = _mapString[j];
             for (int i = 0; i < row.size(); i++) {
                 char c = row[i];
                 if (c == '#') {
@@ -93,21 +99,20 @@ namespace Arcade {
 
         switch (_currentDirection) {
             case EDirection::UP:
-                deltaY = -0.1;
+                deltaY = -_pacmanSpeed * 2;
                 break;
             case EDirection::DOWN:
-                deltaY = 0.1;
+                deltaY = _pacmanSpeed * 2;
                 break;
             case EDirection::LEFT:
-                deltaX = -0.1;
+                deltaX = -_pacmanSpeed;
                 break;
             case EDirection::RIGHT:
-                deltaX = 0.1;
+                deltaX = _pacmanSpeed;
                 break;
             default:
                 break;
         }
-        std::cout << "fruitX: " << _fruitPos.x << " fruitY: " << _fruitPos.y << std::endl;
         newPos.x += deltaX;
         newPos.y += deltaY;
         _pacman->setPos(newPos);
@@ -116,8 +121,8 @@ namespace Arcade {
             i++;
             if (entity->getEntityType() == EntityType::WALL && comparePos(_pacman, entity) ||
                 entity->getEntityType() == EntityType::DOOR && comparePos(_pacman, entity)) {
-                currentPos.x -= deltaX;
-                currentPos.y -= deltaY;
+                currentPos.x -= deltaX == 0 ? 0 : 0.01;
+                currentPos.y -= deltaY == 0 ? 0 : 0.01;
                 _pacman->setPos(currentPos);
                 _currentDirection = EDirection::NONE;
             }
@@ -146,7 +151,12 @@ namespace Arcade {
             _currentDirection = EDirection::LEFT;
         }
         if (_nbFruits == 0) {
-
+            _currentDirection = EDirection::NONE;
+            _pacmanSpeed += 0.1;
+            for (auto &entity : _map) {
+                _map.erase(_map.begin(), _map.end());
+            }
+            loadMap();
         }
     }
 

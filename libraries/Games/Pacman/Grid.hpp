@@ -48,6 +48,7 @@ namespace Arcade {
             Grid();
             ~Grid() = default;
 
+            void loadMap();
             EntityVector getMap();
             EntityPtr getPacman();
 
@@ -57,13 +58,16 @@ namespace Arcade {
             bool comparePos(const EntityPtr &a, const EntityPtr &b);
 
         protected:
+            std::vector<std::string> _mapString;
             EntityVector _map;
             EntityPtr _wall;
             pos_t _wallPos;
             EntityPtr _pacman;
             pos_t _pacmanPos;
+            float _pacmanSpeed;
             EntityPtr _ghost;
             pos_t _ghostPos;
+            float _ghostSpeed;
             EntityPtr _energizer;
             pos_t _energizerPos;
             EntityPtr _fruit;

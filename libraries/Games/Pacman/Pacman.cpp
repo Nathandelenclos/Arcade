@@ -13,11 +13,11 @@ namespace Arcade {
     {
         std::cout << "Pacman constructor" << std::endl;
         _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
+        _gameObjectsToWin = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
         _currentKey = InputKey::NONE;
         _isEnded = false;
         _score = 0;
         _grid = std::make_shared<Grid>();
-        _gameObjects->push_back(_grid->getPacman());
         _mapEntities = _grid->getMap();
         for (const EntityPtr& entity : _mapEntities) {
             _gameObjects->push_back(entity);
