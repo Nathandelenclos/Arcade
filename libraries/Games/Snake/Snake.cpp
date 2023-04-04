@@ -61,9 +61,13 @@ namespace Arcade {
         float newAppleX = rand() % (21 - 2 + 1) + 2;
         float newAppleY = rand() % (42 - 5 + 1) + 5;
         tmpApple->setPos({newAppleX, newAppleY});
-        for (const auto & i : *_body)
-            if (comparePos(i, tmpApple))
-                placeApple();
+        for (int i = 1; i < _body->size(); i++)
+            if (comparePos(_body->at(i), tmpApple)) {
+                newAppleX = rand() % (21 - 2 + 1) + 2;
+                newAppleY = rand() % (42 - 5 + 1) + 5;
+                tmpApple->setPos({newAppleX, newAppleY});
+                i = 1;
+            }
         _apple->setPos(tmpApple->getPos());
     }
 

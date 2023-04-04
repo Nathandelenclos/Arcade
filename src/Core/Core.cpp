@@ -167,7 +167,7 @@ namespace Arcade {
     void Core::createMainMenu(const StringVectorPtr &libsName,
         const StringVectorPtr &gamesName)
     {
-        pos_t basePos = {0, 0};
+        pos_t basePos = {5, 10};
         int i = 0;
         for (const std::string &lib: *libsName) {
             Arcade::ButtonPtr s(
@@ -186,7 +186,7 @@ namespace Arcade {
             i++;
         }
         i = 0;
-        basePos = {20, 0};
+        basePos = {25, 10};
         for (const std::string &game: *gamesName) {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
@@ -270,6 +270,33 @@ namespace Arcade {
             std::cerr << "Starting " << gameName << " with " << libName
                 << std::endl;
         }
+        printInput();
+    }
+
+    void Core::printInput() {
+        for (int a = 0; a < 26; a++) {
+            if (getCurrentGraphicLib()->getCurrentKey() == matching[a].inputKey) {
+                pos_t lastCharPos = {0, 0};
+                for (int i = 0; i < _gameObjects->size(); i++) {
+                    if (_gameObjects->at(i)->getType() ==
+                        Arcade::ObjectType::TEXT) {
+                        lastCharPos = {_gameObjects->at(i)->getPos().x,
+                                       _gameObjects->at(i)->getPos().y};
+                    }
+                }
+                if (lastCharPos.x == 25 && lastCharPos.y == 13) {
+                    lastCharPos = {15, 28};
+                }
+                Arcade::TextPtr text(
+                        new Arcade::Text(
+                                {static_cast<float>(lastCharPos.x + 0.5),
+                                 lastCharPos.y},
+                                matching[a].character,
+                                {255, 255, 255, 255}
+                        ));
+                _gameObjects->push_back(text);
+            }
+        }
     }
 
     /**
@@ -338,5 +365,9 @@ namespace Arcade {
         _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
             _libsName->at(index));
         _currentLib = _libLoader->getGraphInstance();
+    }
+
+    std::string Core::inputToStr() {
+        return "b";
     }
 }

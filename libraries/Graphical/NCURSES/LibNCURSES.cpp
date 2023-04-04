@@ -182,7 +182,6 @@ namespace Arcade {
         int event = _window->poolEvent();
         for (keyMatching key_matching: mapping) {
             if (event == key_matching.c) {
-                std::cerr << "key pressed: " << event << std::endl;
                 _currentKey = key_matching.inputKey;
             }
         }

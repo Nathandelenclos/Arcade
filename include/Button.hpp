@@ -21,7 +21,7 @@ namespace Arcade {
 
     enum class ButtonGroup {
         GAME,
-        LIB
+        LIB,
     };
 
     class Button : public ISpriteType {

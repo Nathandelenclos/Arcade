@@ -29,6 +29,40 @@ namespace Arcade {
         EXIT
     };
 
+    typedef struct {
+        std::string character;
+        InputKey inputKey;
+    } keyMatching;
+
+    static keyMatching matching[] {
+            {"A", InputKey::KEY_A},
+            {"B", InputKey::KEY_B},
+            {"C", InputKey::KEY_C},
+            {"D", InputKey::KEY_D},
+            {"E", InputKey::KEY_E},
+            {"F", InputKey::KEY_F},
+            {"G", InputKey::KEY_G},
+            {"H", InputKey::KEY_H},
+            {"I", InputKey::KEY_I},
+            {"J", InputKey::KEY_J},
+            {"K", InputKey::KEY_K},
+            {"L", InputKey::KEY_L},
+            {"M", InputKey::KEY_M},
+            {"N", InputKey::KEY_N},
+            {"O", InputKey::KEY_O},
+            {"P", InputKey::KEY_P},
+            {"Q", InputKey::KEY_Q},
+            {"R", InputKey::KEY_R},
+            {"S", InputKey::KEY_S},
+            {"T", InputKey::KEY_T},
+            {"U", InputKey::KEY_U},
+            {"V", InputKey::KEY_V},
+            {"W", InputKey::KEY_W},
+            {"X", InputKey::KEY_X},
+            {"Y", InputKey::KEY_Y},
+            {"Z", InputKey::KEY_Z},
+    };
+
     class Core {
         public:
             Core();
@@ -48,8 +82,10 @@ namespace Arcade {
             void makeLibInstance(int index);
             void createMainMenu(const StringVectorPtr& libsName, const StringVectorPtr& gamesName);
             void logicalMenu();
+            std::string inputToStr();
             enum CoreState getState() const;
             void setState(enum CoreState state);
+            void printInput();
             Arcade::IObjectVector getGameObjects() const;
         protected:
             Arcade::DlLoaderGraphicPtr _libLoader;

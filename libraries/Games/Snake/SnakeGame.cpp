@@ -75,10 +75,12 @@ namespace Arcade {
                 break;
             }
         }
+        if (isEnded())
+            return;
         _snake->movement();
         if (_snake->checkWallCollision()) {
             _isEnded = true;
-            exit(0);
+            return;
         }
         if (_snake->checkCollision()) {
             _score += 1;
