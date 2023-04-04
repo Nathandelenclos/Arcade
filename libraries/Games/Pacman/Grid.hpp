@@ -72,6 +72,7 @@ namespace Arcade {
             pos_t _doorPos;
         private:
             EDirection _currentDirection;
+            int _nbFruits;
     };
 
     typedef std::shared_ptr<Grid> GridPtr;

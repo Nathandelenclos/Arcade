@@ -46,6 +46,7 @@ namespace Arcade {
                     _map.push_back(_wall);
                 }
                 if (c == '.') {
+                    _nbFruits++;
                     pos_t pos = {(float)i, (float)j};
                     _fruitPos = pos;
                     _fruit = GenericEntity::generateEntity(EntityType::FRUIT, pos);
@@ -118,11 +119,13 @@ namespace Arcade {
                 currentPos.y -= deltaY * 10;
                 _pacman->setPos(currentPos);
                 _currentDirection = EDirection::NONE;
-                std::cout << "WALL" << std::endl;
             }
-            if (entity->getEntityType() == EntityType::FRUIT && comparePos(_pacman, entity)) {
-                _map.erase(_map.begin() + i);
-                std::cout << "FRUIT" << std::endl;
+        }
+        for (auto it = _map.begin(); it != _map.end(); ++it) {
+            if ((*it)->getEntityType() == EntityType::FRUIT && comparePos(*it, _pacman)) {
+                _map.erase(it);
+                _nbFruits--;
+                break;
             }
         }
         if (newPos.x > 20.5019) {
@@ -135,6 +138,8 @@ namespace Arcade {
             newPos.y = 9.35749;
             _pacman->setPos(newPos);
             _currentDirection = EDirection::LEFT;
+        }
+        if (_nbFruits == 0) {
         }
     }
 
@@ -204,6 +209,7 @@ namespace Arcade {
             if (entity.type == type)
                 return (genericEntity.*entity.init)(pos);
         }
+        return nullptr;
     }
 
 }
