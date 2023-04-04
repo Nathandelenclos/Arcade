@@ -68,6 +68,11 @@ namespace Arcade {
             }
         }
         _grid->movePacman();
+        _gameObjects->clear();
+        _mapEntities = _grid->getMap();
+        for (const EntityPtr& entity : _mapEntities) {
+            _gameObjects->push_back(entity);
+        }
     }
 
     extern "C" IGameLib *constructor_game()

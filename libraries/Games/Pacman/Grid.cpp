@@ -42,32 +42,32 @@ namespace Arcade {
                 if (c == '#') {
                     pos_t pos = {(float)i, (float)j};
                     _wallPos = pos;
-                    _wall = GenericEntity::generateEntity(EntityType::WALL, pos);
+                    _wall = GenericEntity::generateEntity(EntityType::WALL, _wallPos);
                     _map.push_back(_wall);
                 }
                 if (c == '.') {
                     _nbFruits++;
                     pos_t pos = {(float)i, (float)j};
                     _fruitPos = pos;
-                    _fruit = GenericEntity::generateEntity(EntityType::FRUIT, pos);
+                    _fruit = GenericEntity::generateEntity(EntityType::FRUIT, _fruitPos);
                     _map.push_back(_fruit);
                 }
                 if (c == 'o') {
                     pos_t pos = {(float)i, (float)j};
                     _energizerPos = pos;
-                    _energizer = GenericEntity::generateEntity(EntityType::ENERGIZER, pos);
+                    _energizer = GenericEntity::generateEntity(EntityType::ENERGIZER, _energizerPos);
                     _map.push_back(_energizer);
                 }
                 if (c == 'P') {
                     pos_t pos = {(float)i, (float)j};
                     _pacmanPos = pos;
-                    _pacman = GenericEntity::generateEntity(EntityType::PACMAN, pos);
+                    _pacman = GenericEntity::generateEntity(EntityType::PACMAN, _pacmanPos);
                     _map.push_back(_pacman);
                 }
                 if (c == '=') {
                     pos_t pos = {(float)i, (float)j};
                     _doorPos = pos;
-                    _door = GenericEntity::generateEntity(EntityType::DOOR, pos);
+                    _door = GenericEntity::generateEntity(EntityType::DOOR, _doorPos);
                     _map.push_back(_door);
                 }
             }
@@ -93,20 +93,21 @@ namespace Arcade {
 
         switch (_currentDirection) {
             case EDirection::UP:
-                deltaY = -0.003;
+                deltaY = -0.1;
                 break;
             case EDirection::DOWN:
-                deltaY = 0.003;
+                deltaY = 0.1;
                 break;
             case EDirection::LEFT:
-                deltaX = -0.003;
+                deltaX = -0.1;
                 break;
             case EDirection::RIGHT:
-                deltaX = 0.003;
+                deltaX = 0.1;
                 break;
             default:
                 break;
         }
+        std::cout << "fruitX: " << _fruitPos.x << " fruitY: " << _fruitPos.y << std::endl;
         newPos.x += deltaX;
         newPos.y += deltaY;
         _pacman->setPos(newPos);
@@ -115,8 +116,8 @@ namespace Arcade {
             i++;
             if (entity->getEntityType() == EntityType::WALL && comparePos(_pacman, entity) ||
                 entity->getEntityType() == EntityType::DOOR && comparePos(_pacman, entity)) {
-                currentPos.x -= deltaX * 10;
-                currentPos.y -= deltaY * 10;
+                currentPos.x -= deltaX;
+                currentPos.y -= deltaY;
                 _pacman->setPos(currentPos);
                 _currentDirection = EDirection::NONE;
             }
@@ -127,7 +128,12 @@ namespace Arcade {
                 _nbFruits--;
                 break;
             }
+            if ((*it)->getEntityType() == EntityType::ENERGIZER && comparePos(*it, _pacman)) {
+                _map.erase(it);
+                break;
+            }
         }
+        std::cout << _nbFruits << std::endl;
         if (newPos.x > 20.5019) {
             newPos.x = -0.000928198;
             newPos.y = 9.35749;
@@ -140,6 +146,7 @@ namespace Arcade {
             _currentDirection = EDirection::LEFT;
         }
         if (_nbFruits == 0) {
+
         }
     }
 
