@@ -17,12 +17,9 @@ namespace Arcade {
         _score = 0;
 
         _snake = std::make_shared<Snake>();
-        _snake->addBody(_gameObjects);
-        _snake->addBody(_gameObjects);
-        _snake->addBody(_gameObjects);
-        _snake->addBody(_gameObjects);
         _snake->createWalls();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
+            _snake->addBody(_gameObjects);
             _gameObjects->push_back(_snake->getBodyPart(i));
         }
         _gameObjects->push_back(_snake->getApple());
@@ -82,6 +79,7 @@ namespace Arcade {
         }
         if (_snake->checkCollision()) {
             _score += 1;
+            _snake->addBody(_gameObjects);
             _snake->addBody(_gameObjects);
             _snake->placeApple();
         }
