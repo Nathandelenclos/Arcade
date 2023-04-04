@@ -17,7 +17,6 @@ namespace Arcade {
      */
     LibNCURSES::LibNCURSES()
     {
-        std::cout << "constructor LibNCURSES" << std::endl;
         _window = std::make_shared<ncurses::Window>();
         _map = std::make_shared<ncurses::charVector>();
         _texts = std::make_shared<ncurses::textVector>();
@@ -31,7 +30,6 @@ namespace Arcade {
      */
     LibNCURSES::~LibNCURSES()
     {
-        std::cout << "destructor LibNCURSES" << std::endl;
         if (_window->isOpen())
             _window->close();
     }
@@ -131,8 +129,8 @@ namespace Arcade {
         ncurses::ColorPairPtr pair = ncurses::ColorPair::searchByColorPairOrCreate(_pairs, COLOR_BLACK, color->getId());
         int width = static_cast<int>(t->getRect().width);
         int height = static_cast<int>(t->getRect().height);
-        for (int i = 0; i < width; ++i) {
-            for (int j = 0; j < height; ++j) {
+        for (int i = 0; i < width * 2.5; i++) {
+            for (int j = 0; j < height; j++) {
                 ncurses::charPtr c = searchChar(_map, {t->getPos().x + i, t->getPos().y + j});
                 if (c == nullptr) {
                     _map->push_back(std::make_shared<ncurses::char_t>( ncurses::char_t{

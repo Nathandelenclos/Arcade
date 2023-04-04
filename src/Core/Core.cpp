@@ -23,6 +23,7 @@ namespace Arcade {
         _isRunning = true;
         _windowsParameter = {800, 600, false};
         _state = Arcade::CoreState::MENU;
+        _charNbr = 0;
     }
 
     Core::Core(const std::string &lib, const Arcade::StringVectorPtr &libs,
@@ -203,6 +204,10 @@ namespace Arcade {
             basePos.y += 3;
             i++;
         }
+        Arcade::TextPtr text(new Arcade::Text({18, 32},
+                                              "Please enter your username: (press enter to validate)",
+                                              {255, 255, 255, 255}));
+        _menuObjects->push_back(text);
         _gameObjects = _menuObjects;
     }
 
@@ -267,14 +272,12 @@ namespace Arcade {
                 setCurrentGraphicLib(_tempLibIndex);
             }
             _gameObjects = getCurrentGameLib()->getGameObjects();
-            std::cerr << "Starting " << gameName << " with " << libName
-                << std::endl;
         }
         printInput();
     }
 
     void Core::printInput() {
-        for (int a = 0; a < 26; a++) {
+        for (int a = 0; a < 28; a++) {
             if (getCurrentGraphicLib()->getCurrentKey() == matching[a].inputKey) {
                 pos_t lastCharPos = {0, 0};
                 for (int i = 0; i < _gameObjects->size(); i++) {
@@ -284,17 +287,23 @@ namespace Arcade {
                                        _gameObjects->at(i)->getPos().y};
                     }
                 }
-                if (lastCharPos.x == 25 && lastCharPos.y == 13) {
-                    lastCharPos = {15, 28};
+                if (lastCharPos.x == 18 && lastCharPos.y == 32) {
+                    lastCharPos = {20, 34};
                 }
-                Arcade::TextPtr text(
-                        new Arcade::Text(
-                                {static_cast<float>(lastCharPos.x + 0.5),
-                                 lastCharPos.y},
-                                matching[a].character,
-                                {255, 255, 255, 255}
-                        ));
-                _gameObjects->push_back(text);
+                if (_charNbr > 0 && matching[a].inputKey == InputKey::BackSpace) {
+                    _gameObjects->pop_back();
+                    _charNbr--;
+                    continue;
+                } else if (_charNbr == 0 && matching[a].inputKey == InputKey::BackSpace)
+                    continue;
+                if (_charNbr < 15) {
+                    Arcade::TextPtr text(new Arcade::Text(
+                            {static_cast<float>(lastCharPos.x + 0.5),
+                             lastCharPos.y}, matching[a].character,
+                            {255, 255, 255, 255}));
+                    _gameObjects->push_back(text);
+                    _charNbr++;
+                }
             }
         }
     }
@@ -365,9 +374,5 @@ namespace Arcade {
         _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
             _libsName->at(index));
         _currentLib = _libLoader->getGraphInstance();
-    }
-
-    std::string Core::inputToStr() {
-        return "b";
     }
 }

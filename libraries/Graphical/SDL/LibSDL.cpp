@@ -20,7 +20,6 @@ namespace Arcade {
         this->_rectTextures = std::make_shared<std::vector<sdl::TexturePtr>>();
         this->_event = std::make_shared<sdl::Event>();
         this->_key = InputKey::NONE;
-        std::cout << "constructor LibSDL" << std::endl;
     }
 
     /**
@@ -31,7 +30,6 @@ namespace Arcade {
         if (_window->isOpened()) {
             _window->destroy();
         }
-        std::cout << "destructor LibSDL" << std::endl;
     }
 
     /**

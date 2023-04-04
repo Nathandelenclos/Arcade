@@ -11,7 +11,6 @@ namespace Arcade {
 
     Pacman::Pacman()
     {
-        std::cout << "Pacman constructor" << std::endl;
         _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
         _currentKey = InputKey::NONE;
         _isEnded = false;
@@ -20,7 +19,6 @@ namespace Arcade {
 
     Pacman::~Pacman()
     {
-        std::cout << "Pacman destructor" << std::endl;
     }
 
     void Pacman::setGameObjects()

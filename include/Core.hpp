@@ -61,6 +61,8 @@ namespace Arcade {
             {"X", InputKey::KEY_X},
             {"Y", InputKey::KEY_Y},
             {"Z", InputKey::KEY_Z},
+            {" ", InputKey::SPACE},
+            {"", InputKey::BackSpace},
     };
 
     class Core {
@@ -82,7 +84,6 @@ namespace Arcade {
             void makeLibInstance(int index);
             void createMainMenu(const StringVectorPtr& libsName, const StringVectorPtr& gamesName);
             void logicalMenu();
-            std::string inputToStr();
             enum CoreState getState() const;
             void setState(enum CoreState state);
             void printInput();
@@ -103,6 +104,7 @@ namespace Arcade {
             Arcade::IObjectVector _menuObjects;
             Arcade::StringVectorPtr _libsName;
             Arcade::StringVectorPtr _gamesName;
+            int _charNbr;
         private:
     };
 

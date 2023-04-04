@@ -11,7 +11,6 @@ namespace Arcade {
 
     SnakeGame::SnakeGame()
     {
-        std::cout << "SnakeGame constructor" << std::endl;
         _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
         _currentKey = InputKey::NONE;
         _isEnded = false;
@@ -34,7 +33,6 @@ namespace Arcade {
 
     SnakeGame::~SnakeGame()
     {
-        std::cout << "SnakeGame destructor" << std::endl;
     }
 
     void SnakeGame::setGameObjects()
