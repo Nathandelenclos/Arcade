@@ -12,6 +12,16 @@
 
 - [@Simon Riembault](https://github.com/SimonRmblt) 
 
+## We collaborated with this team
+
+---
+
+- [@Leo Neumuller](leo)
+
+- [@Nathan DELENCLOS](https://github.com/Nathandelenclos)
+
+- [@Simon Riembault](https://github.com/SimonRmblt)
+
 ## Resources
 
 ---

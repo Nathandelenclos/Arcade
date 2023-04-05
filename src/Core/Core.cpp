@@ -206,8 +206,8 @@ namespace Arcade {
             basePos.y += 3;
             i++;
         }
-        Arcade::TextPtr text(new Arcade::Text({18, 32},
-                                              "Please enter your username: (press enter to validate)",
+        Arcade::TextPtr text(new Arcade::Text({10, 32},
+                                              "Please enter your username: (press enter to validate, you must enter a username before being able to play)",
                                               {255, 255, 255, 255}));
         _menuObjects->push_back(text);
         _gameObjects = _menuObjects;
@@ -289,7 +289,7 @@ namespace Arcade {
                                        _gameObjects->at(i)->getPos().y};
                     }
                 }
-                if (lastCharPos.x == 18 && lastCharPos.y == 32) {
+                if (lastCharPos.x == 10 && lastCharPos.y == 32) {
                     lastCharPos = {20, 34};
                 }
                 if (_charNbr > 0 && matching[a].inputKey == InputKey::BackSpace) {
