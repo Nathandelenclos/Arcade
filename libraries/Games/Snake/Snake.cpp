@@ -28,16 +28,16 @@ namespace Arcade {
     {
         switch (this->_currentDirection) {
             case EDirection::UP:
-                this->setDirection(dir_t{0, -0.6}, 0);
+                this->setDirection(dir_t{0, -2.1}, 0);
                 break;
             case EDirection::DOWN:
-                this->setDirection(dir_t{0, 0.6}, 0);
+                this->setDirection(dir_t{0, 2.1}, 0);
                 break;
             case EDirection::LEFT:
-                this->setDirection(dir_t{-0.3, 0}, 0);
+                this->setDirection(dir_t{-1.1, 0}, 0);
                 break;
             case EDirection::RIGHT:
-                this->setDirection(dir_t{0.3, 0}, 0);
+                this->setDirection(dir_t{1.1, 0}, 0);
                 break;
         }
         for (int i = this->_body->size() - 1; i > 0; i--) {
@@ -88,7 +88,7 @@ namespace Arcade {
                 this->_body->at(this->_body->size() - 1)->getPos().x - this->_direction->at(this->_body->size() - 1).x,
                 this->_body->at(this->_body->size() - 1)->getPos().y - this->_direction->at(this->_body->size() - 1).y},
                 this->_body->empty() ? color_t{255, 0, 255, 255} : color_t{255, 255, 0, 255}, rect_t{0, 0, 1, 2});
-        this->_direction->push_back(dir_t{0.5, 0});
+        this->_direction->push_back(dir_t{1.1, 0});
         this->_body->push_back(bodyPart);
         object->push_back(bodyPart);
     }
@@ -150,5 +150,9 @@ namespace Arcade {
 
     void Snake::setDirection(dir_t dir, int index) {
         _direction->at(index) = dir;
+    }
+
+    EntityVectorPtr Snake::getBody() const {
+        return this->_body;
     }
 }

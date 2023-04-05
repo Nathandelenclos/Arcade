@@ -24,6 +24,7 @@ namespace Arcade {
         _windowsParameter = {800, 600, false};
         _state = Arcade::CoreState::MENU;
         _charNbr = 0;
+        _username = "";
     }
 
     Core::Core(const std::string &lib, const Arcade::StringVectorPtr &libs,
@@ -46,6 +47,7 @@ namespace Arcade {
         _isRunning = true;
         _windowsParameter = {1920, 1080, false};
         _state = Arcade::CoreState::MENU;
+        _username = "";
     }
 
     /**
@@ -292,6 +294,7 @@ namespace Arcade {
                 }
                 if (_charNbr > 0 && matching[a].inputKey == InputKey::BackSpace) {
                     _gameObjects->pop_back();
+                    _username.pop_back();
                     _charNbr--;
                     continue;
                 } else if (_charNbr == 0 && matching[a].inputKey == InputKey::BackSpace)
@@ -302,6 +305,7 @@ namespace Arcade {
                              lastCharPos.y}, matching[a].character,
                             {255, 255, 255, 255}));
                     _gameObjects->push_back(text);
+                    _username.push_back(matching[a].character[0]);
                     _charNbr++;
                 }
             }
@@ -374,5 +378,10 @@ namespace Arcade {
         _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
             _libsName->at(index));
         _currentLib = _libLoader->getGraphInstance();
+    }
+
+    std::string Core::getUsername() const
+    {
+        return _username;
     }
 }

@@ -64,6 +64,7 @@ namespace Arcade {
             EntityPtr getWalls(int index) const;
             dirVectorPtr getDirection() const;
             void setDirection(dir_t dir, int index);
+            EntityVectorPtr getBody() const;
         protected:
             direction_t direction;
             std::string apple;

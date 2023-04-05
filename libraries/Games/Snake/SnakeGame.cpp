@@ -18,7 +18,7 @@ namespace Arcade {
 
         _snake = std::make_shared<Snake>();
         _snake->createWalls();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 4; i++) {
             _snake->addBody(_gameObjects);
             _gameObjects->push_back(_snake->getBodyPart(i));
         }
@@ -72,7 +72,6 @@ namespace Arcade {
         }
         if (isEnded())
             return;
-        _snake->movement();
         if (_snake->checkWallCollision()) {
             _isEnded = true;
             return;
@@ -80,9 +79,15 @@ namespace Arcade {
         if (_snake->checkCollision()) {
             _score += 1;
             _snake->addBody(_gameObjects);
-            _snake->addBody(_gameObjects);
             _snake->placeApple();
         }
+        for (int i = 1; i < _snake->getBody()->size(); i++) {
+            if (_snake->comparePos(_snake->getBodyPart(0), _snake->getBodyPart(i))) {
+                _isEnded = true;
+                return;
+            }
+        }
+        _snake->movement();
     }
 
     extern "C" IGameLib *constructor_game()

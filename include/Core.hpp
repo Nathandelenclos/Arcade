@@ -35,32 +35,32 @@ namespace Arcade {
     } keyMatching;
 
     static keyMatching matching[] {
-            {"A", InputKey::KEY_A},
-            {"B", InputKey::KEY_B},
-            {"C", InputKey::KEY_C},
-            {"D", InputKey::KEY_D},
-            {"E", InputKey::KEY_E},
-            {"F", InputKey::KEY_F},
-            {"G", InputKey::KEY_G},
-            {"H", InputKey::KEY_H},
-            {"I", InputKey::KEY_I},
-            {"J", InputKey::KEY_J},
-            {"K", InputKey::KEY_K},
-            {"L", InputKey::KEY_L},
-            {"M", InputKey::KEY_M},
-            {"N", InputKey::KEY_N},
-            {"O", InputKey::KEY_O},
-            {"P", InputKey::KEY_P},
-            {"Q", InputKey::KEY_Q},
-            {"R", InputKey::KEY_R},
-            {"S", InputKey::KEY_S},
-            {"T", InputKey::KEY_T},
-            {"U", InputKey::KEY_U},
-            {"V", InputKey::KEY_V},
-            {"W", InputKey::KEY_W},
-            {"X", InputKey::KEY_X},
-            {"Y", InputKey::KEY_Y},
-            {"Z", InputKey::KEY_Z},
+            {"a", InputKey::KEY_A},
+            {"b", InputKey::KEY_B},
+            {"c", InputKey::KEY_C},
+            {"d", InputKey::KEY_D},
+            {"e", InputKey::KEY_E},
+            {"f", InputKey::KEY_F},
+            {"g", InputKey::KEY_G},
+            {"h", InputKey::KEY_H},
+            {"i", InputKey::KEY_I},
+            {"j", InputKey::KEY_J},
+            {"k", InputKey::KEY_K},
+            {"l", InputKey::KEY_L},
+            {"m", InputKey::KEY_M},
+            {"n", InputKey::KEY_N},
+            {"o", InputKey::KEY_O},
+            {"p", InputKey::KEY_P},
+            {"q", InputKey::KEY_Q},
+            {"r", InputKey::KEY_R},
+            {"s", InputKey::KEY_S},
+            {"t", InputKey::KEY_T},
+            {"u", InputKey::KEY_U},
+            {"v", InputKey::KEY_V},
+            {"w", InputKey::KEY_W},
+            {"x", InputKey::KEY_X},
+            {"y", InputKey::KEY_Y},
+            {"z", InputKey::KEY_Z},
             {" ", InputKey::SPACE},
             {"", InputKey::BackSpace},
     };
@@ -88,6 +88,7 @@ namespace Arcade {
             void setState(enum CoreState state);
             void printInput();
             Arcade::IObjectVector getGameObjects() const;
+            std::string getUsername() const;
         protected:
             Arcade::DlLoaderGraphicPtr _libLoader;
             Arcade::DlLoaderGamePtr _gameLoader;
@@ -99,6 +100,7 @@ namespace Arcade {
             int _currentLibIndex;
             int _tempLibIndex;
             enum CoreState _state;
+            std::string _username;
             Arcade::windowsParameter_t _windowsParameter;
             Arcade::IObjectVector _gameObjects;
             Arcade::IObjectVector _menuObjects;
