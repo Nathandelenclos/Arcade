@@ -66,7 +66,7 @@ namespace Arcade {
          */
         void Window::clearAll()
         {
-            wclear(_window);
+            //wclear(_window);
         }
 
         /**
@@ -86,6 +86,7 @@ namespace Arcade {
          */
         void Window::displayChar(const charVectorPtr &map)
         {
+            werase(_window);
             for (const charPtr &i: *map) {
                 attron(COLOR_PAIR(i->pair->getId()));
                 mvwprintw(_window, i->y, i->x, "%c", i->chara);

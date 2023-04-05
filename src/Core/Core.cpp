@@ -23,6 +23,8 @@ namespace Arcade {
         _isRunning = true;
         _windowsParameter = {800, 600, false};
         _state = Arcade::CoreState::MENU;
+        _charNbr = 0;
+        _username = "";
     }
 
     Core::Core(const std::string &lib, const Arcade::StringVectorPtr &libs,
@@ -45,6 +47,7 @@ namespace Arcade {
         _isRunning = true;
         _windowsParameter = {1920, 1080, false};
         _state = Arcade::CoreState::MENU;
+        _username = "";
     }
 
     /**
@@ -167,7 +170,7 @@ namespace Arcade {
     void Core::createMainMenu(const StringVectorPtr &libsName,
         const StringVectorPtr &gamesName)
     {
-        pos_t basePos = {0, 0};
+        pos_t basePos = {5, 10};
         int i = 0;
         for (const std::string &lib: *libsName) {
             Arcade::ButtonPtr s(
@@ -186,7 +189,7 @@ namespace Arcade {
             i++;
         }
         i = 0;
-        basePos = {20, 0};
+        basePos = {25, 10};
         for (const std::string &game: *gamesName) {
             Arcade::ButtonPtr s(
                 new Arcade::Button(
@@ -203,6 +206,10 @@ namespace Arcade {
             basePos.y += 3;
             i++;
         }
+        Arcade::TextPtr text(new Arcade::Text({18, 32},
+                                              "Please enter your username: (press enter to validate)",
+                                              {255, 255, 255, 255}));
+        _menuObjects->push_back(text);
         _gameObjects = _menuObjects;
     }
 
@@ -254,7 +261,7 @@ namespace Arcade {
             Arcade::InputKey::ESCAPE) {
             setRunning(false);
         }
-        if (getCurrentGraphicLib()->getCurrentKey() == InputKey::INTERACT) {
+        if (getCurrentGraphicLib()->getCurrentKey() == InputKey::INTERACT && !_username.empty()) {
             std::string libName = Button::searchInList(_gameObjects,
                 ButtonGroup::LIB,
                 _tempLibIndex)->getText()->getText();
@@ -267,8 +274,41 @@ namespace Arcade {
                 setCurrentGraphicLib(_tempLibIndex);
             }
             _gameObjects = getCurrentGameLib()->getGameObjects();
-            std::cerr << "Starting " << gameName << " with " << libName
-                << std::endl;
+        }
+        printInput();
+    }
+
+    void Core::printInput() {
+        for (int a = 0; a < 28; a++) {
+            if (getCurrentGraphicLib()->getCurrentKey() == matching[a].inputKey) {
+                pos_t lastCharPos = {0, 0};
+                for (int i = 0; i < _gameObjects->size(); i++) {
+                    if (_gameObjects->at(i)->getType() ==
+                        Arcade::ObjectType::TEXT) {
+                        lastCharPos = {_gameObjects->at(i)->getPos().x,
+                                       _gameObjects->at(i)->getPos().y};
+                    }
+                }
+                if (lastCharPos.x == 18 && lastCharPos.y == 32) {
+                    lastCharPos = {20, 34};
+                }
+                if (_charNbr > 0 && matching[a].inputKey == InputKey::BackSpace) {
+                    _gameObjects->pop_back();
+                    _username.pop_back();
+                    _charNbr--;
+                    continue;
+                } else if (_charNbr == 0 && matching[a].inputKey == InputKey::BackSpace)
+                    continue;
+                if (_charNbr < 15) {
+                    Arcade::TextPtr text(new Arcade::Text(
+                            {static_cast<float>(lastCharPos.x + 0.5),
+                             lastCharPos.y}, matching[a].character,
+                            {255, 255, 255, 255}));
+                    _gameObjects->push_back(text);
+                    _username.push_back(matching[a].character[0]);
+                    _charNbr++;
+                }
+            }
         }
     }
 
@@ -338,5 +378,10 @@ namespace Arcade {
         _libLoader = std::make_shared<Arcade::DlLoaderGraphic>(
             _libsName->at(index));
         _currentLib = _libLoader->getGraphInstance();
+    }
+
+    std::string Core::getUsername() const
+    {
+        return _username;
     }
 }

@@ -18,6 +18,8 @@ namespace Arcade {
         RIGHT,
         INTERACT,
         PAUSE,
+        BackSpace,
+        SPACE,
         ESCAPE,
         SWITCH_LIB,
         SWITCH_GAME,

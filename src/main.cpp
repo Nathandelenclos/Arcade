@@ -37,7 +37,7 @@ int main(int ac, char **av)
                 core->switchGameLib();
             core->getCurrentGameLib()->setCurrentInputKey(core->getCurrentGraphicLib()->getCurrentKey());
             core->getCurrentGameLib()->updateGameObjects();
-            std::this_thread::sleep_for(std::chrono::milliseconds(30));
+            std::this_thread::sleep_for(std::chrono::milliseconds(70));
         }
         core->getCurrentGraphicLib()->loadObjects(core->getGameObjects());
     }

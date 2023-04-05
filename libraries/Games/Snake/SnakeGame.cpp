@@ -11,19 +11,15 @@ namespace Arcade {
 
     SnakeGame::SnakeGame()
     {
-        std::cout << "SnakeGame constructor" << std::endl;
         _gameObjects = std::make_shared<std::vector<std::shared_ptr<IObject>>>();
         _currentKey = InputKey::NONE;
         _isEnded = false;
         _score = 0;
 
         _snake = std::make_shared<Snake>();
-        _snake->addBody(_gameObjects);
-        _snake->addBody(_gameObjects);
-        _snake->addBody(_gameObjects);
-        _snake->addBody(_gameObjects);
         _snake->createWalls();
         for (int i = 0; i < 4; i++) {
+            _snake->addBody(_gameObjects);
             _gameObjects->push_back(_snake->getBodyPart(i));
         }
         _gameObjects->push_back(_snake->getApple());
@@ -34,7 +30,6 @@ namespace Arcade {
 
     SnakeGame::~SnakeGame()
     {
-        std::cout << "SnakeGame destructor" << std::endl;
     }
 
     void SnakeGame::setGameObjects()
@@ -75,16 +70,24 @@ namespace Arcade {
                 break;
             }
         }
-        _snake->movement();
+        if (isEnded())
+            return;
         if (_snake->checkWallCollision()) {
             _isEnded = true;
-            exit(0);
+            return;
         }
         if (_snake->checkCollision()) {
             _score += 1;
             _snake->addBody(_gameObjects);
             _snake->placeApple();
         }
+        for (int i = 1; i < _snake->getBody()->size(); i++) {
+            if (_snake->comparePos(_snake->getBodyPart(0), _snake->getBodyPart(i))) {
+                _isEnded = true;
+                return;
+            }
+        }
+        _snake->movement();
     }
 
     extern "C" IGameLib *constructor_game()

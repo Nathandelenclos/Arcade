@@ -13,7 +13,6 @@ namespace Arcade {
 
     LibSFML::LibSFML()
     {
-        std::cout << "constructor LibSFML" << std::endl;
         _objects = std::make_shared<sfml::IObjectVector>();
     }
 
@@ -21,7 +20,6 @@ namespace Arcade {
     {
         if (_window.isOpen())
             _window.close();
-        std::cout << "destructor LibSFML" << std::endl;
     }
 
     /**
