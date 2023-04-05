@@ -11,14 +11,12 @@ namespace Arcade {
 
     Snake::Snake()
     {
-        apple = APPLE;
-        _applePos = pos_t{14, 18};
-
-        _apple = std::make_shared<Entity>(_applePos, apple, "apple", color_t {255, 255, 255, 255},rect_t{0, 0, 29, 28}, true);
-        _head = std::make_shared<Entity>(pos_t{3, 5}, directions[3]._head, color_t{255, 255, 255, 255}, true);
-        _tail = std::make_shared<Entity>(pos_t{2, 5}, directions[3]._tail, color_t{255, 255, 255, 255}, true);
-        _body = std::make_shared<EntityVector>();
-        _currentDirection = EDirection::RIGHT;
+        this->_body = std::make_shared<EntityVector>();
+        this->_walls = std::make_shared<EntityVector>();
+        this->_direction = std::make_shared<dirVector>();
+        this->_currentDirection = EDirection::RIGHT;
+        _apple = std::make_shared<Entity>(_applePos, color_t {0, 255, 255, 255},rect_t{0, 0, 1, 2});
+        this->placeApple();
     }
 
     EntityPtr Snake::getApple() const
@@ -26,14 +24,76 @@ namespace Arcade {
         return _apple;
     }
 
-    EntityPtr Snake::getHead() const
+    void Snake::movement()
     {
-        return _head;
+        switch (this->_currentDirection) {
+            case EDirection::UP:
+                this->setDirection(dir_t{0, -0.6}, 0);
+                break;
+            case EDirection::DOWN:
+                this->setDirection(dir_t{0, 0.6}, 0);
+                break;
+            case EDirection::LEFT:
+                this->setDirection(dir_t{-0.3, 0}, 0);
+                break;
+            case EDirection::RIGHT:
+                this->setDirection(dir_t{0.3, 0}, 0);
+                break;
+        }
+        for (int i = this->_body->size() - 1; i > 0; i--) {
+            this->setDirection(this->getDirection()->at(i - 1), i);
+            pos_t newPos = {this->_body->at(i - 1)->getPos().x,
+                            this->_body->at(i - 1)->getPos().y};
+            this->_body->at(i)->setPos(newPos);
+        }
+        pos_t headPos = this->_body->at(0)->getPos();
+        headPos.x += this->getDirection()->at(0).x;
+        headPos.y += this->getDirection()->at(0).y;
+        this->_body->at(0)->setPos(headPos);
     }
 
-    EntityPtr Snake::getTail() const
+
+
+    void Snake::placeApple()
     {
-        return _tail;
+        EntityPtr tmpApple = std::make_shared<Entity>(pos_t{0, 0}, color_t {0, 255, 255, 0},rect_t{0, 0, 1, 2});
+        srand(static_cast<unsigned int>(time(nullptr)));
+        float newAppleX = rand() % (21 - 2 + 1) + 2;
+        float newAppleY = rand() % (42 - 5 + 1) + 5;
+        tmpApple->setPos({newAppleX, newAppleY});
+        for (const auto & i : *_body)
+            if (comparePos(i, tmpApple))
+                placeApple();
+        _apple->setPos(tmpApple->getPos());
+    }
+
+    bool Snake::comparePos(const EntityPtr& a, const EntityPtr& b)
+    {
+        if ((a->getPos().x >= b->getPos().x && a->getPos().x <= b->getPos().x + b->getRect().width && a->getPos().y >= b->getPos().y && a->getPos().y <= b->getPos().y + b->getRect().height) ||
+            (a->getPos().x + a->getRect().width >= b->getPos().x && a->getPos().x + a->getRect().width <= b->getPos().x + b->getRect().width && a->getPos().y >= b->getPos().y && a->getPos().y <= b->getPos().y + b->getRect().height) ||
+            (a->getPos().x >= b->getPos().x && a->getPos().x <= b->getPos().x + b->getRect().width && a->getPos().y + a->getRect().height >= b->getPos().y && a->getPos().y + a->getRect().height <= b->getPos().y + b->getRect().height) ||
+            (a->getPos().x + a->getRect().width >= b->getPos().x && a->getPos().x + a->getRect().width <= b->getPos().x + b->getRect().width && a->getPos().y + a->getRect().height >= b->getPos().y && a->getPos().y + a->getRect().height <= b->getPos().y + b->getRect().height)) {
+            return (true);
+        }
+        return (false);
+    }
+
+    void Snake::addBody(IObjectVector &object)
+    {
+        EntityPtr bodyPart = std::make_shared<Entity>(this->_body->empty() ? pos_t{11, 22} : pos_t{
+                this->_body->at(this->_body->size() - 1)->getPos().x - this->_direction->at(this->_body->size() - 1).x,
+                this->_body->at(this->_body->size() - 1)->getPos().y - this->_direction->at(this->_body->size() - 1).y},
+                this->_body->empty() ? color_t{255, 0, 255, 255} : color_t{255, 255, 0, 255}, rect_t{0, 0, 1, 2});
+        this->_direction->push_back(dir_t{0.5, 0});
+        this->_body->push_back(bodyPart);
+        object->push_back(bodyPart);
+    }
+
+    EntityPtr Snake::getBodyPart(int index) const {
+        if (index < this->_body->size()) {
+            return this->_body->at(index);
+        }
+        return nullptr;
     }
 
     void Snake::changeDirection(EDirection direction)
@@ -47,123 +107,44 @@ namespace Arcade {
             return;
 
         _currentDirection = direction;
-        _currentHeadPos = _head->getPos();
-        switch (direction)
-        {
-            case EDirection::UP:
-                _currentHeadPos.y -= 1;
-                break;
-            case EDirection::DOWN:
-                _currentHeadPos.y += 1;
-                break;
-            case EDirection::LEFT:
-                _currentHeadPos.x -= 1;
-                break;
-            case EDirection::RIGHT:
-                _currentHeadPos.x += 1;
-                break;
-        }
-        _head->setPos(_currentHeadPos);
 
-        _currentTailPos = _tail->getPos();
-        if (_tail->getSprite() == SNAKE_UP)
-                _currentTailPos.y -= 1;
-        if (_tail->getSprite() == SNAKE_DOWN)
-                _currentTailPos.y += 1;
-        if (_tail->getSprite() == SNAKE_LEFT)
-                _currentTailPos.x -= 1;
-        if (_tail->getSprite() == SNAKE_RIGHT)
-                _currentTailPos.x += 1;
-        _tail->setPos(_currentTailPos);
-
-        for (direction_t dir : directions) {
-            if (dir.direction == direction) {
-                _head->setSprite(dir._head.sprite);
-                _head->setRect(dir._head.rect);
-                _tail->setSprite(dir._tail.sprite);
-                _tail->setRect(dir._tail.rect);
-                break;
-            }
-        }
-    }
-
-    void Snake::movement()
-    {
-        if (_head->getSprite() == SNAKE_UP && _tail->getSprite() == SNAKE_UP) {
-            _head->setPos(pos_t{_head->getPos().x, static_cast<float>(_head->getPos().y - 0.1)});
-            _tail->setPos(pos_t{_tail->getPos().x, static_cast<float>(_tail->getPos().y - 0.1)});
-        } else if (_head->getSprite() == SNAKE_DOWN && _tail->getSprite() == SNAKE_DOWN) {
-            _head->setPos(pos_t{_head->getPos().x, static_cast<float>(_head->getPos().y + 0.1)});
-            _tail->setPos(pos_t{_tail->getPos().x, static_cast<float>(_tail->getPos().y + 0.1)});
-        } else if (_head->getSprite() == SNAKE_LEFT && _tail->getSprite() == SNAKE_LEFT) {
-            _head->setPos(pos_t{static_cast<float>(_head->getPos().x - 0.1), _head->getPos().y});
-            _tail->setPos(pos_t{static_cast<float>(_tail->getPos().x - 0.1), _tail->getPos().y});
-        } else if (_head->getSprite() == SNAKE_RIGHT && _tail->getSprite() == SNAKE_RIGHT) {
-            _head->setPos(pos_t{static_cast<float>(_head->getPos().x + 0.1), _head->getPos().y});
-            _tail->setPos(pos_t{static_cast<float>(_tail->getPos().x + 0.1), _tail->getPos().y});
-        }
-    }
-
-    void Snake::mapBorder()
-    {
-        if (_head->getPos().x < 2 || _head->getPos().x > 46)
-            exit(84);
-        if (_head->getPos().y < 5 || _head->getPos().y > 43)
-            exit(84);
     }
 
     bool Snake::checkCollision()
     {
-        if (comparePos(_head->getPos(), _apple->getPos()))
+        if (comparePos(_body->at(0), _apple))
             return (true);
         return (false);
     }
 
-    void Snake::placeApple()
+    bool Snake::checkWallCollision()
     {
-        srand((unsigned) time(nullptr));
-        float oldAppleX = rand() % (44 - 2 + 1) + 2;
-        float oldAppleY = rand() % (38 - 5 + 1) + 5;
-        pos_t oldApplePos{oldAppleX, oldAppleY};
-        _apple->setPos(oldApplePos);
-
-        float newAppleX = rand() % (44 - 2 + 1) + 2;
-        float newAppleY = rand() % (38 - 5 + 1) + 5;
-        pos_t newApplePos{newAppleX, newAppleY};
-        _apple->setPos(newApplePos);
-    }
-
-    bool Snake::comparePos(const pos_t &pos1, const pos_t &pos2)
-    {
-        if (_head->getSprite() == SNAKE_UP && _tail->getSprite() == SNAKE_UP) {
-            if (pos1.x <= pos2.x + (28 / 50.0) && pos1.x + (100 / 50.0) >= pos2.x + (28 / 50.0)
-                && pos1.y <= pos2.y + (29 / 50.0) && pos1.y + (100 / 50.0) >= pos2.y + (29 / 50.0))
+        for (int i = 0; i < _walls->size(); i++)
+            if (comparePos(_body->at(0), _walls->at(i)))
                 return (true);
-        }
-        if (_head->getSprite() == SNAKE_DOWN && _tail->getSprite() == SNAKE_DOWN) {
-            if (pos1.x <= pos2.x + (28 / 50.0) && pos1.x + (100 / 50.0) >= pos2.x + (28 / 50.0)
-            && pos1.y <= pos2.y + (29 / 50.0) && pos1.y + (184 / 50.0) >= pos2.y + (29 / 50.0))
-                return (true);
-        }
-        if (_head->getSprite() == SNAKE_RIGHT && _tail->getSprite() == SNAKE_RIGHT) {
-            if (pos1.x <= pos2.x + (28 / 50.0) && pos1.x + (130 / 50.0) >= pos2.x + (28/ 50.0)
-            && pos1.y <= pos2.y + (29 / 50.0) && pos1.y + (100 / 50.0) >= pos2.y + (29 / 50.0))
-                return (true);
-        }
-        if (_head->getSprite() == SNAKE_LEFT && _tail->getSprite() == SNAKE_LEFT) {
-            if (pos1.x <= pos2.x + (28 / 50.0) && pos1.x + (100 / 50.0) >= pos2.x + (28 / 50.0)
-            && pos1.y < pos2.y + (29 / 50.0) && pos1.y + (100 / 50.0) >= pos2.y + (29 / 50.0))
-                return (true);
-        }
         return (false);
     }
 
-    void Snake::addBody(IObjectVector &object)
-    {
-        _body_hor = SNAKE_BODY_HOR;
-        EntityPtr body = std::make_shared<Entity>(pos_t{_currentTailPos.x, _currentTailPos.y}, _body_hor, "body_hor", color_t {255, 255, 255, 255}, rect_t {0, 0, 56, 56}, true);
-        _body->push_back(body);
-        object->push_back(body);
+    void Snake::createWalls() {
+            EntityPtr wall1 = std::make_shared<Entity>(pos_t{0, 0}, color_t{155, 155, 155, 255}, rect_t{0, 0, 1, 44});
+            this->_walls->push_back(wall1);
+            EntityPtr wall2 = std::make_shared<Entity>(pos_t{0, 0}, color_t{155, 155, 155, 255}, rect_t{0, 0, 22, 2});
+            this->_walls->push_back(wall2);
+            EntityPtr wall3 = std::make_shared<Entity>(pos_t{22, 0}, color_t{155, 155, 155, 255}, rect_t{0, 0, 1, 46});
+            this->_walls->push_back(wall3);
+            EntityPtr wall4 = std::make_shared<Entity>(pos_t{0, 44}, color_t{155, 155, 155, 255}, rect_t{0, 0, 22, 2});
+            this->_walls->push_back(wall4);
     }
 
+    EntityPtr Snake::getWalls(int index) const {
+        return this->_walls->at(index);
+    }
+
+    dirVectorPtr Snake::getDirection() const {
+        return _direction;
+    }
+
+    void Snake::setDirection(dir_t dir, int index) {
+        _direction->at(index) = dir;
+    }
 }
