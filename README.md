@@ -16,11 +16,7 @@
 
 ---
 
-- [@Leo Neumuller](leo)
-
-- [@Nathan DELENCLOS](https://github.com/Nathandelenclos)
-
-- [@Simon Riembault](https://github.com/SimonRmblt)
+- [@Leo Neumuller](leo.neumuller@epitech.eu)
 
 ## Resources
 
