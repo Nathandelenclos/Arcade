@@ -11,13 +11,23 @@
 
 namespace Arcade {
 
+    /**
+     * @brief The Sprite type
+     */
     enum SpriteType {
         BUTTON,
     };
 
     class ISpriteType : public IEntities {
         public:
+            /**
+             * @brief Destroy the ISpriteType object
+             */
             ~ISpriteType() override = default;
+            /**
+             * @brief Get the Sprite Type object
+             * @return The Sprite type
+             */
             virtual SpriteType getSpriteType() = 0;
         protected:
         private:
