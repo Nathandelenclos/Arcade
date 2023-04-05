@@ -9,6 +9,9 @@
 
 namespace Arcade {
 
+    /**
+     * @brief Construct a new Grid:: Grid object
+     */
     Grid::Grid() : _currentDirection(EDirection::NONE)
     {
         _mapString = {
@@ -39,6 +42,9 @@ namespace Arcade {
         loadMap();
     }
 
+    /**
+     * @brief Load the map
+     */
     void Grid::loadMap()
     {
         for (int j = 0; j < _mapString.size(); j++) {
@@ -80,16 +86,25 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief Get the Map object
+     */
     EntityVector Grid::getMap()
     {
         return _map;
     }
 
+    /**
+     * @brief Get the pacman object
+     */
     EntityPtr Grid::getPacman()
     {
         return _pacman;
     }
 
+    /**
+     * @brief Make the pacman move
+     */
     void Grid::movePacman()
     {
         pos_t currentPos = _pacman->getPos();
@@ -159,6 +174,10 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief Change the direction of the pacman
+     * @param direction
+     */
     void Grid::changeDirection(EDirection direction)
     {
         if (_currentDirection == direction)
@@ -166,6 +185,12 @@ namespace Arcade {
         _currentDirection = direction;
     }
 
+    /**
+     * @biref Compare the position of two entities
+     * @param a
+     * @param b
+     * @return a boolean
+     */
     bool Grid::comparePos(const EntityPtr& a, const EntityPtr& b)
     {
         if ((a->getPos().x >= b->getPos().x && a->getPos().x <= b->getPos().x + b->getRect().width && a->getPos().y >= b->getPos().y && a->getPos().y <= b->getPos().y + b->getRect().height) ||
@@ -177,39 +202,69 @@ namespace Arcade {
         return (false);
     }
 
+    /**
+     * @brief Generate a wall
+     * @return an EntityPtr
+     */
     EntityPtr GenericEntity::generateWall(pos_t pos)
     {
         return std::make_shared<Entity>(pos, EntityType::WALL, color_t {0, 0, 255, 255}, rect_t{0, 0, 1, 1});
     }
 
+    /**
+     * @brief Generate a pacman
+     * @return an EntityPtr
+     */
     EntityPtr GenericEntity::generatePacman(pos_t pos)
     {
         pos = {static_cast<float>(pos.x + 0.25), static_cast<float>(pos.y + 0.25)};
         return std::make_shared<Entity>(pos, EntityType::PACMAN, color_t {255, 255, 0, 255}, rect_t{0, 0, 0.5, 0.5});
     }
 
+    /**
+     * @brief Generate a ghost
+     * @return an EntityPtr
+     */
     EntityPtr GenericEntity::generateGhost(pos_t pos)
     {
         return Arcade::EntityPtr();
     }
 
+    /**
+     * @brief Generate an energizer
+     * @return an EntityPtr
+     */
     EntityPtr GenericEntity::generateEnergizer(pos_t pos)
     {
         pos = {static_cast<float>(pos.x + 0.25), static_cast<float>(pos.y + 0.25)};
         return std::make_shared<Entity>(pos, EntityType::ENERGIZER, color_t {209, 198, 139, 255}, rect_t{0, 0, 0.5, 0.5});
     }
 
+    /**
+     * @brief Generate a fruit
+     * @return an EntityPtr
+     */
     EntityPtr GenericEntity::generateFruit(pos_t pos)
     {
         pos = {static_cast<float>(pos.x + 0.30), static_cast<float>(pos.y + 0.30)};
         return std::make_shared<Entity>(pos, EntityType::FRUIT, color_t {255, 255, 255, 255}, rect_t{0, 0, 0.3, 0.3});
     }
 
+    /**
+     * @brief Generate a door
+     * @return an EntityPtr
+     */
     EntityPtr GenericEntity::generateDoor(pos_t pos)
     {
         return std::make_shared<Entity>(pos, EntityType::DOOR, color_t {64, 224, 208, 255}, rect_t{0, 0, 1, 1});
     }
 
+    /**
+     * @brief Generate an entity
+     * @param type
+     * @param pos
+     * @return an EntityPtr
+     */
     EntityPtr GenericEntity::generateEntity(EntityType type, pos_t pos)
     {
         entities_t entities[] = {

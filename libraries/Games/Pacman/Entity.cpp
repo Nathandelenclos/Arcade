@@ -85,61 +85,109 @@ namespace Arcade {
         _display = true;
     }
 
+    /**
+     * @brief Get the Pos object
+     * @return
+     */
     pos_t Entity::getPos()
     {
         return _pos;
     }
 
+    /**
+     * @brief Get the Display object
+     * @return
+     */
     bool Entity::isDisplayed()
     {
         return _display;
     }
 
+    /**
+     * @brief Set the Display object
+     * @param display
+     */
     void Entity::setDisplay(bool display)
     {
         _display = display;
     }
 
+    /**
+     * @brief Get the Type object
+     * @return
+     */
     ObjectType Entity::getType()
     {
         return ObjectType::ENTITY;
     }
 
+    /**
+     * @brief Get the Sprite object
+     * @return
+     */
     std::string &Entity::getSprite()
     {
         return _sprite;
     }
 
+    /**
+     * @brief Get the Color object
+     * @return
+     */
     color_t Entity::getColor()
     {
         return _color;
     }
 
+    /**
+     * @brief Get the Rect object
+     * @return
+     */
     rect_t Entity::getRect()
     {
         return _rect;
     }
 
+    /**
+     * @brief Get the Size object
+     * @return
+     */
     float Entity::getSize()
     {
         return _size;
     }
 
+    /**
+     * @brief Set the Size object
+     * @param size
+     */
     void Entity::setRect(rect_t rect)
     {
         _rect = rect;
     }
 
+    /**
+     * @brief Set the Sprite object
+     * @param color
+     */
     void Entity::setSprite(std::string &sprite)
     {
         _sprite = sprite;
     }
 
+    /**
+     * @brief Set the Pas object
+     * @param color
+     */
     void Entity::setPos(pos_t pos)
     {
         _pos = pos;
     }
 
+    /**
+     * @brief Get the entityType object
+     * @param color
+     */
     EntityType Entity::getEntityType()
     {
         return _type;

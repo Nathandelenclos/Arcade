@@ -9,6 +9,9 @@
 
 namespace Arcade {
 
+    /**
+     * @brief Construct a new Pacman:: Pacman object
+     */
     Pacman::Pacman()
     {
         std::cout << "Pacman constructor" << std::endl;
@@ -24,41 +27,70 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief Destroy the Pacman:: Pacman object
+     */
     Pacman::~Pacman()
     {
         std::cout << "Pacman destructor" << std::endl;
     }
 
+    /**
+     * @brief Set the Game Objects object
+     */
     void Pacman::setGameObjects()
     {
 
     }
 
+    /**
+     * @brief Get the Game Objects object
+     * @return IObjectVector
+     */
     IObjectVector Pacman::getGameObjects()
     {
         return _gameObjects;
     }
 
+    /**
+     * @brief Update the Game Objects object
+     */
     void Pacman::updateGameObjects()
     {
         runPacman();
     }
 
+    /**
+     * @brief Check if the game is ended
+     * @return true
+     * @return false
+     */
     bool Pacman::isEnded()
     {
         return _isEnded;
     }
 
+    /**
+     * @brief Set the Current Input Key object
+     * @param key
+     */
     void Pacman::setCurrentInputKey(InputKey key)
     {
         _currentKey = key;
     }
 
+    /**
+     * @brief Get the Score object
+     * @return int
+     */
     int Pacman::getScore()
     {
         return _score;
     }
 
+    /**
+     * @brief Run the Pacman game
+     */
     void Pacman::runPacman()
     {
         for (key_direction_t keyDirection : key_direction) {
@@ -75,6 +107,9 @@ namespace Arcade {
         }
     }
 
+    /**
+     * @brief Construct a new Pacman:: Pacman object
+     */
     extern "C" IGameLib *constructor_game()
     {
         return new Pacman();
