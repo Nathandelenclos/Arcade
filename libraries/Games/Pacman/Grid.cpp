@@ -138,7 +138,6 @@ namespace Arcade {
                 break;
             }
         }
-        std::cout << _nbFruits << std::endl;
         if (newPos.x > 20.5019) {
             newPos.x = -0.000928198;
             newPos.y = 9.35749;
