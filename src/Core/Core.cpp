@@ -261,7 +261,7 @@ namespace Arcade {
             Arcade::InputKey::ESCAPE) {
             setRunning(false);
         }
-        if (getCurrentGraphicLib()->getCurrentKey() == InputKey::INTERACT) {
+        if (getCurrentGraphicLib()->getCurrentKey() == InputKey::INTERACT && !_username.empty()) {
             std::string libName = Button::searchInList(_gameObjects,
                 ButtonGroup::LIB,
                 _tempLibIndex)->getText()->getText();
