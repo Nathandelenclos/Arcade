@@ -1,0 +1,4 @@
+<map id="Arcade::LibSDL::initSprite" name="Arcade::LibSDL::initSprite">
+<area shape="rect" id="node1" title="Init the sprite." alt="" coords="244,5,417,31"/>
+<area shape="rect" id="node2" href="$classArcade_1_1LibSDL.html#a729fbf67c224aeb57a91d696bb2b5041" title="Init the window." alt="" coords="5,5,196,31"/>
+</map>

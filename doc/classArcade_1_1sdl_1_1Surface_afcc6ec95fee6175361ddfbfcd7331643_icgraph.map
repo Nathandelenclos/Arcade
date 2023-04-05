@@ -1,0 +1,5 @@
+<map id="Arcade::sdl::Surface::loadFromFont" name="Arcade::sdl::Surface::loadFromFont">
+<area shape="rect" id="node1" title="Load the Surface from font :: Load the surface from font." alt="" coords="195,37,336,77"/>
+<area shape="rect" id="node2" href="$classArcade_1_1sdl_1_1Surface.html#af48a5244d359654b023609098dbefe8e" title="Load the Surface from font :: Load the surface from font." alt="" coords="5,5,147,45"/>
+<area shape="rect" id="node3" href="$classArcade_1_1sdl_1_1Texture.html#a69706225326c957ef146410d7aec8275" title="Load the Texture from text :: Get the texture from the text object." alt="" coords="7,69,145,109"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Arcade::LibSDL::initText" name="Arcade::LibSDL::initText">
+<area shape="rect" id="node1" title="Init the text." alt="" coords="5,45,169,70"/>
+<area shape="rect" id="node2" href="$classArcade_1_1sdl_1_1Texture.html#ada4de356db8c3a2bb589df03ee4ed141" title="Load the Texture from text :: Get the texture from the text object." alt="" coords="217,37,356,77"/>
+<area shape="rect" id="node3" href="$classArcade_1_1sdl_1_1Surface.html#afcc6ec95fee6175361ddfbfcd7331643" title="Load the Surface from font :: Load the surface from font." alt="" coords="404,5,545,45"/>
+<area shape="rect" id="node4" href="$classArcade_1_1sdl_1_1Texture.html#a67ac20fb4aad74847bc442f21eb1a734" title="Load the Texture from surface :: Load the texture from surface." alt="" coords="405,69,544,109"/>
+</map>

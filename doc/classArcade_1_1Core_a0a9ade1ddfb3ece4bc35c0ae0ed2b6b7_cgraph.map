@@ -1,0 +1,17 @@
+<map id="Arcade::Core::logicalMenu" name="Arcade::Core::logicalMenu">
+<area shape="rect" id="node1" title="Create the game menu." alt="" coords="5,232,181,257"/>
+<area shape="rect" id="node2" href="$classArcade_1_1Core.html#a5af364a265d8fd9706a8e5d6baef127d" title="Get the current game library." alt="" coords="737,19,905,59"/>
+<area shape="rect" id="node3" href="$classArcade_1_1Core.html#aea13e53ebd1c11704dfce9f217791924" title="Get the current graphic library." alt="" coords="737,220,905,260"/>
+<area shape="rect" id="node4" href="$classArcade_1_1Button.html#a3fcc4e4f5deaee7dddbe0de163bd6d71" title="Get the Button object." alt="" coords="241,317,406,342"/>
+<area shape="rect" id="node5" href="$classArcade_1_1Core.html#ab54a018c2ad2f05d492579a784312956" title=" " alt="" coords="243,202,404,228"/>
+<area shape="rect" id="node6" href="$classArcade_1_1Button.html#aade57233635e24cfadd0c24cfabf5ea4" title=" " alt="" coords="229,366,417,392"/>
+<area shape="rect" id="node7" href="$classArcade_1_1Core.html#a2235ab358864b24876f806cd0dd71ea2" title="Set the current game library." alt="" coords="239,87,407,127"/>
+<area shape="rect" id="node10" href="$classArcade_1_1Core.html#ad66f451a187854bbd7bf042c59ebd412" title="Set the current graphic library." alt="" coords="239,252,407,292"/>
+<area shape="rect" id="node14" href="$classArcade_1_1Core.html#a4c6f0246c2b4329a2fabef19bb73dca8" title="Set the running state." alt="" coords="237,416,410,441"/>
+<area shape="rect" id="node8" href="$classArcade_1_1Core.html#ab9705634e38fce3e450cb289e2478251" title="Get the current graphic library." alt="" coords="465,101,689,126"/>
+<area shape="rect" id="node9" href="$classArcade_1_1Core.html#a71bd2fa5f17c5aeaf88e228711640b15" title="Set the current game library." alt="" coords="499,52,655,77"/>
+<area shape="rect" id="node11" href="$classArcade_1_1Core.html#a752288ace18f024309bbce30cb5e953b" title="Get the current graphic library." alt="" coords="474,352,681,377"/>
+<area shape="rect" id="node12" href="$classArcade_1_1Core.html#a1cb2f7edb9b6c3272137e25636f074f1" title="Start the graphic library." alt="" coords="488,253,667,278"/>
+<area shape="rect" id="node13" href="$classArcade_1_1Core.html#a27d4ee78761c3b3a835c1b1f2f3dd848" title="Stop the graphic library." alt="" coords="489,302,666,328"/>
+<area shape="rect" id="node15" href="$classArcade_1_1Core.html#afc7e09f137b844171e2ba11a1d49c765" title="Get the running state." alt="" coords="495,416,660,441"/>
+</map>

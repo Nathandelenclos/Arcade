@@ -1,0 +1,4 @@
+<map id="Arcade::sdl::Window::setOpened" name="Arcade::sdl::Window::setOpened">
+<area shape="rect" id="node1" title="Set the Is Opened object :: Set the window is opened or not." alt="" coords="5,5,148,45"/>
+<area shape="rect" id="node2" href="$classArcade_1_1sdl_1_1Window.html#a14add11de8b7fd3993c0ada1b79fcf4b" title="Get the Is Opened object :: Get the window is opened or not." alt="" coords="196,5,339,45"/>
+</map>

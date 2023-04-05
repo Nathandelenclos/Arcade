@@ -1,0 +1,7 @@
+<map id="Arcade::ncurses::Color::searchByColor" name="Arcade::ncurses::Color::searchByColor">
+<area shape="rect" id="node1" title="Search the color by the color." alt="" coords="628,37,784,77"/>
+<area shape="rect" id="node2" href="$classArcade_1_1ncurses_1_1Color.html#a80a0a13b347dd62ad044fda7b76c828d" title="Search the color by the color or create it." alt="" coords="411,37,580,77"/>
+<area shape="rect" id="node3" href="$classArcade_1_1LibNCURSES.html#a166020bb469a4a041d7951b0ae69ff15" title="Init the Entity." alt="" coords="208,5,363,45"/>
+<area shape="rect" id="node5" href="$classArcade_1_1LibNCURSES.html#aadd6d466ecd80b08a22225c70b0c9ea6" title="Init the Text." alt="" coords="208,69,363,109"/>
+<area shape="rect" id="node4" href="$classArcade_1_1LibNCURSES.html#a28e406b4703b1a7c559c1dfeaaa14b6e" title="Init the window." alt="" coords="5,37,160,77"/>
+</map>

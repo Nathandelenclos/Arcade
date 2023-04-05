@@ -1,0 +1,5 @@
+<map id="Arcade::Grid::loadMap" name="Arcade::Grid::loadMap">
+<area shape="rect" id="node1" title="Load the map." alt="" coords="236,31,388,56"/>
+<area shape="rect" id="node2" href="$classArcade_1_1Grid.html#a34c57b00085908ae9022a509f16a7698" title="Construct a new Grid:: Grid object." alt="" coords="33,5,160,31"/>
+<area shape="rect" id="node3" href="$classArcade_1_1Grid.html#a5b49b82648b419c0a4e35f0270e390b0" title="Make the pacman move." alt="" coords="5,55,188,80"/>
+</map>

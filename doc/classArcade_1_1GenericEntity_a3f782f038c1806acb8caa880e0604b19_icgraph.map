@@ -1,0 +1,7 @@
+<map id="Arcade::GenericEntity::generateWall" name="Arcade::GenericEntity::generateWall">
+<area shape="rect" id="node1" title="Generate a wall." alt="" coords="635,23,785,63"/>
+<area shape="rect" id="node2" href="$classArcade_1_1GenericEntity.html#ae6bdfebb5d6b3b94c6ef19578be9b563" title="Generate an entity." alt="" coords="436,23,587,63"/>
+<area shape="rect" id="node3" href="$classArcade_1_1Grid.html#ab5820bedb9f7abee0a48194c8b45c21b" title="Load the map." alt="" coords="236,31,388,56"/>
+<area shape="rect" id="node4" href="$classArcade_1_1Grid.html#a34c57b00085908ae9022a509f16a7698" title="Construct a new Grid:: Grid object." alt="" coords="33,5,160,31"/>
+<area shape="rect" id="node5" href="$classArcade_1_1Grid.html#a5b49b82648b419c0a4e35f0270e390b0" title="Make the pacman move." alt="" coords="5,55,188,80"/>
+</map>

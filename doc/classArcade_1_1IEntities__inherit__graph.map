@@ -1,0 +1,7 @@
+<map id="Arcade::IEntities" name="Arcade::IEntities">
+<area shape="rect" id="node1" title=" " alt="" coords="5,79,124,104"/>
+<area shape="rect" id="node3" href="$classArcade_1_1Entity.html" title=" " alt="" coords="12,152,117,177"/>
+<area shape="rect" id="node4" href="$classArcade_1_1ISpriteType.html" title=" " alt="" coords="141,152,279,177"/>
+<area shape="rect" id="node2" href="$classArcade_1_1IObject.html" title=" " alt="" coords="8,5,121,31"/>
+<area shape="rect" id="node5" href="$classArcade_1_1Button.html" title=" " alt="" coords="155,225,265,251"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Arcade::LibSFML::loadObjects" name="Arcade::LibSFML::loadObjects">
+<area shape="rect" id="node1" title="Init the window." alt="" coords="5,31,205,56"/>
+<area shape="rect" id="node2" href="$classArcade_1_1LibSFML.html#aad0d990d642770136b2250283925103a" title="Init a sprite." alt="" coords="253,5,436,31"/>
+<area shape="rect" id="node3" href="$classArcade_1_1LibSFML.html#ac5f4eadb46308d551860faac0ba03145" title="Init a text." alt="" coords="258,55,431,80"/>
+</map>

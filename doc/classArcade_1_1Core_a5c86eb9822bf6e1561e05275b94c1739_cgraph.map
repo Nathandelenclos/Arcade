@@ -1,0 +1,6 @@
+<map id="Arcade::Core::switchGameLib" name="Arcade::Core::switchGameLib">
+<area shape="rect" id="node1" title="Switch the game library." alt="" coords="5,31,203,56"/>
+<area shape="rect" id="node2" href="$classArcade_1_1Core.html#ab9705634e38fce3e450cb289e2478251" title="Get the current graphic library." alt="" coords="251,5,475,31"/>
+<area shape="rect" id="node3" href="$classArcade_1_1Core.html#a71bd2fa5f17c5aeaf88e228711640b15" title="Set the current game library." alt="" coords="285,55,441,80"/>
+<area shape="rect" id="node4" href="$classArcade_1_1Core.html#a5af364a265d8fd9706a8e5d6baef127d" title="Get the current game library." alt="" coords="523,47,691,87"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="Arcade::Button" name="Arcade::Button">
+<area shape="rect" id="node1" title=" " alt="" coords="227,243,337,268"/>
+<area shape="rect" id="node2" href="$classArcade_1_1ISpriteType.html" title=" " alt="" coords="5,155,143,180"/>
+<area shape="rect" id="node3" href="$classArcade_1_1IEntities.html" title=" " alt="" coords="15,80,133,105"/>
+<area shape="rect" id="node4" href="$classArcade_1_1IObject.html" title=" " alt="" coords="17,5,131,31"/>
+<area shape="rect" id="node5" href="$structArcade_1_1pos__t.html" title=" " alt="" coords="167,155,269,180"/>
+<area shape="rect" id="node6" href="$structArcade_1_1rect__t.html" title=" " alt="" coords="294,155,398,180"/>
+<area shape="rect" id="node7" href="$structArcade_1_1color__t.html" title=" " alt="" coords="423,155,533,180"/>
+</map>

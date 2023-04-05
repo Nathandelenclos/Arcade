@@ -1,0 +1,4 @@
+<map id="Arcade::Pacman::runPacman" name="Arcade::Pacman::runPacman">
+<area shape="rect" id="node1" title="Run the Pacman game." alt="" coords="255,13,448,38"/>
+<area shape="rect" id="node2" href="$classArcade_1_1Pacman.html#a5c2e0d9b7f96a1fa86da1edd75831049" title="Update the Game Objects object." alt="" coords="5,5,207,45"/>
+</map>

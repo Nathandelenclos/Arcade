@@ -1,0 +1,6 @@
+<map id="Arcade::Snake" name="Arcade::Snake">
+<area shape="rect" id="node1" title=" " alt="" coords="17,284,124,309"/>
+<area shape="rect" id="node2" href="$structArcade_1_1direction__t.html" title=" " alt="" coords="5,196,136,221"/>
+<area shape="rect" id="node3" href="$structArcade_1_1sprite__t.html" title=" " alt="" coords="13,93,128,119"/>
+<area shape="rect" id="node4" href="$structArcade_1_1rect__t.html" title=" " alt="" coords="19,5,123,31"/>
+</map>

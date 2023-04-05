@@ -1,0 +1,4 @@
+<map id="Arcade::sdl::Texture::loadFromSurface" name="Arcade::sdl::Texture::loadFromSurface">
+<area shape="rect" id="node1" title="Load the Texture from surface :: Load the texture from surface." alt="" coords="192,5,331,45"/>
+<area shape="rect" id="node2" href="$classArcade_1_1sdl_1_1Texture.html#a69706225326c957ef146410d7aec8275" title="Load the Texture from text :: Get the texture from the text object." alt="" coords="5,5,144,45"/>
+</map>

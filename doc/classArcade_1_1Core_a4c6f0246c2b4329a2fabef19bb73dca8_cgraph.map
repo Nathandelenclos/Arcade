@@ -1,0 +1,4 @@
+<map id="Arcade::Core::setRunning" name="Arcade::Core::setRunning">
+<area shape="rect" id="node1" title="Set the running state." alt="" coords="5,5,179,31"/>
+<area shape="rect" id="node2" href="$classArcade_1_1Core.html#afc7e09f137b844171e2ba11a1d49c765" title="Get the running state." alt="" coords="227,5,392,31"/>
+</map>

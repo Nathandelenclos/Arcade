@@ -1,0 +1,4 @@
+<map id="Arcade::Core::setState" name="Arcade::Core::setState">
+<area shape="rect" id="node1" title="Set the current game library." alt="" coords="5,13,161,38"/>
+<area shape="rect" id="node2" href="$classArcade_1_1Core.html#a5af364a265d8fd9706a8e5d6baef127d" title="Get the current game library." alt="" coords="209,5,377,45"/>
+</map>

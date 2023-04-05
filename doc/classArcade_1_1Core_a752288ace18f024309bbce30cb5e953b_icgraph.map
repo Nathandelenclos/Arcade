@@ -1,0 +1,6 @@
+<map id="Arcade::Core::makeLibInstance" name="Arcade::Core::makeLibInstance">
+<area shape="rect" id="node1" title="Get the current graphic library." alt="" coords="484,42,691,67"/>
+<area shape="rect" id="node2" href="$classArcade_1_1Core.html#ad66f451a187854bbd7bf042c59ebd412" title="Set the current graphic library." alt="" coords="249,5,417,45"/>
+<area shape="rect" id="node4" href="$classArcade_1_1Core.html#adaf47718d323f7f1855d0732663fb05d" title="Switch the graphic library." alt="" coords="229,70,436,95"/>
+<area shape="rect" id="node3" href="$classArcade_1_1Core.html#a0a9ade1ddfb3ece4bc35c0ae0ed2b6b7" title="Create the game menu." alt="" coords="5,13,181,38"/>
+</map>

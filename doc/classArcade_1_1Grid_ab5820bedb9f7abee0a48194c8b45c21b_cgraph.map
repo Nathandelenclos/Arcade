@@ -1,0 +1,10 @@
+<map id="Arcade::Grid::loadMap" name="Arcade::Grid::loadMap">
+<area shape="rect" id="node1" title="Load the map." alt="" coords="5,173,157,198"/>
+<area shape="rect" id="node2" href="$classArcade_1_1GenericEntity.html#ae6bdfebb5d6b3b94c6ef19578be9b563" title="Generate an entity." alt="" coords="205,165,356,205"/>
+<area shape="rect" id="node3" href="$classArcade_1_1GenericEntity.html#a9e52d2c33aff98f8734a26180fe6c37b" title="Generate a door." alt="" coords="404,5,555,45"/>
+<area shape="rect" id="node4" href="$classArcade_1_1GenericEntity.html#a643add0d09550df3e6938c0031b91fd4" title="Generate an energizer." alt="" coords="404,69,555,109"/>
+<area shape="rect" id="node5" href="$classArcade_1_1GenericEntity.html#a5605fe22c7f59e8d3a9e3a9f8fd87583" title="Generate a fruit." alt="" coords="404,133,555,173"/>
+<area shape="rect" id="node6" href="$classArcade_1_1GenericEntity.html#a2ef774f64c8c0746d4a9dd1193c948ef" title="Generate a ghost." alt="" coords="404,197,555,237"/>
+<area shape="rect" id="node7" href="$classArcade_1_1GenericEntity.html#a83607ef9b7083e7580daaab5c9662fc1" title="Generate a pacman." alt="" coords="404,261,555,301"/>
+<area shape="rect" id="node8" href="$classArcade_1_1GenericEntity.html#a3f782f038c1806acb8caa880e0604b19" title="Generate a wall." alt="" coords="404,325,555,365"/>
+</map>

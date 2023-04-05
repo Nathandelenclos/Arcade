@@ -1,0 +1,5 @@
+<map id="Arcade::sfml::IObject" name="Arcade::sfml::IObject">
+<area shape="rect" id="node1" title=" " alt="" coords="80,5,227,31"/>
+<area shape="rect" id="node2" href="$classArcade_1_1sfml_1_1Sprite.html" title=" " alt="" coords="5,79,144,104"/>
+<area shape="rect" id="node3" href="$classArcade_1_1sfml_1_1Text.html" title=" " alt="" coords="169,79,298,104"/>
+</map>

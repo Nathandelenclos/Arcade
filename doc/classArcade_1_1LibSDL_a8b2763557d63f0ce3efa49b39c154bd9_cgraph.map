@@ -1,0 +1,5 @@
+<map id="Arcade::LibSDL::initSprite" name="Arcade::LibSDL::initSprite">
+<area shape="rect" id="node1" title="Init the sprite." alt="" coords="5,45,179,70"/>
+<area shape="rect" id="node2" href="$classArcade_1_1sdl_1_1Texture.html#a439489d1d29714c5648facfddb699e97" title="Load the Texture from file :: Load the texture from file." alt="" coords="229,5,367,45"/>
+<area shape="rect" id="node3" href="$classArcade_1_1sdl_1_1Texture.html#abdf7b1b572e1216634ef69f8f2d9594c" title="Load the Texture from rectangle :: Load the texture from rectangle." alt="" coords="227,69,369,109"/>
+</map>

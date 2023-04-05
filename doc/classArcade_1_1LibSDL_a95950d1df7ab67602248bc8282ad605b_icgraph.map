@@ -1,0 +1,5 @@
+<map id="Arcade::LibSDL::closeWindow" name="Arcade::LibSDL::closeWindow">
+<area shape="rect" id="node1" title="Close the window." alt="" coords="464,5,664,31"/>
+<area shape="rect" id="node2" href="$classArcade_1_1LibSDL.html#a882c99f1f8a77c13ebdd50c24da2246a" title="Event listener." alt="" coords="216,5,416,31"/>
+<area shape="rect" id="node3" href="$classArcade_1_1LibSDL.html#ae3a135e736163cc014a5cd96706ca143" title="Display every objects." alt="" coords="5,5,168,31"/>
+</map>

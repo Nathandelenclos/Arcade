@@ -1,0 +1,8 @@
+<map id="Arcade::LibNCURSES::initText" name="Arcade::LibNCURSES::initText">
+<area shape="rect" id="node1" title="Init the Text." alt="" coords="5,69,160,109"/>
+<area shape="rect" id="node2" href="$classArcade_1_1ncurses_1_1Color.html#a80a0a13b347dd62ad044fda7b76c828d" title="Search the color by the color or create it." alt="" coords="219,5,389,45"/>
+<area shape="rect" id="node4" href="$classArcade_1_1ncurses_1_1ColorPair.html#ab4fdce709d4a211ce5ea2e3f72e48cae" title="search the color pair by the color and the background or create it" alt="" coords="208,69,400,109"/>
+<area shape="rect" id="node6" href="$classArcade_1_1LibNCURSES.html#acb56fa9ab35a8204bb41668f819f45e9" title="Search a char in a vector." alt="" coords="227,133,381,173"/>
+<area shape="rect" id="node3" href="$classArcade_1_1ncurses_1_1Color.html#a3f1d4a9ceb2742c7caef232f7b64871b" title="Search the color by the color." alt="" coords="459,5,615,45"/>
+<area shape="rect" id="node5" href="$classArcade_1_1ncurses_1_1ColorPair.html#a49373eaf1a283fe0f8615c9effb18f69" title="search the color pair by the color and the background" alt="" coords="448,69,627,109"/>
+</map>

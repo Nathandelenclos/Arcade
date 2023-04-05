@@ -1,0 +1,5 @@
+<map id="Arcade::sdl::Renderer::create" name="Arcade::sdl::Renderer::create">
+<area shape="rect" id="node1" title="Create the Renderer object :: Create the renderer." alt="" coords="5,37,155,77"/>
+<area shape="rect" id="node2" href="$classArcade_1_1sdl_1_1Renderer.html#a3969984b7c187a059bd1e40182616658" title="Clear the renderer :: Clear the renderer." alt="" coords="205,5,355,45"/>
+<area shape="rect" id="node3" href="$classArcade_1_1sdl_1_1Renderer.html#a73b84b7c1ac6c33eeee644a205827736" title="Set the Window Parameter object :: Set the window parameter." alt="" coords="203,69,357,109"/>
+</map>

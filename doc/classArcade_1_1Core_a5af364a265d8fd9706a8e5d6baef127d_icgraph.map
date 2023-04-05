@@ -1,0 +1,7 @@
+<map id="Arcade::Core::getCurrentGameLib" name="Arcade::Core::getCurrentGameLib">
+<area shape="rect" id="node1" title="Get the current game library." alt="" coords="679,5,847,45"/>
+<area shape="rect" id="node2" href="$classArcade_1_1Core.html#a0a9ade1ddfb3ece4bc35c0ae0ed2b6b7" title="Create the game menu." alt="" coords="5,13,181,38"/>
+<area shape="rect" id="node3" href="$classArcade_1_1Core.html#a71bd2fa5f17c5aeaf88e228711640b15" title="Set the current game library." alt="" coords="475,41,631,66"/>
+<area shape="rect" id="node4" href="$classArcade_1_1Core.html#a2235ab358864b24876f806cd0dd71ea2" title="Set the current game library." alt="" coords="244,33,412,73"/>
+<area shape="rect" id="node5" href="$classArcade_1_1Core.html#a5c86eb9822bf6e1561e05275b94c1739" title="Switch the game library." alt="" coords="229,98,427,123"/>
+</map>

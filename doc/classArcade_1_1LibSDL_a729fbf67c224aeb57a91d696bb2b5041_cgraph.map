@@ -1,0 +1,10 @@
+<map id="Arcade::LibSDL::loadObjects" name="Arcade::LibSDL::loadObjects">
+<area shape="rect" id="node1" title="Init the window." alt="" coords="5,109,196,134"/>
+<area shape="rect" id="node2" href="$classArcade_1_1LibSDL.html#a8b2763557d63f0ce3efa49b39c154bd9" title="Init the sprite." alt="" coords="244,77,417,102"/>
+<area shape="rect" id="node5" href="$classArcade_1_1LibSDL.html#a6d5bc7e9ac01fc5c886ca9874ea27bbb" title="Init the text." alt="" coords="249,133,413,158"/>
+<area shape="rect" id="node3" href="$classArcade_1_1sdl_1_1Texture.html#a439489d1d29714c5648facfddb699e97" title="Load the Texture from file :: Load the texture from file." alt="" coords="467,5,606,45"/>
+<area shape="rect" id="node4" href="$classArcade_1_1sdl_1_1Texture.html#abdf7b1b572e1216634ef69f8f2d9594c" title="Load the Texture from rectangle :: Load the texture from rectangle." alt="" coords="465,69,608,109"/>
+<area shape="rect" id="node6" href="$classArcade_1_1sdl_1_1Texture.html#ada4de356db8c3a2bb589df03ee4ed141" title="Load the Texture from text :: Get the texture from the text object." alt="" coords="467,133,606,173"/>
+<area shape="rect" id="node7" href="$classArcade_1_1sdl_1_1Surface.html#afcc6ec95fee6175361ddfbfcd7331643" title="Load the Surface from font :: Load the surface from font." alt="" coords="656,101,797,141"/>
+<area shape="rect" id="node8" href="$classArcade_1_1sdl_1_1Texture.html#a67ac20fb4aad74847bc442f21eb1a734" title="Load the Texture from surface :: Load the texture from surface." alt="" coords="657,165,796,205"/>
+</map>

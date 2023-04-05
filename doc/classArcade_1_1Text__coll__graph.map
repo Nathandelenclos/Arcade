@@ -1,0 +1,7 @@
+<map id="Arcade::Text" name="Arcade::Text">
+<area shape="rect" id="node1" title=" " alt="" coords="143,168,239,193"/>
+<area shape="rect" id="node2" href="$classArcade_1_1IText.html" title=" " alt="" coords="13,80,111,105"/>
+<area shape="rect" id="node3" href="$classArcade_1_1IObject.html" title=" " alt="" coords="5,5,119,31"/>
+<area shape="rect" id="node4" href="$structArcade_1_1color__t.html" title=" " alt="" coords="136,80,247,105"/>
+<area shape="rect" id="node5" href="$structArcade_1_1pos__t.html" title=" " alt="" coords="271,80,373,105"/>
+</map>
